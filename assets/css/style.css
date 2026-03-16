@@ -1,0 +1,39 @@
+:root{
+    --base-theme: #ECECEC;
+    --primary: #1F1F1F;
+    --primary-light: #2a2828;
+    --accent: #C30D00;
+    --accent-light: #FF401F;
+    --title-font: 'Times New Roman';
+}
+
+body{
+    font-family: 'Times New Roman', Times, serif;
+    background-color: var(--base-theme);
+    color: var(--primary);
+}
+
+.primary{
+    background-color: var(--primary);
+    color: var(--base-theme);
+}
+
+.primary-light{
+    background-color: var(--primary-light);
+    color: var(--base-theme);
+}
+
+.secondary{
+    background-color: var(--base-theme);
+    color: var(--primary);
+}
+
+.accent{
+    background-color: var(--accent);
+    color: var(--base-theme);
+}
+
+a{
+    text-decoration: none;
+    color: var(--base-theme);
+}
