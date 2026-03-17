@@ -39,6 +39,7 @@ class App {
             'saved'   => 'SaveController',
             'contact' => 'ContactController',
             'admin'   => 'AdminController',
+            'administrator' => 'AdminController',
         ];
     }
 
