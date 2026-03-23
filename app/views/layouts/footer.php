@@ -1,4 +1,4 @@
-<footer class="primary fixed-bottom">
+<footer class="primary sticky-bottom">
     <div class="container p-1 d-flex align-items-center justify-content-evenly">
         <!-- change these menus later -->
         <a href="/" class="">Home</a>

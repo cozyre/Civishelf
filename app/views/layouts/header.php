@@ -10,7 +10,7 @@
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 
@@ -28,10 +28,10 @@ function navTabClass(string $path, string $match): string {
 ?>
 
 <nav class="navbar primary pb-0">
-    <div class="w-100 primary d-flex justify-content-between align-items-center sticky-top px-2 py-0 my-0">
+    <div class="w-100 primary d-flex justify-content-between align-items-center fixed-top px-2 py-0 my-0">
         
         <!-- Logo -->
-        <a href="/"><img src="/assets/images/logos/logo.png" class="img-fluid" style="max-height: 2.5rem;" alt="Civishelf"></a>
+        <a href="/"><img src="assets/images/logos/logo.png" class="img-fluid" style="max-height: 2.5rem;" alt="Civishelf"></a>
 
         <!-- Greeting -->
         <div id="user-name">
@@ -78,10 +78,10 @@ function navTabClass(string $path, string $match): string {
         </div>
     </div>
 
-    <!-- Tab navigation — using <a> tags so they work as real links -->
-    <div class="container gap-2 pb-0">
+    <div class="container gap-2 pb-0 mt-5">
+        <!-- add a little pull up animation later -->
         <a href="/"
-           class="<?= navTabClass($currentPath, '/') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
+           class="<?= navTabClass($currentPath, '') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
             Home
         </a>
         <a href="/books"

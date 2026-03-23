@@ -120,7 +120,7 @@ class UserController extends Controller {
         redirect('/');
     }
 
-    // -----------------------------------------------------------------------
+    // ---------------- -------------------------------------------------------
     // Private helper — failed login redirect
     // Sets session flags that header.php reads to reopen the modal with an
     // inline error message and prefilled email.
