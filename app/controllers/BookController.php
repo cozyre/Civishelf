@@ -2,9 +2,9 @@
 
 require_once __DIR__ . '/../../core/Controller.php';
 
-class HomeController extends Controller {
+class BookController extends Controller {
 
     public function index(): void {
-        $this->view('home/index', ['title' => 'home']);
+        $this->view('books/index', ['title' => 'books']);
     }
 }

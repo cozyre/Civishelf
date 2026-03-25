@@ -78,7 +78,7 @@ function navTabClass(string $path, string $match): string {
         </div>
     </div>
 
-    <div class="container gap-2 pb-0 mt-5">
+    <div class="container gap-2 pb-0 mt-5 align-items-end">
         <!-- add a little pull up animation later -->
         <a href="/"
            class="<?= navTabClass($currentPath, '') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
