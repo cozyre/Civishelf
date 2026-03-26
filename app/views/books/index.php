@@ -84,14 +84,14 @@
              data-description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacus felis, aliquet at lorem vitae, blandit maximus lectus. Vivamus venenatis accumsan augue."
              data-published="2023"
              data-copies="<?= rand(0, 5) ?>"
-             data-cover="/assets/images/placeholder-cover.jpg"
+             data-cover="/assets/images/covers/placeholder-cover.jpg"
              data-status="<?= ['none','borrowed','online'][$i % 3] ?>"
              data-due="20/03/2026"
              role="button"
              data-bs-toggle="modal"
              data-bs-target="#bookModal"
              tabindex="0">
-            <img src="/Civishelf/public/assets/images/book-placeholder.jpg"
+            <img src="/Civishelf/public/assets/images/covers/book-placeholder.jpg"
                  alt="Book Title <?= $i + 1 ?>"
                  class="gallery-cover">
             <div class="gallery-item-overlay">
@@ -124,7 +124,7 @@
                  data-description="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
                  data-published="2022"
                  data-copies="<?= rand(0, 4) ?>"
-                 data-cover="/assets/images/placeholder-cover.jpg"
+                 data-cover="/assets/images/covers/placeholder-cover.jpg"
                  data-status="none"
                  data-due=""
                  role="button"
@@ -132,7 +132,7 @@
                  data-bs-target="#bookModal"
                  tabindex="0">
                 <div class="book-card position-relative overflow-hidden rounded h-100">
-                    <img src="/Civishelf/public/assets/images/book-placeholder.jpg"
+                    <img src="/Civishelf/public/assets/images/covers/book-placeholder.jpg"
                          alt="Popular Book <?= $i + 1 ?>"
                          class="book-cover w-100 h-100 object-fit-cover">
                     <div class="book-card-overlay position-absolute bottom-0 start-0 end-0 d-flex align-items-center justify-content-between px-2 py-1">
@@ -164,7 +164,7 @@
                      data-description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacus felis, aliquet at lorem vitae."
                      data-published="2024"
                      data-copies="<?= rand(0, 5) ?>"
-                     data-cover="/Civishelf/public/assets/images/book-placeholder.jpg"
+                     data-cover="/Civishelf/public/assets/images/covers/book-placeholder.jpg"
                      data-status="<?= ['none','borrowed','online'][$i % 3] ?>"
                      data-due="20/03/2026"
                      role="button"
@@ -172,7 +172,7 @@
                      data-bs-target="#bookModal"
                      tabindex="0">
                     <div class="position-relative overflow-hidden rounded">
-                        <img src="/Civishelf/public/assets/images/book-placeholder.jpg"
+                        <img src="/Civishelf/public/assets/images/covers/book-placeholder.jpg"
                              alt="Book Title <?= $i + 1 ?>"
                              class="w-100 book-grid-cover">
                         <div class="book-grid-overlay position-absolute bottom-0 start-0 end-0 px-2 py-1">

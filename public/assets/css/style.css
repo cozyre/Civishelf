@@ -39,7 +39,7 @@ a{
 }
 
 .hero-banner {
-    background-image: url('/Civishelf/public/assets/images/hero-bg.jpg');
+    background-image: url('/Civishelf/public/assets/images/logos/hero-bg.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
