@@ -1,27 +1,12 @@
 <?php include __DIR__ . '/../layouts/header.php'; ?>
 
-<!--
-    BACKEND HOOKS (already wired from NewsController::index()):
-      $totalBooks    — int, sum of all books' total_copies
-      $totalBorrowed — int, books currently out on loan
-      $totalUsers    — int, active registered users
-      $featuredNews  — array[0..2] for the carousel
-      $gridNews      — array[3..8] for the card grid
-
-    Each news row: news_id, news_title, content, image, created_at
--->
-
 <main class="mt-4 mb-5 pb-5">
 
     <!-- =====================================================
-         SECTION 1 — STATS HERO
-         Custom CSS-only background: diagonal ruled lines
-         layered over --primary dark. The three stat counters
-         animate up from 0 on page load via JS.
+         STATS HERO
     ====================================================== -->
     <section class="news-stats-hero">
 
-        <!-- Decorative ruled-line background -->
         <div class="stats-bg-lines" aria-hidden="true"></div>
 
         <div class="container-fluid px-4 py-5 position-relative">
@@ -58,9 +43,7 @@
     </section>
 
     <!-- =====================================================
-         SECTION 2 — FEATURED NEWS CAROUSEL
-         3 most recent articles from the news table.
-         Falls back to a placeholder card if DB is empty.
+         FEATURED NEWS CAROUSEL
     ====================================================== -->
     <section class="container-fluid px-3 mt-5">
 
@@ -77,10 +60,9 @@
                     <div class="carousel-item <?= $idx === 0 ? 'active' : '' ?>">
                         <div class="news-carousel-card mx-auto d-flex overflow-hidden rounded">
 
-                            <!-- Image side -->
                             <div class="news-carousel-img-wrap flex-shrink-0">
                                 <?php if (!empty($item['image'])): ?>
-                                    <img src="/assets/images/news/<?= htmlspecialchars($item['image']) ?>"
+                                    <img src="<?= BASE_URL ?>/assets/images/news/<?= htmlspecialchars($item['image']) ?>"
                                          alt="<?= htmlspecialchars($item['news_title']) ?>"
                                          class="news-carousel-img">
                                 <?php else: ?>
@@ -90,7 +72,6 @@
                                 <?php endif; ?>
                             </div>
 
-                            <!-- Text side -->
                             <div class="news-carousel-body p-4 d-flex flex-column justify-content-between">
                                 <div>
                                     <p class="news-carousel-date mb-1">
@@ -101,7 +82,7 @@
                                         <?= htmlspecialchars(mb_substr(strip_tags($item['content']), 0, 240)) ?>…
                                     </p>
                                 </div>
-                                <a href="/news/show/<?= $item['news_id'] ?>" class="news-read-more mt-3 align-self-start">
+                                <a href="<?= BASE_URL ?>/news/show/<?= $item['news_id'] ?>" class="news-read-more mt-3 align-self-start">
                                     Read more <i class="bi bi-arrow-right ms-1"></i>
                                 </a>
                             </div>
@@ -111,7 +92,6 @@
                     <?php endforeach; ?>
 
                 <?php else: ?>
-                    <!-- Placeholder when no news in DB yet -->
                     <div class="carousel-item active">
                         <div class="news-carousel-card mx-auto d-flex overflow-hidden rounded align-items-center justify-content-center p-5 text-center opacity-50">
                             <p class="mb-0">No featured news yet. Add some from the admin panel.</p>
@@ -136,8 +116,7 @@
     </section>
 
     <!-- =====================================================
-         SECTION 3 — NEWS CARD GRID
-         Articles 4–9 in a 2-column responsive grid.
+         NEWS CARD GRID
     ====================================================== -->
     <section class="container-fluid px-3 mt-5">
 
@@ -150,11 +129,11 @@
         <div class="row g-3">
             <?php foreach ($gridNews as $item): ?>
             <div class="col-12 col-md-6">
-                <a href="/news/show/<?= $item['news_id'] ?>" class="news-grid-card d-flex text-decoration-none overflow-hidden rounded">
+                <a href="<?= BASE_URL ?>/news/show/<?= $item['news_id'] ?>" class="news-grid-card d-flex text-decoration-none overflow-hidden rounded">
 
                     <div class="news-grid-img-wrap flex-shrink-0">
                         <?php if (!empty($item['image'])): ?>
-                            <img src="/Civishelf/public/assets/images/news/<?= htmlspecialchars($item['image']) ?>"
+                            <img src="<?= BASE_URL ?>/assets/images/news/<?= htmlspecialchars($item['image']) ?>"
                                  alt="<?= htmlspecialchars($item['news_title']) ?>"
                                  class="news-grid-img">
                         <?php else: ?>
@@ -188,12 +167,7 @@
 
 </main>
 
-
-<!-- ================================================================
-     PAGE-SPECIFIC STYLES — move to style.css once finalized
-================================================================= -->
 <style>
-
 /* ---- Stats Hero ---- */
 .news-stats-hero {
     position: relative;
@@ -202,7 +176,6 @@
     overflow: hidden;
 }
 
-/* Diagonal ruled-line texture as a pseudo-element */
 .stats-bg-lines {
     position: absolute;
     inset: 0;
@@ -217,7 +190,6 @@
     z-index: 0;
 }
 
-/* Accent bleed on the left edge */
 .news-stats-hero::after {
     content: '';
     position: absolute;
@@ -281,7 +253,7 @@
 
 /* ---- Carousel ---- */
 .news-carousel-card {
-    background: var(--primary);
+    background: var(--primary-light);
     color: var(--base-theme);
     min-height: 280px;
     max-width: 900px;
@@ -325,7 +297,6 @@
     overflow: hidden;
 }
 
-/* ---- Shared "read more" link ---- */
 .news-read-more {
     font-size: 0.8rem;
     letter-spacing: 0.06em;
@@ -379,20 +350,13 @@
     .news-carousel-title { font-size: 1.05rem; }
     .stat-number { font-size: 2.5rem; }
 }
-
 </style>
 
-
-<!-- ================================================================
-     JS — animated stat counters
-================================================================= -->
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    // Counts up from 0 to data-target over ~1.2s
     document.querySelectorAll('.stat-number').forEach(function (el) {
         var target   = parseInt(el.dataset.target, 10) || 0;
         var duration = 1200;
-        var step     = Math.max(1, Math.floor(duration / Math.max(target, 1)));
         var current  = 0;
 
         if (target === 0) { el.textContent = '0'; return; }

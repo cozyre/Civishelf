@@ -9,16 +9,6 @@ class AdminController extends Controller {
     }
 
     // -----------------------------------------------------------------------
-    // Middleware — call at the top of every protected admin method
-    // -----------------------------------------------------------------------
-    private function requireAdmin() {
-        if (!isset($_SESSION['admin_id'])) {
-            flash('danger', 'You must be logged in as an admin.');
-            redirect('/admin/login');
-        }
-    }
-
-    // -----------------------------------------------------------------------
     // GET /administrator  (main dashboard)
     // -----------------------------------------------------------------------
     public function index() {
@@ -31,7 +21,7 @@ class AdminController extends Controller {
     // -----------------------------------------------------------------------
     public function login() {
         if (isset($_SESSION['admin_id'])) {
-            redirect('/administrator');
+            $this->redirect('/administrator');
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -55,7 +45,7 @@ class AdminController extends Controller {
         if (empty($errors)) {
             $admin = $this->userModel->findAdminByEmail($email);
 
-            if (!$admin || !$this->userModel->verifyPassword($password, $admin->password)) {
+            if (!$admin || !$this->userModel->verifyPassword($password, $admin['password_hash'])) {
                 $errors[] = 'Invalid credentials or insufficient privileges.';
             }
         }
@@ -71,12 +61,11 @@ class AdminController extends Controller {
 
         session_regenerate_id(true);
 
-        // Use SEPARATE session keys from regular users
-        $_SESSION['admin_id']   = $admin->id;
-        $_SESSION['admin_name'] = $admin->name;
+        $_SESSION['admin_id']   = $admin['user_id'];
+        $_SESSION['admin_name'] = $admin['user_name'];
 
-        flash('success', 'Welcome, ' . htmlspecialchars($admin->name) . '.');
-        redirect('/administrator');
+        flash('success', 'Welcome, ' . htmlspecialchars($admin['user_name']) . '.');
+        $this->redirect('/administrator');
     }
 
     // -----------------------------------------------------------------------
@@ -84,8 +73,8 @@ class AdminController extends Controller {
     // -----------------------------------------------------------------------
     public function logout() {
         unset($_SESSION['admin_id'], $_SESSION['admin_name']);
-        session_destroy();
+        session_regenerate_id(true);
         flash('success', 'Admin session ended.');
-        redirect('/admin/login');
+        $this->redirect('/admin/login');
     }
 }

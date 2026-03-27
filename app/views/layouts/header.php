@@ -4,13 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= isset($pageTitle) ? htmlspecialchars($pageTitle) . ' — Civishelf' : 'Civishelf' ?></title>
+    <script>const BASE_URL = "<?= BASE_URL ?>";</script>
 
     <!-- Bootstrap 5 -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
+    <script src="<?= BASE_URL ?>/assets/js/main.js"></script>
 </head>
 <body>
 
@@ -19,19 +21,25 @@
 $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $currentPath = rtrim($currentPath, '/') ?: '/';
 
-function navTabClass(string $path, string $match): string {
-    if ($match === '/') {
-        return $path === '/' ? 'secondary' : 'primary-light';
+// function navTabClass(string $path, string $match): string {
+//     if ($match === '/') {
+//         return $path === '/' ? 'secondary' : 'primary-light';
+//     }
+//     return str_starts_with($path, $match) ? 'secondary' : 'primary-light';
+// }
+function navTabClass(string $currentPath, string $path): string {
+    if ($path === $currentPath) {
+        return 'secondary';
     }
-    return str_starts_with($path, $match) ? 'secondary' : 'primary-light';
+    else return 'primary-light';
 }
 ?>
 
-<nav class="navbar primary pb-0">
+<nav class="navbar primary pb-0 mb-1">
     <div class="w-100 primary d-flex justify-content-between align-items-center fixed-top px-2 py-0 my-0">
         
         <!-- Logo -->
-        <a href="/"><img src="assets/images/logos/logo.png" class="img-fluid" style="max-height: 2.5rem;" alt="Civishelf"></a>
+        <a href="."><img src="<?= BASE_URL ?>/assets/images/logos/logo.png" class="img-fluid" style="max-height: 2.5rem;" alt="Civishelf"></a>
 
         <!-- Greeting -->
         <div id="user-name">
@@ -53,25 +61,25 @@ function navTabClass(string $path, string $match): string {
             <ul class="dropdown-menu">
 
                 <?php if (isset($_SESSION['admin_id'])): ?>
-                    <li><a href="/administrator" class="dropdown-item"><i class="bi bi-shield-lock me-2"></i>Admin Panel</a></li>
-                    <li><a href="/contact" class="dropdown-item"><i class="bi bi-envelope me-2"></i>Contact Us</a></li>
+                    <li><a href="<?= BASE_URL ?>/administrator" class="dropdown-item"><i class="bi bi-shield-lock me-2"></i>Admin Panel</a></li>
+                    <li><a href="<?= BASE_URL ?>/contact" class="dropdown-item"><i class="bi bi-envelope me-2"></i>Contact Us</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a href="/admin/logout" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                    <li><a href="<?= BASE_URL ?>/admin/logout" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
 
                 <?php elseif (isset($_SESSION['user_id'])): ?>
-                    <li><a href="/user/profile" class="dropdown-item"><i class="bi bi-person me-2"></i>My Account</a></li>
-                    <li><a href="/mybooks" class="dropdown-item"><i class="bi bi-clock-history me-2"></i>History</a></li>
-                    <li><a href="/contact" class="dropdown-item"><i class="bi bi-envelope me-2"></i>Contact Us</a></li>
+                    <li><a href="<?= BASE_URL ?>/user/profile" class="dropdown-item"><i class="bi bi-person me-2"></i>My Account</a></li>
+                    <li><a href="<?= BASE_URL ?>/mybooks" class="dropdown-item"><i class="bi bi-clock-history me-2"></i>History</a></li>
+                    <li><a href="<?= BASE_URL ?>/contact" class="dropdown-item"><i class="bi bi-envelope me-2"></i>Contact Us</a></li>
                     <li><hr class="dropdown-divider"></li>
-                    <li><a href="/user/logout" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                    <li><a href="<?= BASE_URL ?>/user/logout" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
 
                 <?php else: ?>
                     <li>
-                        <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        <a href="<?= BASE_URL ?>/" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#loginModal">
                             <i class="bi bi-box-arrow-in-right me-2"></i>Login / Signup
                         </a>
                     </li>
-                    <li><a href="/contact" class="dropdown-item"><i class="bi bi-envelope me-2"></i>Contact Us</a></li>
+                    <li><a href="<?= BASE_URL ?>/contact" class="dropdown-item"><i class="bi bi-envelope me-2"></i>Contact Us</a></li>
                 <?php endif; ?>
 
             </ul>
@@ -80,22 +88,22 @@ function navTabClass(string $path, string $match): string {
 
     <div class="container gap-2 pb-0 mt-5 align-items-end">
         <!-- add a little pull up animation later -->
-        <a href="/"
-           class="<?= navTabClass($currentPath, '') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
+        <a href="<?= BASE_URL ?>/"
+           class="<?= navTabClass($currentPath, '/Civishelf') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
             Home
         </a>
-        <a href="/books"
-           class="<?= navTabClass($currentPath, '/books') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
+        <a href="<?= BASE_URL ?>/books"
+           class="<?= navTabClass($currentPath, '/Civishelf/books') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
             Explore
         </a>
-        <a href="/news"
-           class="<?= navTabClass($currentPath, '/news') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
+        <a href="<?= BASE_URL ?>/news"
+           class="<?= navTabClass($currentPath, '/Civishelf/news') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
             News
         </a>
 
         <?php if (isset($_SESSION['user_id']) || isset($_SESSION['admin_id'])): ?>
-            <a href="/mybooks"
-               class="<?= navTabClass($currentPath, '/mybooks') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
+            <a href="<?= BASE_URL ?>/mybooks"
+               class="<?= navTabClass($currentPath, '/Civishelf/mybooks') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
                 My Books
             </a>
         <?php else: ?>
@@ -145,7 +153,7 @@ function navTabClass(string $path, string $match): string {
                     <?php unset($_SESSION['login_error']); ?>
                 <?php endif; ?>
 
-                <form action="/user/login" method="POST">
+                <form action="<?= BASE_URL ?>/user/login" method="POST">
 
                     <div class="mb-3">
                         <label for="loginEmail" class="form-label">Email address</label>
@@ -171,7 +179,7 @@ function navTabClass(string $path, string $match): string {
                     </div>
 
                     <p class="text-center small mb-0">
-                        Don't have an account? <a href="/user/register">Register here</a>
+                        Don't have an account? <a href="<?= BASE_URL ?>/user/register">Register here</a>
                     </p>
 
                 </form>

@@ -2,6 +2,19 @@
 // core/Controller.php
 
 class Controller {
+    // -------------------------------------------------------
+    // Model loader
+    // Usage: $this->model('Book') → loads app/models/Book.php
+    //        and returns a new instance.
+    // -------------------------------------------------------
+    protected function model(string $name): object {
+        $file = __DIR__ . '/../app/models/' . $name . '.php';
+        if (!file_exists($file)) {
+            die('Model not found: ' . htmlspecialchars($name));
+        }
+        require_once $file;
+        return new $name();
+    }
 
     // -------------------------------------------------------
     // JSON response helper — use this for all AJAX endpoints
@@ -56,12 +69,11 @@ class Controller {
 
     // Requires admin role specifically
     protected function requireAdmin(): void {
-        $this->requireLogin();
-        if ($_SESSION['role'] !== 'admin') {
+        if (empty($_SESSION['admin_id'])) {
             if ($this->isAjax()) {
                 $this->json(['success' => false, 'message' => 'Forbidden. Admins only.'], 403);
             }
-            $this->redirect('home');
+            $this->redirect('admin/login');
         }
     }
 

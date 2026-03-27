@@ -18,7 +18,7 @@
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <!-- Custom JS -->
-<script src="/assets/js/main.js"></script>
+<!-- <script src="/assets/js/main.js"></script> -->
 
 <script>
 // Auto-reopen login modal if login failed (controller sets session flag)
