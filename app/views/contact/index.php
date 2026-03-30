@@ -1,7 +1,7 @@
 <?php include __DIR__ . '/../layouts/header.php'; ?>
 
-<main class="vh-100">
-    <div class="container py-4">
+<main class="">
+    <div class="container py-4 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-5">
 
@@ -15,7 +15,7 @@
                 </div>
 
                 <!-- Form card -->
-                <div class="contact-card p-4">
+                <div class="p-4">
 
                     <?php if (!empty($errors)): ?>
                         <div class="alert alert-danger py-2 mb-3">
@@ -58,7 +58,7 @@
                                       required><?= htmlspecialchars($message ?? '') ?></textarea>
                         </div>
 
-                        <button type="submit" class="btn contact-submit w-100 mb-2">Submit</button>
+                        <button type="submit" class="btn accent w-100 mb-2">Submit</button>
                     </form>
                     <div class="align-items-center justify-content-center text-center">
                         <div class="opacity-50 py-2">Additional contacts</div>

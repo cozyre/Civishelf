@@ -136,14 +136,14 @@ function navTabClass(string $currentPath, string $path): string {
 <?php if (!isset($_SESSION['user_id']) && !isset($_SESSION['admin_id'])): ?>
 <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content">
+        <div class="modal-content primary">
 
             <div class="modal-header">
                 <h5 class="modal-title fw-bold" id="loginModalLabel">Login to Civishelf</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
             </div>
 
-            <div class="modal-body">
+            <div class="modal-body primary-light">
 
                 <!-- Show inline error inside modal on failed login -->
                 <?php if (isset($_SESSION['login_error'])): ?>
@@ -175,11 +175,11 @@ function navTabClass(string $currentPath, string $path): string {
                     </div>
 
                     <div class="d-grid mb-3">
-                        <button type="submit" class="btn btn-primary fw-semibold">Login</button>
+                        <button type="submit" class="btn accent fw-semibold">Login</button>
                     </div>
 
                     <p class="text-center small mb-0">
-                        Don't have an account? <a href="<?= BASE_URL ?>/user/register">Register here</a>
+                        Don't have an account? <a href="<?= BASE_URL ?>/user/register"><b>Register here</b></a>
                     </p>
 
                 </form>

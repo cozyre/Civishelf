@@ -1,11 +1,22 @@
 <?php include __DIR__ . '/../layouts/header.php'; ?>
 
-<div class="container py-4 mb-5">
-    <div class="row justify-content-center">
+<div class="container py-4 mb-5 card primary-light">
+    <a href="javascript:history.back()" class="contact-back-btn">
+        <i class="bi bi-chevron-left" style="font-size: 1.5rem;"></i>
+    </a>
+    <div class="row align-items-center">
+        <!-- Logo Section (Left) -->
+        <div class="col-md-6 d-flex justify-content-center align-items-center mb-4 mb-md-0">
+            <div class="text-center">
+                <img src="<?= BASE_URL ?>/assets/images/logos/logo.png" alt="Civishelf Logo" style="max-width: 80%; height: auto;">
+            </div>
+        </div>
+
+        <!-- Form Section (Right) -->
         <div class="col-md-6 col-lg-5">
 
             <h2 class="fw-bold mb-1">Create an Account</h2>
-            <p class="text-muted mb-4">Join Civishelf and start borrowing books.</p>
+            <p class="mb-4">Join Civishelf and start borrowing books.</p>
 
             <?php if (!empty($errors)): ?>
                 <div class="alert alert-danger py-2">
@@ -41,7 +52,7 @@
                             <i class="bi bi-eye"></i>
                         </button>
                     </div>
-                    <div class="form-text">Minimum 8 characters.</div>
+                    <div class="form-text primary-light">Minimum 8 characters.</div>
                 </div>
 
                 <div class="mb-4">
@@ -50,13 +61,13 @@
                            class="form-control" autocomplete="new-password" required>
                 </div>
 
-                <button type="submit" class="btn btn-primary w-100 fw-semibold">Register</button>
+                <button type="submit" class="btn accent w-100 fw-semibold">Register</button>
 
             </form>
 
             <p class="text-center small mt-3 mb-0">
                 Already have an account?
-                <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal">Log in here</a>
+                <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal"><b>Log in here</b></a>
             </p>
 
         </div>

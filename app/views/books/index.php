@@ -1,6 +1,6 @@
 <?php include __DIR__ . '/../layouts/header.php'; ?>
 
-<main class="mb-5 pb-5 vh-100">
+<main class="mb-5 pb-5">
 
     <!-- =====================================================
          SEARCH + CATEGORY FILTERS

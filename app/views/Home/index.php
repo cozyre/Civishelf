@@ -116,7 +116,16 @@
         <div class="text-center mt-4">
             <a href="<?= BASE_URL ?>/books" class="btn explore-btn">Explore</a>
         </div>
-
+    </section>
+    
+    <!-- =====================================================
+         COMPANY DETAILS
+    ====================================================== -->
+    <section id="company-details" class="primary-light">
+        <div class="p-2 mx-4">
+            <img src="<?= BASE_URL ?>/assets/images/logos/logo.png" alt="Civishelf Logo" style="max-height: 4rem;">
+            <hr>
+        </div>
     </section>
 
 </main>
