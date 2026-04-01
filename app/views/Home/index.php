@@ -26,17 +26,32 @@
         <div class="book-carousel d-flex gap-3 overflow-auto pb-2">
             <?php if (!empty($topBooks)): ?>
                 <?php foreach ($topBooks as $book): ?>
-                <div class="book-card-wrapper flex-shrink-0">
-                    <a href="<?= BASE_URL ?>/books/show/<?= $book['book_id'] ?>"
-                       class="book-card d-block text-decoration-none position-relative overflow-hidden rounded">
-                        <img src="<?= BASE_URL ?>/assets/images/covers/<?= htmlspecialchars($book['cover_image'] ?? 'book-placeholder.jpg') ?>"
+                <?php $cover = BASE_URL . '/assets/images/covers/' . ($book['cover_image'] ?? 'book-placeholder.jpg'); ?>
+                <div class="book-card-wrapper flex-shrink-0"
+                     data-id="<?= $book['book_id'] ?>"
+                     data-title="<?= htmlspecialchars($book['book_title']) ?>"
+                     data-author="<?= htmlspecialchars($book['author_name'] ?? '') ?>"
+                     data-category="<?= htmlspecialchars($book['category_name'] ?? '') ?>"
+                     data-description="<?= htmlspecialchars($book['description'] ?? '') ?>"
+                     data-published="<?= htmlspecialchars($book['published_at'] ?? '') ?>"
+                     data-copies="<?= (int)$book['available_copies'] ?>"
+                     data-cover="<?= $cover ?>"
+                     data-status="none"
+                     data-online="<?= isset($book['is_online']) && $book['is_online'] ? '1' : '0' ?>"
+                     data-due=""
+                     role="button"
+                     data-bs-toggle="modal"
+                     data-bs-target="#bookModal"
+                     tabindex="0">
+                    <div class="book-card position-relative overflow-hidden rounded h-100">
+                        <img src="<?= $cover ?>"
                              alt="<?= htmlspecialchars($book['book_title']) ?>"
                              class="book-cover w-100 h-100 object-fit-cover">
                         <div class="book-card-overlay position-absolute bottom-0 start-0 end-0 d-flex align-items-center justify-content-between px-2 py-1">
                             <span class="book-card-label small"><?= htmlspecialchars($book['book_title']) ?></span>
                             <i class="bi bi-arrow-right-circle"></i>
                         </div>
-                    </a>
+                    </div>
                 </div>
                 <?php endforeach; ?>
             <?php else: ?>
@@ -78,12 +93,10 @@
 
         <!-- Category filter chips -->
         <div class="category-chips d-flex gap-2 flex-wrap mb-4" id="categoryChips">
-            <!-- "All" chip -->
             <a href="<?= BASE_URL ?>/"
                class="btn chip-btn <?= $activeCategoryId === null ? 'chip-active' : '' ?>">
                 All
             </a>
-
             <?php foreach ($categories as $cat): ?>
             <a href="<?= BASE_URL ?>/?category=<?= $cat['category_id'] ?>"
                class="btn chip-btn <?= $activeCategoryId === (int)$cat['category_id'] ? 'chip-active' : '' ?>">
@@ -96,16 +109,33 @@
         <div class="row g-3 book-grid" id="majorBooksGrid">
             <?php if (!empty($filteredBooks)): ?>
                 <?php foreach ($filteredBooks as $book): ?>
+                <?php $cover = BASE_URL . '/assets/images/covers/' . ($book['cover_image'] ?? 'book-placeholder.jpg'); ?>
                 <div class="col-6 col-md-3">
-                    <a href="<?= BASE_URL ?>/books/show/<?= $book['book_id'] ?>"
-                       class="book-grid-card d-block position-relative overflow-hidden rounded text-decoration-none">
-                        <img src="<?= BASE_URL ?>/assets/images/covers/<?= htmlspecialchars($book['cover_image'] ?? 'book-placeholder.jpg') ?>"
-                             alt="<?= htmlspecialchars($book['book_title']) ?>"
-                             class="w-100 book-grid-cover object-fit-cover">
-                        <div class="book-grid-overlay position-absolute bottom-0 start-0 end-0 px-2 py-1">
-                            <span class="small"><?= htmlspecialchars($book['book_title']) ?></span>
+                    <div class="book-grid-item"
+                         data-id="<?= $book['book_id'] ?>"
+                         data-title="<?= htmlspecialchars($book['book_title']) ?>"
+                         data-author="<?= htmlspecialchars($book['author_name'] ?? '') ?>"
+                         data-category="<?= htmlspecialchars($book['category_name'] ?? '') ?>"
+                         data-description="<?= htmlspecialchars($book['description'] ?? '') ?>"
+                         data-published="<?= htmlspecialchars($book['published_at'] ?? '') ?>"
+                         data-copies="<?= (int)$book['available_copies'] ?>"
+                         data-cover="<?= $cover ?>"
+                         data-status="none"
+                         data-online="<?= isset($book['is_online']) && $book['is_online'] ? '1' : '0' ?>"
+                         data-due=""
+                         role="button"
+                         data-bs-toggle="modal"
+                         data-bs-target="#bookModal"
+                         tabindex="0">
+                        <div class="position-relative overflow-hidden rounded">
+                            <img src="<?= $cover ?>"
+                                 alt="<?= htmlspecialchars($book['book_title']) ?>"
+                                 class="w-100 book-grid-cover">
+                            <div class="book-grid-overlay position-absolute bottom-0 start-0 end-0 px-2 py-1">
+                                <span class="small"><?= htmlspecialchars($book['book_title']) ?></span>
+                            </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
                 <?php endforeach; ?>
             <?php else: ?>

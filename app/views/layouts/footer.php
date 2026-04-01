@@ -1,6 +1,5 @@
 <footer class="primary">
     <div class="container p-1 d-flex align-items-center justify-content-evenly">
-        <!-- change these menus later -->
         <a href="/" class="">Home</a>
         <a href="/books" class="">Explore</a>
         <a href="/news" class="">News</a>
@@ -17,11 +16,11 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<!-- Custom JS -->
-<!-- <script src="/assets/js/main.js"></script> -->
+<!-- Custom JS — loaded last so Bootstrap + jQuery are available -->
+<script src="<?= BASE_URL ?>/assets/js/main.js"></script>
 
 <script>
-// Auto-reopen login modal if login failed (controller sets session flag)
+// Auto-reopen login modal if login failed
 <?php if (isset($_SESSION['login_failed'])): ?>
 document.addEventListener('DOMContentLoaded', function () {
     var modalEl = document.getElementById('loginModal');
@@ -30,18 +29,17 @@ document.addEventListener('DOMContentLoaded', function () {
 <?php unset($_SESSION['login_failed']); ?>
 <?php endif; ?>
 
-// Toggle password visibility in login modal
+// Toggle password visibility (login modal + register page)
 document.addEventListener('DOMContentLoaded', function () {
-    var toggleBtn = document.querySelector('.toggle-pw');
-    if (toggleBtn) {
-        toggleBtn.addEventListener('click', function () {
-            var input  = document.getElementById('loginPassword');
+    document.querySelectorAll('.toggle-pw').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var input  = this.closest('.input-group').querySelector('input');
             var icon   = this.querySelector('i');
             var hidden = input.type === 'password';
             input.type     = hidden ? 'text' : 'password';
             icon.className = hidden ? 'bi bi-eye-slash' : 'bi bi-eye';
         });
-    }
+    });
 });
 </script>
 </body>
