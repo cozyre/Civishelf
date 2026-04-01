@@ -116,6 +116,10 @@
          MAIN BOOK GRID — paginated, filterable
     ====================================================== -->
     <section class="container-fluid px-3">
+        <div class="section-header d-flex align-items-center mb-3">
+            <h2 class="section-title mb-0 me-3">Look For More</h2>
+            <hr class="flex-grow-1 m-0">
+        </div>
 
         <div class="row g-3" id="bookGrid">
             <?php foreach ($books as $book): ?>
