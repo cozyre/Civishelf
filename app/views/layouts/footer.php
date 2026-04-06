@@ -1,9 +1,9 @@
 <footer class="primary">
     <div class="container p-1 d-flex align-items-center justify-content-evenly">
         <a href="/" class="">Home</a>
-        <a href="/books" class="">Explore</a>
-        <a href="/news" class="">News</a>
-        <a href="/contact" class="">Contact Us</a>
+        <a href="<?= BASE_URL ?>/books" class="">Explore</a>
+        <a href="<?= BASE_URL ?>/news" class="">News</a>
+        <a href="<?= BASE_URL ?>/contact" class="">Contact Us</a>
         <?php if (isset($_SESSION['user_id']) || isset($_SESSION['admin_id'])): ?>
             <a href="/user/logout" class="">Logout</a>
         <?php else: ?>

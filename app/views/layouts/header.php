@@ -51,6 +51,7 @@ function navTabClass(string $currentPath, string $path): string {
             </button>
             <ul class="dropdown-menu">
                 <?php if (isset($_SESSION['admin_id'])): ?>
+                    <li><a href="<?= BASE_URL ?>/user/profile" class="dropdown-item"><i class="bi bi-person me-2"></i>My Account</a></li>
                     <li><a href="<?= BASE_URL ?>/administrator" class="dropdown-item"><i class="bi bi-shield-lock me-2"></i>Admin Panel</a></li>
                     <li><a href="<?= BASE_URL ?>/contact" class="dropdown-item"><i class="bi bi-envelope me-2"></i>Contact Us</a></li>
                     <li><hr class="dropdown-divider"></li>

@@ -7,18 +7,66 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <style>
-        body { background: #1a1a1a; display: flex; align-items: center; justify-content: center; min-height: 100vh; margin: 0; font-family: 'Times New Roman', serif; }
-        .login-card { background: #242424; border: 1px solid #333; border-radius: 8px; padding: 2.5rem; width: 100%; max-width: 400px; }
-        .login-logo { font-family: 'Times New Roman', serif; font-size: 1.8rem; color: #ececec; letter-spacing: 0.05em; }
-        .login-badge { font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase; color: #C30D00; border: 1px solid #C30D00; padding: 0.15rem 0.5rem; border-radius: 3px; vertical-align: middle; }
-        .form-control { background: #1a1a1a; border: 1px solid #444; color: #ececec; border-radius: 5px; }
-        .form-control:focus { background: #1a1a1a; border-color: #C30D00; color: #ececec; box-shadow: none; }
-        .form-label { color: #aaa; font-size: 0.85rem; }
-        .btn-login { background: #C30D00; color: #fff; border: none; border-radius: 5px; font-weight: 600; letter-spacing: 0.04em; }
-        .btn-login:hover { background: #FF401F; color: #fff; }
-        .divider { border-color: #333; }
-        .back-link { color: #888; font-size: 0.8rem; text-decoration: none; }
-        .back-link:hover { color: #ececec; }
+        body { 
+            background: #1a1a1a; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            min-height: 100vh; 
+            margin: 0; 
+            font-family: 'Times New Roman', serif; }
+        .login-card { 
+            background: #242424; 
+            border: 1px solid #333; 
+            border-radius: 8px; 
+            padding: 2.5rem; 
+            width: 100%; 
+            max-width: 400px; }
+        .login-logo { 
+            font-family: 'Times New Roman', serif; 
+            font-size: 1.8rem;
+            color: #ececec;
+            letter-spacing: 0.05em; }
+        .login-badge { 
+            font-size: 0.65rem; 
+            letter-spacing: 0.15em; 
+            text-transform: uppercase; 
+            color: #C30D00; 
+            border: 1px solid #C30D00; 
+            padding: 0.15rem 0.5rem; 
+            border-radius: 3px; 
+            vertical-align: middle; }
+        .form-control { 
+            background: #1a1a1a; 
+            border: 1px solid #444; 
+            color: #ececec; 
+            border-radius: 5px; }
+        .form-control:focus { 
+            background: #1a1a1a; 
+            border-color: #C30D00; 
+            color: #ececec; 
+            box-shadow: none; }
+        .form-label { 
+            color: #aaa; 
+            font-size: 0.85rem; }
+        .btn-login { 
+            background: #C30D00; 
+            color: #fff; 
+            border: none; 
+            border-radius: 5px; 
+            font-weight: 600; 
+            letter-spacing: 0.04em; }
+        .btn-login:hover { 
+            background: #FF401F; 
+            color: #fff; }
+        .divider { 
+            border-color: #333; }
+        .back-link { 
+            color: #888; 
+            font-size: 0.8rem; 
+            text-decoration: none; }
+        .back-link:hover { 
+            color: #ececec; }
     </style>
 </head>
 <body>
