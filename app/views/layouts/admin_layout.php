@@ -229,7 +229,7 @@
         </a>
 
         <div class="sidebar-section-label">Site</div>
-        <a href="<?= BASE_URL ?>/" class="sidebar-link" target="_blank">
+        <a href="<?= BASE_URL ?>/" class="sidebar-link" target="">
             <i class="bi bi-box-arrow-up-right"></i> View Site
         </a>
     </nav>

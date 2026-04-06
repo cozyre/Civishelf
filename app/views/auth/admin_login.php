@@ -103,6 +103,11 @@
                 </div>
             </div>
             <button type="submit" class="btn btn-login w-100 mb-3">Sign In</button>
+            
+            <!-- Sign up to be an admin -->
+            <p class="text-center small mb-0 text-white">
+                Want to Sign up to be an admin? <a href="<?= BASE_URL ?>/user/register"><b>Register here</b></a>
+            </p>
         </form>
 
         <hr class="divider">

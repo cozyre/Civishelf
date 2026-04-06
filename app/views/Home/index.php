@@ -143,7 +143,7 @@
             <?php endif; ?>
         </div>
 
-        <div class="text-center mt-4">
+        <div class="text-center my-4">
             <a href="<?= BASE_URL ?>/books" class="btn explore-btn">Explore</a>
         </div>
     </section>
@@ -151,13 +151,35 @@
     <!-- =====================================================
          COMPANY DETAILS
     ====================================================== -->
-    <section id="company-details" class="primary-light">
-        <div class="p-2 mx-4">
+    <section id="company-details" class="primary">
+        <div class="mx-4 p-2">
             <img src="<?= BASE_URL ?>/assets/images/logos/logo.png" alt="Civishelf Logo" style="max-height: 4rem;">
             <hr>
         </div>
+        <div class="row p-1">
+            <div class="col-md-4">
+                <ul>
+                    <li>Civishelf Technologies, Inc.</li>
+                    <li>2024</li>
+                    <li>Jakarta, Indonesia</li>
+                </ul>
+            </div>
+            <div class="col-md-4 px-4">
+                <p><b>Civishelf Digital Library</b><br>
+                "Empowering campus learning through accessible digital knowledge."</p>
+            </div>
+            <div class="col-md-4">
+                <p>Business Hours: Monday - Friday: 08:00 - 18:00 WIB
+                    <br>&copy; 2026 Civishelf Technologies, Inc. All rights reserved
+                    <br>Privacy Policy | Terms of Service
+                </p>
+            </div>
+        </div>
+        <div class="row text-center m-2 py-4 px-2">
+            <p>Digital Book Lending • Academic Resources • Research Archives • Campus Integration Systems</p>
+        </div>
     </section>
-
+    
 </main>
 
 <script>
