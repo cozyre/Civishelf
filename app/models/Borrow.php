@@ -43,33 +43,28 @@ class Borrow {
     // Security: requires user_id so users can only return their own borrows.
     // Wrapped in a transaction — same pattern as Admin::returnBorrow().
     // -----------------------------------------------------------------------
-    public function returnRequest(int $requestId, int $userId): bool {
+    public function returnBook(int $requestId, int $userId): bool {
         $this->db->beginTransaction();
         try {
-            // Confirm the request exists, belongs to this user, and is approved
+            // Verify ownership + status
             $stmt = $this->db->prepare(
                 "SELECT book_id FROM borrow_requests
-                WHERE request_id = :id
-                AND user_id    = :uid
-                AND status     = 'approved'
+                WHERE request_id = :rid
+                AND user_id   = :uid
+                AND status    = 'approved'
                 LIMIT 1"
             );
-            $stmt->execute([':id' => $requestId, ':uid' => $userId]);
+            $stmt->execute([':rid' => $requestId, ':uid' => $userId]);
             $row = $stmt->fetch();
-
-            if (!$row) {
-                throw new \Exception('Request not found, not yours, or not approved.');
-            }
+            if (!$row) throw new \Exception('Not found or not yours');
 
             $this->db->prepare(
-                "UPDATE borrow_requests
-                SET status = 'returned', return_date = NOW()
-                WHERE request_id = :id"
-            )->execute([':id' => $requestId]);
+                "UPDATE borrow_requests SET status = 'returned', return_date = NOW()
+                WHERE request_id = :rid"
+            )->execute([':rid' => $requestId]);
 
             $this->db->prepare(
-                "UPDATE books
-                SET available_copies = available_copies + 1
+                "UPDATE books SET available_copies = available_copies + 1
                 WHERE book_id = :bid"
             )->execute([':bid' => $row['book_id']]);
 
@@ -77,8 +72,18 @@ class Borrow {
             return true;
         } catch (\Exception $e) {
             $this->db->rollBack();
-            error_log('Borrow::returnRequest — ' . $e->getMessage());
+            error_log('Borrow::returnBook: ' . $e->getMessage());
             return false;
         }
+    }
+
+    public function hasPendingBorrow(int $userId, int $bookId): bool {
+        $stmt = $this->db->prepare(
+            "SELECT request_id FROM borrow_requests
+            WHERE user_id = :uid AND book_id = :bid AND status = 'pending'
+            LIMIT 1"
+        );
+        $stmt->execute([':uid' => $userId, ':bid' => $bookId]);
+        return (bool) $stmt->fetch();
     }
 }

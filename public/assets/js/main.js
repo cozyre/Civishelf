@@ -29,13 +29,23 @@
 
     var currentBookId   = null;
     var currentIsOnline = false;
+    var currentTrigger   = null;
+
+    // Clear action button handlers before setting new ones
+    function clearActionButtonHandlers() {
+        var btn = document.getElementById('modalActionBtn');
+        btn.replaceWith(btn.cloneNode(true)); // removes all listeners
+    }
 
     bookModal.addEventListener('show.bs.modal', function (e) {
         var t = e.relatedTarget;
         if (!t) return;
 
+        currentTrigger  = t;
         currentBookId   = t.dataset.id   || null;
         currentIsOnline = t.dataset.online === '1';
+        
+        clearActionButtonHandlers();
 
         // Basic fields
         document.getElementById('modalTitle').textContent       = t.dataset.title       || '';
@@ -52,13 +62,10 @@
         var statusEl = document.getElementById('modalStatus');
         var copies   = parseInt(t.dataset.copies, 10) || 0;
 
-        if (status === 'borrowed') {
-            statusEl.textContent = 'Borrowed — due ' + (t.dataset.due || '');
-        } else if (status === 'online') {
-            statusEl.textContent = 'Available to read online';
-        } else {
-            statusEl.textContent = copies > 0 ? 'Available' : 'No copies available';
-        }
+        // Action button: Borrow / Read
+        var actionBtn = document.getElementById('modalActionBtn');
+        actionBtn.disabled  = false;
+        actionBtn.classList.remove('btn-disabled');
 
         // Action button: Preview
         var previewBtn = document.getElementById('modalPreviewBtn');
@@ -67,40 +74,44 @@
             alert('Preview coming soon.');
         };
 
-        // Action button: Borrow / Read
-        var actionBtn = document.getElementById('modalActionBtn');
-        actionBtn.disabled  = false;
-        actionBtn.classList.remove('btn-disabled');
-
         if (status === 'borrowed') {
-            // Already borrowed → offer Read
+            statusEl.textContent  = 'Borrowed — due ' + (t.dataset.due || '');
             actionBtn.textContent = 'Read';
-            actionBtn.onclick = function () {
+            actionBtn.addEventListener('click', function () {
                 if (!isLoggedIn()) { openLoginModal(); return; }
-                if (currentIsOnline) {
-                    window.location.href = BASE_URL + '/books/read/' + currentBookId;
-                } else {
-                    window.location.href = BASE_URL + '/books/offline';
-                }
-            };
+                window.location.href = currentIsOnline
+                    ? BASE_URL + '/books/read/' + currentBookId
+                    : BASE_URL + '/books/offline';
+            });
         } else if (status === 'online') {
-            // Open-access online book
+            statusEl.textContent  = 'Available to read online';
             actionBtn.textContent = 'Read';
-            actionBtn.onclick = function () {
+            actionBtn.addEventListener('click', function () {
                 if (!isLoggedIn()) { openLoginModal(); return; }
                 window.location.href = BASE_URL + '/books/read/' + currentBookId;
-            };
+            });
         } else {
-            // Default: Borrow
-            actionBtn.textContent = 'Borrow';
-            if (copies === 0) {
-                actionBtn.disabled = true;
-                actionBtn.textContent = 'Unavailable';
-            } else {
-                actionBtn.onclick = function () {
+            // status === 'none' — default borrow flow
+            statusEl.textContent  = copies > 0 ? 'Available' : 'No copies available';
+            actionBtn.textContent = copies === 0 ? 'Unavailable' : 'Borrow';
+            actionBtn.disabled    = copies === 0;
+
+            if (copies > 0) {
+                actionBtn.addEventListener('click', function () {
                     if (!isLoggedIn()) { openLoginModal(); return; }
-                    borrowBook(currentBookId, actionBtn);
-                };
+                    borrowBook(currentBookId, actionBtn, statusEl);
+                });
+            }
+
+            // Check if user already has a pending request (AJAX, runs after render)
+            if (isLoggedIn() && currentBookId) {
+                $.get(BASE_URL + '/borrow/status', { book_id: currentBookId }, function (res) {
+                    if (res.success && res.pending) {
+                        statusEl.textContent  = 'Request pending — awaiting admin approval';
+                        actionBtn.disabled    = true;
+                        actionBtn.textContent = 'Pending…';
+                    }
+                }, 'json');
             }
         }
 
@@ -109,7 +120,7 @@
         if (isLoggedIn() && currentBookId) {
             $.post(BASE_URL + '/saved/status', { book_id: currentBookId }, function (res) {
                 if (res.success) updateSaveIcon(res.saved);
-            }, 'json');
+            }, 'json');           
         }
     });
 
@@ -139,22 +150,23 @@
     // Borrow AJAX
     // ----------------------------------------------------------------
 
-    function borrowBook(bookId, btn) {
-        btn.disabled = true;
+     function borrowBook(bookId, btn, statusEl) {
+        btn.disabled    = true;
         btn.textContent = 'Requesting…';
 
         $.post(BASE_URL + '/borrow/request', { book_id: bookId }, function (res) {
             if (res.success) {
-                btn.textContent = 'Requested!';
-                // Optimistically update status label
-                document.getElementById('modalStatus').textContent = 'Borrow request sent — pending approval';
+                btn.textContent       = 'Pending…';
+                statusEl.textContent  = 'Request pending — awaiting admin approval';
+                // Update the trigger element's data-status so re-opening reflects state
+                if (currentTrigger) currentTrigger.dataset.status = 'pending';
             } else {
-                btn.disabled = false;
+                btn.disabled    = false;
                 btn.textContent = 'Borrow';
                 alert(res.message || 'Could not submit request. Please try again.');
             }
         }, 'json').fail(function () {
-            btn.disabled = false;
+            btn.disabled    = false;
             btn.textContent = 'Borrow';
             alert('Network error. Please try again.');
         });

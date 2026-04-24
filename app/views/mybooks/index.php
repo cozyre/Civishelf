@@ -428,24 +428,23 @@
     // ---- Return stub ----
     document.querySelectorAll('.ledger-btn--return').forEach(function (btn) {
         btn.addEventListener('click', function () {
+            var self = this;
             var requestId = this.dataset.requestId;
-            var row       = this.closest('.ledger-row');
-
             if (!confirm('Return this book? This cannot be undone.')) return;
 
-            var self = this;
-            self.disabled    = true;
+            self.disabled = true;
             self.textContent = 'Returning…';
 
-            $.post(BASE_URL + '/borrow/return', { request_id: requestId }, function (res) {
+            $.post(BASE_URL + '/borrow/returnBook', { request_id: requestId }, function (res) {
                 if (res.success) {
+                    var row = self.closest('.ledger-row');
                     row.style.transition = 'opacity 0.3s';
                     row.style.opacity    = '0';
                     setTimeout(function () {
                         row.remove();
                         // Decrement the borrowed count pill
-                        var countEl = document.querySelectorAll('.mybooks-count-pill .count-num')[1];
-                        if (countEl) countEl.textContent = Math.max(0, parseInt(countEl.textContent) - 1);
+                        var pills = document.querySelectorAll('.mybooks-count-pill--accent .count-num');
+                        if (pills.length) pills[0].textContent = Math.max(0, parseInt(pills[0].textContent) - 1);
                     }, 300);
                 } else {
                     self.disabled    = false;

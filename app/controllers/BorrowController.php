@@ -45,11 +45,8 @@ class BorrowController extends Controller {
         ]);
     }
 
-    // -----------------------------------------------------------------------
-    // POST /borrow/return  — AJAX
-    // User self-returns a book they currently have approved.
-    // -----------------------------------------------------------------------
-    public function return(): void {
+    // POST /borrow/returnBook  — AJAX, user-initiated
+    public function returnBook(): void {
         $this->requireLogin();
 
         if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -57,18 +54,31 @@ class BorrowController extends Controller {
         }
 
         $requestId = (int) ($_POST['request_id'] ?? 0);
-        if ($requestId <= 0) {
+        if (!$requestId) {
             $this->json(['success' => false, 'message' => 'Invalid request ID.'], 400);
         }
 
         $userId  = (int) $_SESSION['user_id'];
-        $success = $this->borrowModel->returnRequest($requestId, $userId);
+        $success = $this->borrowModel->returnBook($requestId, $userId);
 
         $this->json([
             'success' => $success,
-            'message' => $success
-                ? 'Book returned successfully.'
-                : 'Could not process return. The request may not be active.',
+            'message' => $success ? 'Book returned successfully.' : 'Could not process return.',
         ]);
+    }
+
+    // GET /borrow/status?book_id=X  — AJAX, check pending status for current user
+    public function status(): void {
+        $this->requireLogin();
+
+        $bookId = (int) ($_GET['book_id'] ?? $_POST['book_id'] ?? 0);
+        if (!$bookId) {
+            $this->json(['success' => false, 'message' => 'Invalid book ID.'], 400);
+        }
+
+        $userId  = (int) $_SESSION['user_id'];
+        $pending = $this->borrowModel->hasPendingBorrow($userId, $bookId);
+
+        $this->json(['success' => true, 'pending' => $pending]);
     }
 }
