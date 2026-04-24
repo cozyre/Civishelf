@@ -53,4 +53,12 @@ class BookController extends Controller {
             'currentPage'      => $page,
         ]);
     }
+
+    // -----------------------------------------------------------------------
+    // GET /books/offline  — Not available online info page
+    // Shown when a user tries to read a borrowed book that has no online file.
+    // -----------------------------------------------------------------------
+    public function offline(): void {
+    $this->view('books/offline', ['pageTitle' => 'Not Available Online']);
+}
 }

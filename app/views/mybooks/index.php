@@ -428,8 +428,35 @@
     // ---- Return stub ----
     document.querySelectorAll('.ledger-btn--return').forEach(function (btn) {
         btn.addEventListener('click', function () {
-            // TODO: POST /borrow/return { request_id: this.dataset.requestId }
-            alert('Return flow coming soon. Request ID: ' + this.dataset.requestId);
+            var requestId = this.dataset.requestId;
+            var row       = this.closest('.ledger-row');
+
+            if (!confirm('Return this book? This cannot be undone.')) return;
+
+            var self = this;
+            self.disabled    = true;
+            self.textContent = 'Returning…';
+
+            $.post(BASE_URL + '/borrow/return', { request_id: requestId }, function (res) {
+                if (res.success) {
+                    row.style.transition = 'opacity 0.3s';
+                    row.style.opacity    = '0';
+                    setTimeout(function () {
+                        row.remove();
+                        // Decrement the borrowed count pill
+                        var countEl = document.querySelectorAll('.mybooks-count-pill .count-num')[1];
+                        if (countEl) countEl.textContent = Math.max(0, parseInt(countEl.textContent) - 1);
+                    }, 300);
+                } else {
+                    self.disabled    = false;
+                    self.textContent = 'Return';
+                    alert(res.message || 'Return failed. Please try again.');
+                }
+            }, 'json').fail(function () {
+                self.disabled    = false;
+                self.textContent = 'Return';
+                alert('Network error. Please try again.');
+            });
         });
     });
 

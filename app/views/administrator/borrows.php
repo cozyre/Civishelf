@@ -171,7 +171,7 @@ ob_start(); ?>
      JS
 ================================================================= -->
 <script>
-(function () {
+document.addEventListener('DOMContentLoaded', function () {
 
     var approveModal = bootstrap.Modal.getOrCreateInstance(document.getElementById('approveModal'));
 
@@ -223,7 +223,7 @@ ob_start(); ?>
         });
     });
 
-})();
+});
 </script>
 
 <?php

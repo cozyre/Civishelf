@@ -46,10 +46,29 @@ class BorrowController extends Controller {
     }
 
     // -----------------------------------------------------------------------
-    // GET /books/offline  — Not available online info page
-    // Shown when a user tries to read a borrowed book that has no online file.
+    // POST /borrow/return  — AJAX
+    // User self-returns a book they currently have approved.
     // -----------------------------------------------------------------------
-    public function offline(): void {
-        $this->view('books/offline', ['pageTitle' => 'Not Available Online']);
+    public function return(): void {
+        $this->requireLogin();
+
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->json(['success' => false, 'message' => 'Invalid method.'], 405);
+        }
+
+        $requestId = (int) ($_POST['request_id'] ?? 0);
+        if ($requestId <= 0) {
+            $this->json(['success' => false, 'message' => 'Invalid request ID.'], 400);
+        }
+
+        $userId  = (int) $_SESSION['user_id'];
+        $success = $this->borrowModel->returnRequest($requestId, $userId);
+
+        $this->json([
+            'success' => $success,
+            'message' => $success
+                ? 'Book returned successfully.'
+                : 'Could not process return. The request may not be active.',
+        ]);
     }
 }
