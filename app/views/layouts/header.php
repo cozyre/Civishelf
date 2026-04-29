@@ -15,7 +15,7 @@
     <script>
         const BASE_URL = "<?= BASE_URL ?>";
         // Exposes login state to main.js without leaking session data
-        const CIVISHELF_USER = <?= (isset($_SESSION['user_id']) || isset($_SESSION['admin_id'])) ? 1 : 0 ?>;
+        var CIVISHELF_USER = <?= (isset($_SESSION['user_id']) || isset($_SESSION['admin_id'])) ? 1 : 0 ?>;
     </script>
 </head>
 <body>
@@ -133,7 +133,7 @@ function navTabClass(string $currentPath, string $path): string {
                     </div>
                     <?php unset($_SESSION['login_error']); ?>
                 <?php endif; ?>
-                <form action="<?= BASE_URL ?>/user/login" method="POST">
+                <form id="loginForm" action="<?= BASE_URL ?>/user/login" method="POST">
                     <div class="mb-3">
                         <label for="loginEmail" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="loginEmail" name="email"
@@ -152,7 +152,7 @@ function navTabClass(string $currentPath, string $path): string {
                         </div>
                     </div>
                     <div class="d-grid mb-3">
-                        <button type="submit" class="btn accent fw-semibold">Login</button>
+                        <button type="submit" class="btn accent fw-semibold" id="loginSubmitBtn">Login</button>
                     </div>
                     <p class="text-center small mb-0">
                         Don't have an account? <a href="<?= BASE_URL ?>/user/register"><b>Register here</b></a>

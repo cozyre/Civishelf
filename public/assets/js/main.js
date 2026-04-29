@@ -20,6 +20,11 @@
         if (el) bootstrap.Modal.getOrCreateInstance(el).show();
     }
 
+    function closeBookModal() {
+        var el = document.getElementById('bookModal');
+        if (el) bootstrap.Modal.getOrCreateInstance(el).hide();
+    }
+  
     // ----------------------------------------------------------------
     // Book modal — populate from data-* attributes on the trigger
     // ----------------------------------------------------------------
@@ -65,6 +70,7 @@
 
         // console.log(status, statusEl, copies);
         // console.log(currentBookId);
+        // console.log('isLoggedIn: ', isLoggedIn());
 
         // Action button: Borrow / Read
         actionBtn.disabled  = false;
@@ -79,9 +85,10 @@
 
         if (status === 'borrowed') {
             statusEl.textContent  = 'Borrowed — due ' + (t.dataset.due || '');
+
             actionBtn.textContent = 'Read';
             actionBtn.addEventListener('click', function () {
-                if (!isLoggedIn()) { openLoginModal(); return; }
+                if (!isLoggedIn()) { openLoginModal(); closeBookModal(); return; }
                 window.location.href = currentIsOnline
                     ? BASE_URL + '/books/read/' + currentBookId
                     : BASE_URL + '/books/offline';
@@ -90,7 +97,7 @@
             statusEl.textContent  = 'Available to read online';
             actionBtn.textContent = 'Read';
             actionBtn.addEventListener('click', function () {
-                if (!isLoggedIn()) { openLoginModal(); return; }
+                if (!isLoggedIn()) { openLoginModal(); closeBookModal(); return; }
                 window.location.href = BASE_URL + '/books/read/' + currentBookId;
             });
         } else {
@@ -101,7 +108,8 @@
 
             if (copies > 0) {
                 actionBtn.addEventListener('click', function () {
-                    if (!isLoggedIn()) { openLoginModal();}
+                    if (!isLoggedIn()) { openLoginModal(); closeBookModal(); return;}
+                    console.log("Borrowing!");
                     borrowBook(currentBookId, actionBtn, statusEl);
                 });
             }
@@ -132,15 +140,16 @@
     // ----------------------------------------------------------------
 
     document.getElementById('modalSaveBtn').addEventListener('click', function () {
-        if (!isLoggedIn()) { openLoginModal(); return; }
+        if (!isLoggedIn()) { openLoginModal(); closeBookModal(); return;}
         if (!currentBookId) return;
-
+        else{
         var isSaved = this.querySelector('i').classList.contains('bi-bookmark-fill');
         var endpoint = isSaved ? '/saved/unsave' : '/saved/save';
 
         $.post(BASE_URL + endpoint, { book_id: currentBookId }, function (res) {
             if (res.success) updateSaveIcon(res.saved);
         }, 'json');
+        }
     });
 
     function updateSaveIcon(saved) {
