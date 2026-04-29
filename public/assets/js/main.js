@@ -33,8 +33,8 @@
 
     // Clear action button handlers before setting new ones
     function clearActionButtonHandlers() {
-        var btn = document.getElementById('modalActionBtn');
-        btn.replaceWith(btn.cloneNode(true)); // removes all listeners
+        var actionBtn = document.getElementById('modalActionBtn');
+        actionBtn.replaceWith(actionBtn.cloneNode(true)); // removes all listeners
     }
 
     bookModal.addEventListener('show.bs.modal', function (e) {
@@ -46,6 +46,7 @@
         currentIsOnline = t.dataset.online === '1';
         
         clearActionButtonHandlers();
+        var actionBtn = document.getElementById('modalActionBtn');
 
         // Basic fields
         document.getElementById('modalTitle').textContent       = t.dataset.title       || '';
@@ -62,8 +63,10 @@
         var statusEl = document.getElementById('modalStatus');
         var copies   = parseInt(t.dataset.copies, 10) || 0;
 
+        // console.log(status, statusEl, copies);
+        // console.log(currentBookId);
+
         // Action button: Borrow / Read
-        var actionBtn = document.getElementById('modalActionBtn');
         actionBtn.disabled  = false;
         actionBtn.classList.remove('btn-disabled');
 
@@ -98,7 +101,7 @@
 
             if (copies > 0) {
                 actionBtn.addEventListener('click', function () {
-                    if (!isLoggedIn()) { openLoginModal(); return; }
+                    if (!isLoggedIn()) { openLoginModal();}
                     borrowBook(currentBookId, actionBtn, statusEl);
                 });
             }

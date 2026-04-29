@@ -15,7 +15,7 @@
     <script>
         const BASE_URL = "<?= BASE_URL ?>";
         // Exposes login state to main.js without leaking session data
-        const CIVISHELF_USER = <?= isset($_SESSION['user_id']) ? 1 : 0 ?>;
+        const CIVISHELF_USER = <?= (isset($_SESSION['user_id']) || isset($_SESSION['admin_id'])) ? 1 : 0 ?>;
     </script>
 </head>
 <body>
@@ -205,6 +205,7 @@ function navTabClass(string $currentPath, string $path): string {
                         <span id="modalStatus" class="book-modal-status"></span>
                     </div>
 
+                    <!-- ACTIONS -->
                     <div class="d-flex gap-2 align-items-center">
                         <button class="btn book-modal-btn flex-grow-1" id="modalPreviewBtn">Preview</button>
                         <button class="btn book-modal-btn flex-grow-1" id="modalActionBtn">Borrow</button>
