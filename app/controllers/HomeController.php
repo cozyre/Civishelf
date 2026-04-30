@@ -28,4 +28,22 @@ class HomeController extends Controller {
             'activeCategoryId' => $activeCategoryId,
         ]);
     }
+
+    // GET /home/filterBooks?category=X  — AJAX, returns JSON
+    public function filterBooks(): void {
+        $bookModel        = $this->model('Book');
+        $activeCategoryId = isset($_GET['category']) ? (int) $_GET['category'] : null;
+        $books            = $bookModel->getAll(8, 0, $activeCategoryId);
+
+        // Resolve user status for each book
+        $userId = $_SESSION['user_id'] ?? null;
+        foreach ($books as &$book) {
+            $resolved         = $bookModel->resolveUserStatus($book['book_id'], $userId);
+            $book['status']   = $resolved['status'];
+            $book['due_date'] = $resolved['due_date'];
+        }
+        unset($book);
+
+        $this->json(['success' => true, 'books' => $books]);
+    }
 }

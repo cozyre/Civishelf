@@ -1,4 +1,6 @@
-<?php include __DIR__ . '/../layouts/header.php'; ?>
+<?php include __DIR__ . '/../layouts/header.php'; 
+    $categories = $categories??[];
+?>
 
 <main class="mb-5 pb-5">
 
@@ -93,15 +95,11 @@
 
         <!-- Category filter chips -->
         <div class="category-chips d-flex gap-2 flex-wrap mb-4" id="categoryChips">
-            <a href="<?= BASE_URL ?>/"
-               class="btn chip-btn <?= $activeCategoryId === null ? 'chip-active' : '' ?>">
-                All
-            </a>
+            <button class="btn chip-btn chip-active" data-category="">All</button>
             <?php foreach ($categories as $cat): ?>
-            <a href="<?= BASE_URL ?>/?category=<?= $cat['category_id'] ?>"
-               class="btn chip-btn <?= $activeCategoryId === (int)$cat['category_id'] ? 'chip-active' : '' ?>">
+            <button class="btn chip-btn" data-category="<?= $cat['category_id'] ?>">
                 <?= htmlspecialchars($cat['category_name']) ?>
-            </a>
+            </button>
             <?php endforeach; ?>
         </div>
 
@@ -112,25 +110,25 @@
                 <?php $cover = BASE_URL . '/assets/images/covers/' . ($book['cover_image'] ?? 'book-placeholder.jpg'); ?>
                 <div class="col-6 col-md-3">
                     <div class="book-grid-item"
-                         data-id="<?= $book['book_id'] ?>"
-                         data-title="<?= htmlspecialchars($book['book_title']) ?>"
-                         data-author="<?= htmlspecialchars($book['author_name'] ?? '') ?>"
-                         data-category="<?= htmlspecialchars($book['category_name'] ?? '') ?>"
-                         data-description="<?= htmlspecialchars($book['description'] ?? '') ?>"
-                         data-published="<?= htmlspecialchars($book['published_at'] ?? '') ?>"
-                         data-copies="<?= (int)$book['available_copies'] ?>"
-                         data-cover="<?= $cover ?>"
-                         data-status="none"
-                         data-online="<?= isset($book['is_online']) && $book['is_online'] ? '1' : '0' ?>"
-                         data-due=""
-                         role="button"
-                         data-bs-toggle="modal"
-                         data-bs-target="#bookModal"
-                         tabindex="0">
+                        data-id="<?= $book['book_id'] ?>"
+                        data-title="<?= htmlspecialchars($book['book_title']) ?>"
+                        data-author="<?= htmlspecialchars($book['author_name'] ?? '') ?>"
+                        data-category="<?= htmlspecialchars($book['category_name'] ?? '') ?>"
+                        data-description="<?= htmlspecialchars($book['description'] ?? '') ?>"
+                        data-published="<?= htmlspecialchars($book['published_at'] ?? '') ?>"
+                        data-copies="<?= (int)$book['available_copies'] ?>"
+                        data-cover="<?= $cover ?>"
+                        data-status="none"
+                        data-online="<?= isset($book['is_online']) && $book['is_online'] ? '1' : '0' ?>"
+                        data-due=""
+                        role="button"
+                        data-bs-toggle="modal"
+                        data-bs-target="#bookModal"
+                        tabindex="0">
                         <div class="position-relative overflow-hidden rounded">
                             <img src="<?= $cover ?>"
-                                 alt="<?= htmlspecialchars($book['book_title']) ?>"
-                                 class="w-100 book-grid-cover">
+                                alt="<?= htmlspecialchars($book['book_title']) ?>"
+                                class="w-100 book-grid-cover">
                             <div class="book-grid-overlay position-absolute bottom-0 start-0 end-0 px-2 py-1">
                                 <span class="small"><?= htmlspecialchars($book['book_title']) ?></span>
                             </div>
@@ -183,7 +181,71 @@
 </main>
 
 <script>
-// Category chip search — filters visible chips by text (client-side UX only)
+// Category chip AJAX filter
+(function () {
+    var coverBase = BASE_URL + '/assets/images/covers/';
+
+    document.querySelectorAll('#categoryChips .chip-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            // Active state
+            document.querySelectorAll('#categoryChips .chip-btn').forEach(function (b) {
+                b.classList.remove('chip-active');
+            });
+            this.classList.add('chip-active');
+
+            var categoryId = this.dataset.category;
+            var url = BASE_URL + '/home/filterBooks' + (categoryId ? '?category=' + categoryId : '');
+
+            $.get(url, function (res) {
+                if (!res.success) return;
+                var grid = document.getElementById('majorBooksGrid');
+                grid.innerHTML = '';
+
+                if (!res.books.length) {
+                    grid.innerHTML = '<p class="opacity-50 py-3">No books in this category yet.</p>';
+                    return;
+                }
+
+                res.books.forEach(function (book) {
+                    var cover = coverBase + (book.cover_image || 'book-placeholder.jpg');
+                    var col   = document.createElement('div');
+                    col.className = 'col-6 col-md-3';
+                    col.innerHTML =
+                        '<div class="book-grid-item"' +
+                        ' data-id="'          + book.book_id     + '"' +
+                        ' data-title="'       + escAttr(book.book_title)      + '"' +
+                        ' data-author="'      + escAttr(book.author_name||'') + '"' +
+                        ' data-category="'    + escAttr(book.category_name||'') + '"' +
+                        ' data-description="' + escAttr(book.description||'') + '"' +
+                        ' data-published="'   + escAttr(book.published_at||'') + '"' +
+                        ' data-copies="'      + (book.available_copies||0)    + '"' +
+                        ' data-cover="'       + cover + '"' +
+                        ' data-status="'      + escAttr(book.status||'none')  + '"' +
+                        ' data-online="'      + (book.is_online ? '1' : '0')  + '"' +
+                        ' data-due="'         + escAttr(book.due_date||'')    + '"' +
+                        ' role="button" data-bs-toggle="modal" data-bs-target="#bookModal" tabindex="0">' +
+                            '<div class="position-relative overflow-hidden rounded">' +
+                                '<img src="' + cover + '" alt="' + escAttr(book.book_title) + '" class="w-100 book-grid-cover">' +
+                                '<div class="book-grid-overlay position-absolute bottom-0 start-0 end-0 px-2 py-1">' +
+                                    '<span class="small">' + escHtml(book.book_title) + '</span>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>';
+                    grid.appendChild(col);
+                });
+            }, 'json');
+        });
+    });
+
+    function escAttr(str) {
+        return String(str).replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    function escHtml(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+})();
+
+// Keep the category search filter (filters chips, not books)
 document.getElementById('categorySearch').addEventListener('input', function () {
     var query = this.value.toLowerCase();
     document.querySelectorAll('.chip-btn').forEach(function (btn) {

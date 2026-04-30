@@ -26,7 +26,7 @@
                 </div>
             <?php endif; ?>
 
-            <form action="/user/register" method="POST" novalidate>
+            <form action="<?= BASE_URL ?>/user/register" method="POST" novalidate>
 
                 <div class="mb-3">
                     <label for="name" class="form-label">Full Name</label>

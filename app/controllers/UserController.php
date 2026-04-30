@@ -52,7 +52,7 @@ class UserController extends Controller {
     // -----------------------------------------------------------------------
     public function register() {
         if (isset($_SESSION['user_id'])) {
-            $this->redirect('/');
+            $this->redirect('../');
         }
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

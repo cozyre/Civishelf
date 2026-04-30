@@ -75,7 +75,7 @@ ul{
 
 /* --- Masonry hero --- */
 .book-gallery {
-    columns: 3 120px;
+    columns: 3 110px;
     column-gap: 0.5rem;
 }
 
@@ -138,7 +138,11 @@ ul{
     transition: filter 0.2s ease;
 }
 
-.book-grid-item { cursor: pointer; }
+.book-grid-item {
+    cursor: pointer; 
+    columns: 4 25vw;
+    column-gap: 0.5rem;
+}
 .book-grid-item:hover .book-grid-cover { filter: brightness(0.75); }
 
 .book-grid-overlay {

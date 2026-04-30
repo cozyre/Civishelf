@@ -1,37 +1,17 @@
-<?php include __DIR__ . '/../layouts/header.php'; ?>
+<?php include __DIR__ . '/../layouts/header.php'; 
+$categories = $categories??[];
+$activeCategoryId = $activeCategoryId??[];
+$featuredBooks = $featuredBooks??[];
+$popularBooks = $popularBooks??[];
+$books = $books??[];
+$currentPage = $currentPage??0;
+?>
 
 <main class="mb-5 pb-5">
-
-    <!-- =====================================================
-         SEARCH + CATEGORY FILTERS
-    ====================================================== -->
     <section class="container-fluid px-3 mt-4">
-
-        <div class="input-group mb-3 explore-search-wrap">
-            <span class="input-group-text search-icon-wrap">
-                <i class="bi bi-search"></i>
-            </span>
-            <input type="text"
-                   id="bookSearch"
-                   class="form-control explore-search-input"
-                   placeholder="Search Title, Author, or category">
-            <button class="btn category-search-btn" type="button">
-                <i class="bi bi-plus-lg"></i>
-            </button>
-        </div>
-
-        <!-- Category filter chips — server-side active state -->
-        <div class="category-chips d-flex gap-2 flex-wrap mb-4" id="categoryChips">
-            <a href="<?= BASE_URL ?>/books"
-               class="btn chip-btn <?= $activeCategoryId === null ? 'chip-active' : '' ?>">
-                All
-            </a>
-            <?php foreach ($categories as $cat): ?>
-            <a href="<?= BASE_URL ?>/books?category=<?= $cat['category_id'] ?>"
-               class="btn chip-btn <?= $activeCategoryId === (int)$cat['category_id'] ? 'chip-active' : '' ?>">
-                <?= htmlspecialchars($cat['category_name']) ?>
-            </a>
-            <?php endforeach; ?>
+        <div class="section-header d-flex align-items-center mb-3">
+            <h2 class="section-title mb-0 me-3">Featured</h2>
+            <hr class="flex-grow-1 m-0">
         </div>
 
     </section>
@@ -118,6 +98,32 @@
          MAIN BOOK GRID — paginated, filterable
     ====================================================== -->
     <section class="container-fluid px-3">
+        <div class="input-group mb-3 explore-search-wrap">
+            <span class="input-group-text search-icon-wrap">
+                <i class="bi bi-search"></i>
+            </span>
+            <input type="text"
+                   id="bookSearch"
+                   class="form-control explore-search-input"
+                   placeholder="Search Title, Author, or category">
+            <button class="btn category-search-btn" type="button">
+                <i class="bi bi-plus-lg"></i>
+            </button>
+        </div>
+
+        <!-- Category filter chips — server-side active state -->
+        <div class="category-chips d-flex gap-2 flex-wrap mb-4" id="categoryChips">
+            <a href="<?= BASE_URL ?>/books"
+               class="btn chip-btn <?= $activeCategoryId === null ? 'chip-active' : '' ?>">
+                All
+            </a>
+            <?php foreach ($categories as $cat): ?>
+            <a href="<?= BASE_URL ?>/books?category=<?= $cat['category_id'] ?>"
+               class="btn chip-btn <?= $activeCategoryId === (int)$cat['category_id'] ? 'chip-active' : '' ?>">
+                <?= htmlspecialchars($cat['category_name']) ?>
+            </a>
+            <?php endforeach; ?>
+        </div>
 
         <div class="row g-3" id="bookGrid">
             <?php foreach ($books as $book): ?>
