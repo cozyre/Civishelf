@@ -1,7 +1,7 @@
 <?php include __DIR__ . '/../layouts/header.php'; ?>
 
 <main class="">
-    <div class="container py-4 mb-5">
+    <div class="container card py-4 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-5">
 

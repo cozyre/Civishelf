@@ -86,4 +86,17 @@ class Borrow {
         $stmt->execute([':uid' => $userId, ':bid' => $bookId]);
         return (bool) $stmt->fetch();
     }
+
+    public function getUserHistory(int $userId): array {
+        $stmt = $this->db->prepare(
+            "SELECT br.*, b.book_title, b.cover_image, a.author_name
+            FROM borrow_requests br
+            JOIN books b ON br.book_id = b.book_id
+            LEFT JOIN authors a ON b.author_id = a.author_id
+            WHERE br.user_id = :uid
+            ORDER BY br.borrow_date DESC"
+        );
+        $stmt->execute([':uid' => $userId]);
+        return $stmt->fetchAll();
+    }
 }

@@ -52,14 +52,14 @@ function navTabClass(string $currentPath, string $path): string {
             <ul class="dropdown-menu">
                 <?php if (isset($_SESSION['admin_id'])): ?>
                     <li><a href="<?= BASE_URL ?>/user/profile" class="dropdown-item"><i class="bi bi-person me-2"></i>My Account</a></li>
-                    <li><a href="<?= BASE_URL ?>/mybooks" class="dropdown-item"><i class="bi bi-clock-history me-2"></i>History</a></li>
+                    <li><a href="<?= BASE_URL ?>/user/history" class="dropdown-item"><i class="bi bi-clock-history me-2"></i>History</a></li>
                     <li><a href="<?= BASE_URL ?>/administrator" class="dropdown-item"><i class="bi bi-shield-lock me-2"></i>Admin Panel</a></li>
                     <li><a href="<?= BASE_URL ?>/contact" class="dropdown-item"><i class="bi bi-envelope me-2"></i>Contact Us</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a href="<?= BASE_URL ?>/admin/logout" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
                 <?php elseif (isset($_SESSION['user_id'])): ?>
                     <li><a href="<?= BASE_URL ?>/user/profile" class="dropdown-item"><i class="bi bi-person me-2"></i>My Account</a></li>
-                    <li><a href="<?= BASE_URL ?>/mybooks" class="dropdown-item"><i class="bi bi-clock-history me-2"></i>History</a></li>
+                    <li><a href="<?= BASE_URL ?>/user/history" class="dropdown-item"><i class="bi bi-clock-history me-2"></i>History</a></li>
                     <li><a href="<?= BASE_URL ?>/contact" class="dropdown-item"><i class="bi bi-envelope me-2"></i>Contact Us</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a href="<?= BASE_URL ?>/administrator" class="dropdown-item"><i class="bi bi-shield-lock me-2"></i>Admin Login</a></li>

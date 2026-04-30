@@ -1,5 +1,8 @@
 <?php
 // app/views/administrator/users.php
+$page = $page??1;
+$totalUsers = $totalUsers??0;
+$limit = $limit??0;
 ob_start(); ?>
 
 <!-- ---- Toolbar ---- -->

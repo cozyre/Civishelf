@@ -146,4 +146,18 @@ class UserController extends Controller {
             'totalBorrows' => $totalBorrows,
         ]);
     }
+
+    public function history(): void {
+        $this->requireLogin();
+
+        require_once __DIR__ . '/../models/Borrow.php';
+        $borrowModel = new Borrow();
+
+        $history = $borrowModel->getUserHistory((int) $_SESSION['user_id']);
+
+        $this->view('user/history', [
+            'pageTitle' => 'Borrow History',
+            'history'   => $history,
+        ]);
+    }
 }
