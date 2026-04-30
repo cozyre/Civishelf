@@ -68,4 +68,12 @@ class User {
         $stmt->execute([':email' => $email]);
         return $stmt->fetch();
     }
+
+    public function getTotalBorrows(int $userId): int {
+        $stmt = $this->db->prepare(
+            "SELECT COUNT(*) FROM borrow_requests WHERE user_id = :id"
+        );
+        $stmt->execute([':id' => $userId]);
+        return (int) $stmt->fetchColumn();
+    }
 }

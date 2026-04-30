@@ -25,7 +25,7 @@
                         </div>
                     <?php endif; ?>
 
-                    <form action="/contact/send" method="POST" novalidate>
+                    <form action="<?= BASE_URL ?>/contact/send" method="POST" novalidate>
 
                         <div class="mb-3">
                             <label class="contact-label" for="contactName">Name</label>

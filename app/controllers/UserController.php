@@ -126,4 +126,24 @@ class UserController extends Controller {
         header('Location: ' . $back);
         exit;
     }
+
+    public function profile(): void {
+        $this->requireLogin();
+
+        $userId = (int) $_SESSION['user_id'];
+        $user   = $this->userModel->findById($userId);
+
+        if (!$user) {
+            flash('danger', 'User not found.');
+            $this->redirect('/');
+        }
+
+        $totalBorrows = $this->userModel->getTotalBorrows($userId);
+
+        $this->view('user/profile', [
+            'pageTitle'    => 'My Account',
+            'user'         => $user,
+            'totalBorrows' => $totalBorrows,
+        ]);
+    }
 }

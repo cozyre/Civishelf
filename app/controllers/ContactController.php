@@ -22,10 +22,9 @@ class ContactController extends Controller {
             $this->redirect('contact');
         }
 
-        $name    = trim(filter_input(INPUT_POST, 'name',    FILTER_SANITIZE_SPECIAL_CHARS));
+        $name    = trim(filter_input(INPUT_POST, 'name',    FILTER_DEFAULT));
         $email   = trim(filter_input(INPUT_POST, 'email',   FILTER_SANITIZE_EMAIL));
-        $message = trim(filter_input(INPUT_POST, 'message', FILTER_SANITIZE_SPECIAL_CHARS));
-
+        $message = trim(filter_input(INPUT_POST, 'message', FILTER_DEFAULT));
         $errors = [];
 
         if (strlen($name) < 2)                           $errors[] = 'Name must be at least 2 characters.';
