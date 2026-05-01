@@ -46,6 +46,10 @@ a{
 ul{
     list-style-type: none;
 }
+li{
+    list-style: none;
+    list-style-type: none;
+}
 
 .hero-banner {
     background-image: url('/Civishelf/public/assets/images/logos/hero-bg.jpg');

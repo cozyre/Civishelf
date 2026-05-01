@@ -1,14 +1,16 @@
-<footer class="primary">
-    <div class="container p-1 d-flex align-items-center justify-content-evenly">
-        <a href="/" class="">Home</a>
-        <a href="<?= BASE_URL ?>/books" class="">Explore</a>
-        <a href="<?= BASE_URL ?>/news" class="">News</a>
+<footer class="primary p-2">
+    <div class="container pt-2 d-flex align-items-center justify-content-evenly">
+        <a href=".">Privacy Policy</a>
+        <a href=".">Terms of Service</a>
         <a href="<?= BASE_URL ?>/contact" class="">Contact Us</a>
         <?php if (isset($_SESSION['user_id']) || isset($_SESSION['admin_id'])): ?>
             <a href="/user/logout" class="">Logout</a>
         <?php else: ?>
             <a href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="">Login</a>
         <?php endif; ?>
+    </div>
+    <div class="row text-center mt-5 mb-2">
+        <p><i>Your campus library, Always Open. </i>| &copy; 2026 Civishelf Technologies, Inc. All rights reserved</p>
     </div>
 </footer>
 

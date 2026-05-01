@@ -2,7 +2,7 @@
     $categories = $categories??[];
 ?>
 
-<main class="mb-5 pb-5">
+<main class="pb-4 mb-4">
 
     <!-- =====================================================
          HERO SECTION
@@ -147,34 +147,37 @@
     </section>
     
     <!-- =====================================================
-         COMPANY DETAILS
+        COMPANY DETAILS
     ====================================================== -->
-    <section id="company-details" class="primary">
-        <div class="mx-4 p-2">
-            <img src="<?= BASE_URL ?>/assets/images/logos/logo.png" alt="Civishelf Logo" style="max-height: 4rem;">
-            <hr>
+    <section id="company-details" class="primary row pt-4 px-2">
+        <div class="col-md-6 text-center pb-2">
+            <img class="" src="<?= BASE_URL ?>/assets/images/logos/logo.png" alt="Civishelf Logo" style="max-height: 8rem;">
+            <p class="fs-5 align-content-center text-break">"Empowering campus learning through accessible digital knowledge."</p>
         </div>
-        <div class="row p-1">
-            <div class="col-md-4">
-                <ul>
-                    <li>Civishelf Technologies, Inc.</li>
-                    <li>2024</li>
-                    <li>Jakarta, Indonesia</li>
-                </ul>
-            </div>
-            <div class="col-md-4 px-4">
-                <p><b>Civishelf Digital Library</b><br>
-                "Empowering campus learning through accessible digital knowledge."</p>
-            </div>
-            <div class="col-md-4">
-                <p>Business Hours: Monday - Friday: 08:00 - 18:00 WIB
-                    <br>&copy; 2026 Civishelf Technologies, Inc. All rights reserved
-                    <br>Privacy Policy | Terms of Service
-                </p>
-            </div>
+        <div class="col-md d-sm-none d-md-flex">
+        <div class="vr h-100"></div>
         </div>
-        <div class="row text-center m-2 py-4 px-2">
-            <p>Digital Book Lending • Academic Resources • Research Archives • Campus Integration Systems</p>
+        <div class="col-md-5 align-content-center ms-2">
+            <ul class="m-0 p-0 lh-lg fs-5">
+                <li><i class="bi bi-journal-bookmark me-4"></i>Digital Book Lending</li>
+                <li><i class="bi bi-mortarboard me-4"></i>Academic Resources</li>
+                <li><i class="bi bi-archive me-4"></i>Research Archives</li>
+                <li><i class="bi bi-gear me-4"></i>Campus Integration Systems</li>
+            </ul>
+        </div>
+        <div class="row my-4 p-2 text-center">
+            <p class="fs-4 mb-0 me-3">What is Civishelf ?</p>
+            <p class="">Civishelf is a campus-focused digital library platform that gives students and faculty 
+                easy access to academic books, research materials, and learning resources in one place. 
+                It streamlines borrowing, organizing, and discovering content, 
+                making studying and research faster, smarter, and fully accessible online.
+            </p>
+            <div class="d-md-flex justify-content-evenly my-2">
+                <div><i class="bi bi-envelope"></i> Civishelf@company.com</div>
+                <div><i class="bi bi-telephone"></i> 123-3212-4563</div>
+                <div><i class="bi bi-instagram"></i> civishelf.co</div>
+                <div><i class="bi bi-buildings"></i> Jakarta, Indonesia</div>
+            </div>
         </div>
     </section>
     
