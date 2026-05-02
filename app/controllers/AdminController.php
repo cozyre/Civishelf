@@ -432,4 +432,36 @@ class AdminController extends Controller {
 
         return ['ok' => true, 'filename' => $filename, 'error' => ''];
     }
+
+    // ========================================================================
+    // MESSAGES  GET /administrator/messages
+    // ========================================================================
+
+    public function messages(): void {
+        $this->requireAdmin();
+
+        $page   = max(1, (int) ($_GET['page'] ?? 1));
+        $limit  = 20;
+        $offset = ($page - 1) * $limit;
+
+        $this->view('administrator/messages', [
+            'pageTitle'     => 'Contact Messages',
+            'activeNav'     => 'messages',
+            'messages'      => $this->adminModel->getContactMessages($limit, $offset),
+            'totalMessages' => $this->adminModel->countContactMessages(),
+            'page'          => $page,
+            'limit'         => $limit,
+        ]);
+    }
+
+    // POST /administrator/message/delete  (AJAX)
+    public function messageDelete(): void {
+        $this->requireAdmin();
+
+        $id = (int) ($_POST['message_id'] ?? 0);
+        if (!$id) $this->json(['success' => false, 'message' => 'Invalid ID.'], 400);
+
+        $ok = $this->adminModel->deleteContactMessage($id);
+        $this->json(['success' => $ok, 'message' => $ok ? 'Message deleted.' : 'Failed.']);
+    }
 }

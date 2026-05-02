@@ -227,6 +227,10 @@
            class="sidebar-link <?= ($activeNav ?? '') === 'news' ? 'active' : '' ?>">
             <i class="bi bi-newspaper"></i> News
         </a>
+        <a href="<?= BASE_URL ?>/administrator/messages"
+            class="sidebar-link <?= ($activeNav ?? '') === 'messages' ? 'active' : '' ?>">
+            <i class="bi bi-envelope"></i> Messages
+        </a>
 
         <div class="sidebar-section-label">Site</div>
         <a href="<?= BASE_URL ?>/" class="sidebar-link" target="">

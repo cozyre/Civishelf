@@ -397,4 +397,27 @@ class Admin {
         $stmt = $this->db->prepare("DELETE FROM news WHERE news_id = :id");
         return $stmt->execute([':id' => $id]);
     }
+
+    // ========================================================================
+    // CONTACT MESSAGES
+    // ========================================================================
+
+    public function getContactMessages(int $limit = 50, int $offset = 0): array {
+        $stmt = $this->db->prepare(
+            "SELECT * FROM contact_messages ORDER BY created_at DESC LIMIT :limit OFFSET :offset"
+        );
+        $stmt->bindValue(':limit',  $limit,  PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function countContactMessages(): int {
+        return (int) $this->db->query("SELECT COUNT(*) FROM contact_messages")->fetchColumn();
+    }
+
+    public function deleteContactMessage(int $id): bool {
+        $stmt = $this->db->prepare("DELETE FROM contact_messages WHERE message_id = :id");
+        return $stmt->execute([':id' => $id]);
+    }
 }
