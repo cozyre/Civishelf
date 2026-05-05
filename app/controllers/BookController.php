@@ -59,6 +59,23 @@ class BookController extends Controller {
     // Shown when a user tries to read a borrowed book that has no online file.
     // -----------------------------------------------------------------------
     public function offline(): void {
-    $this->view('books/offline', ['pageTitle' => 'Not Available Online']);
-}
+        $this->view('books/offline', ['pageTitle' => 'Not Available Online']);
+    }
+
+    // GET /books/filterBooks?category=X  — AJAX, returns JSON for the main grid
+    public function filterBooks(): void {
+        $bookModel        = $this->model('Book');
+        $activeCategoryId = isset($_GET['category']) ? (int) $_GET['category'] : null;
+        $books            = $bookModel->getAll(8, 0, $activeCategoryId);
+
+        $userId = $_SESSION['user_id'] ?? null;
+        foreach ($books as &$book) {
+            $resolved         = $bookModel->resolveUserStatus($book['book_id'], $userId);
+            $book['status']   = $resolved['status'];
+            $book['due_date'] = $resolved['due_date'];
+        }
+        unset($book);
+
+        $this->json(['success' => true, 'books' => $books]);
+    }
 }

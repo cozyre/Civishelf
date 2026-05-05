@@ -113,15 +113,11 @@ $currentPage = $currentPage??0;
 
         <!-- Category filter chips — server-side active state -->
         <div class="category-chips d-flex gap-2 flex-wrap mb-4" id="categoryChips">
-            <a href="<?= BASE_URL ?>/books"
-               class="btn chip-btn <?= $activeCategoryId === null ? 'chip-active' : '' ?>">
-                All
-            </a>
+            <button class="btn chip-btn chip-active" data-category="">All</button>
             <?php foreach ($categories as $cat): ?>
-            <a href="<?= BASE_URL ?>/books?category=<?= $cat['category_id'] ?>"
-               class="btn chip-btn <?= $activeCategoryId === (int)$cat['category_id'] ? 'chip-active' : '' ?>">
+            <button class="btn chip-btn" data-category="<?= $cat['category_id'] ?>">
                 <?= htmlspecialchars($cat['category_name']) ?>
-            </a>
+            </button>
             <?php endforeach; ?>
         </div>
 
@@ -174,17 +170,78 @@ $currentPage = $currentPage??0;
 </main>
 
 <script>
-// Client-side search filter (title/author/category in current DOM)
+// Category chip AJAX filter — mirrors home page pattern
+(function () {
+    var coverBase = BASE_URL + '/assets/images/covers/';
+
+    document.querySelectorAll('#categoryChips .chip-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            document.querySelectorAll('#categoryChips .chip-btn').forEach(function (b) {
+                b.classList.remove('chip-active');
+            });
+            this.classList.add('chip-active');
+
+            var categoryId = this.dataset.category;
+            var url = BASE_URL + '/books/filterBooks' + (categoryId ? '?category=' + categoryId : '');
+
+            $.get(url, function (res) {
+                if (!res.success) return;
+                var grid = document.getElementById('bookGrid');
+                grid.innerHTML = '';
+
+                if (!res.books.length) {
+                    grid.innerHTML = '<p class="opacity-50 py-3 col-12">No books in this category yet.</p>';
+                    return;
+                }
+
+                res.books.forEach(function (book) {
+                    var cover = coverBase + (book.cover_image || 'book-placeholder.jpg');
+                    var col   = document.createElement('div');
+                    col.className = 'col-6 col-md-3';
+                    col.innerHTML =
+                        '<div class="book-grid-item"' +
+                        ' data-id="'          + book.book_id + '"' +
+                        ' data-title="'       + escAttr(book.book_title)        + '"' +
+                        ' data-author="'      + escAttr(book.author_name   || '') + '"' +
+                        ' data-category="'    + escAttr(book.category_name || '') + '"' +
+                        ' data-description="' + escAttr(book.description   || '') + '"' +
+                        ' data-published="'   + escAttr(book.published_at  || '') + '"' +
+                        ' data-copies="'      + (book.available_copies || 0)      + '"' +
+                        ' data-cover="'       + cover + '"' +
+                        ' data-status="'      + escAttr(book.status    || 'none') + '"' +
+                        ' data-online="'      + (book.is_online ? '1' : '0')      + '"' +
+                        ' data-due="'         + escAttr(book.due_date || '')       + '"' +
+                        ' role="button" data-bs-toggle="modal" data-bs-target="#bookModal" tabindex="0">' +
+                            '<div class="position-relative overflow-hidden rounded">' +
+                                '<img src="' + cover + '" alt="' + escAttr(book.book_title) + '" class="w-100 book-grid-cover">' +
+                                '<div class="book-grid-overlay position-absolute bottom-0 start-0 end-0 px-2 py-1">' +
+                                    '<span class="small">' + escHtml(book.book_title) + '</span>' +
+                                '</div>' +
+                            '</div>' +
+                        '</div>';
+                    grid.appendChild(col);
+                });
+            }, 'json');
+        });
+    });
+
+    function escAttr(str) {
+        return String(str).replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+    function escHtml(str) {
+        return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+})();
+
+// Client-side search filter (existing — unchanged)
 document.getElementById('bookSearch').addEventListener('input', function () {
     var q = this.value.toLowerCase();
-
     document.querySelectorAll('.gallery-item').forEach(function (item) {
         var match = (item.dataset.title    || '').toLowerCase().includes(q) ||
                     (item.dataset.author   || '').toLowerCase().includes(q) ||
                     (item.dataset.category || '').toLowerCase().includes(q);
         item.style.display = match ? '' : 'none';
     });
-
     document.querySelectorAll('#bookGrid [class*="col"]').forEach(function (col) {
         var item  = col.querySelector('.book-grid-item');
         var match = item &&

@@ -464,4 +464,26 @@ class AdminController extends Controller {
         $ok = $this->adminModel->deleteContactMessage($id);
         $this->json(['success' => $ok, 'message' => $ok ? 'Message deleted.' : 'Failed.']);
     }
+
+    public function promoteAdmin(): void {
+        // Must be a logged-in regular user, not already an admin
+        if (empty($_SESSION['user_id']) || !empty($_SESSION['admin_id'])) {
+            $this->redirect('/administrator');
+            return;
+        }
+
+        $userId = (int) $_SESSION['user_id'];
+        $ok     = $this->userModel->promoteToAdmin($userId);
+
+        if ($ok) {
+            // Upgrade their session to admin immediately
+            $_SESSION['admin_id']   = $_SESSION['user_id'];
+            $_SESSION['admin_name'] = $_SESSION['user_name'];
+            flash('success', 'Admin access granted. Welcome to the panel.');
+            $this->redirect('/administrator');
+        } else {
+            flash('danger', 'Promotion failed. You may already be an admin.');
+            $this->redirect('/admin/login');
+        }
+    }
 }

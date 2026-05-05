@@ -76,4 +76,11 @@ class User {
         $stmt->execute([':id' => $userId]);
         return (int) $stmt->fetchColumn();
     }
+
+    public function promoteToAdmin(int $userId): bool {
+        $stmt = $this->db->prepare(
+            "UPDATE users SET role = 'admin' WHERE user_id = :id AND role = 'user'"
+        );
+        return $stmt->execute([':id' => $userId]);
+    }
 }
