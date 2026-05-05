@@ -380,7 +380,7 @@ class AdminController extends Controller {
             $ok = $this->adminModel->updateNews($newsId, $title, $content, $image);
             flash($ok ? 'success' : 'danger', $ok ? 'Article updated.' : 'Update failed.');
         } else {
-            $ok = $this->adminModel->createNews($title, $content, $image);
+            $ok = $this->adminModel->createNews($title, $content, $image, (int) $_SESSION['admin_id']);
             flash($ok ? 'success' : 'danger', $ok ? 'Article published.' : 'Publish failed.');
         }
 

@@ -374,12 +374,13 @@ class Admin {
         return $stmt->fetch();
     }
 
-    public function createNews(string $title, string $content, string $image): bool {
-        $stmt = $this->db->prepare(
-            "INSERT INTO news (news_title, content, image, created_at) VALUES (:title, :content, :image, NOW())"
-        );
-        return $stmt->execute([':title' => $title, ':content' => $content, ':image' => $image]);
-    }
+    public function createNews(string $title, string $content, string $image, int $createdBy): bool {
+    $stmt = $this->db->prepare(
+        "INSERT INTO news (news_title, content, image, created_at, created_by) 
+         VALUES (:title, :content, :image, NOW(), :created_by)"
+    );
+    return $stmt->execute([':title' => $title, ':content' => $content, ':image' => $image, ':created_by' => $createdBy]);
+}
 
     public function updateNews(int $id, string $title, string $content, string $image): bool {
         $stmt = $this->db->prepare(
