@@ -231,6 +231,13 @@
             class="sidebar-link <?= ($activeNav ?? '') === 'messages' ? 'active' : '' ?>">
             <i class="bi bi-envelope"></i> Messages
         </a>
+        <a href="<?= BASE_URL ?>/administrator/adminRequests"
+        class="sidebar-link <?= ($activeNav ?? '') === 'adminRequests' ? 'active' : '' ?>">
+            <i class="bi bi-shield-plus"></i> Admin Requests
+            <?php if (!empty($pendingAdminCount) && $pendingAdminCount > 0): ?>
+                <span class="badge-pending"><?= (int)$pendingAdminCount ?></span>
+            <?php endif; ?>
+        </a>
 
         <div class="sidebar-section-label">Site</div>
         <a href="<?= BASE_URL ?>/" class="sidebar-link" target="">

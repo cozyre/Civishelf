@@ -75,23 +75,24 @@ function navTabClass(string $currentPath, string $path): string {
             </ul>
         </div>
     </div>
-
-    <div class="container gap-2 pb-0 mt-5 align-items-end">
+    
+    <!-- TABS -->
+    <div class="d-flex w-100 pb-0 mt-5 gap-1 align-items-end justify-content-end">
         <a href="<?= BASE_URL ?>/"
-           class="<?= navTabClass($currentPath, '/Civishelf') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
+           class="<?= navTabClass($currentPath, '/Civishelf') ?> col offset-1 border border-bottom-0 rounded-top rounded-end-0 menu px-2 text-decoration-none">
             Home
         </a>
         <a href="<?= BASE_URL ?>/books"
-           class="<?= navTabClass($currentPath, '/Civishelf/books') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
+           class="<?= navTabClass($currentPath, '/Civishelf/books') ?> col border border-bottom-0 rounded-top rounded-end-0 menu px-2 text-decoration-none">
             Explore
         </a>
         <a href="<?= BASE_URL ?>/news"
-           class="<?= navTabClass($currentPath, '/Civishelf/news') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
+           class="<?= navTabClass($currentPath, '/Civishelf/news') ?> col border border-bottom-0 rounded-top rounded-end-0 menu px-2 text-decoration-none">
             News
         </a>
         <?php if (isset($_SESSION['user_id']) || isset($_SESSION['admin_id'])): ?>
             <a href="<?= BASE_URL ?>/mybooks"
-               class="<?= navTabClass($currentPath, '/Civishelf/mybooks') ?> col border border-bottom-0 rounded-top menu ps-3 text-decoration-none">
+               class="<?= navTabClass($currentPath, '/Civishelf/mybooks') ?> col border border-bottom-0 rounded-top rounded-end-0 menu px-2 text-decoration-none">
                 My Books
             </a>
         <?php else: ?>

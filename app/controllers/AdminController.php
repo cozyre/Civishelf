@@ -466,24 +466,72 @@ class AdminController extends Controller {
     }
 
     public function promoteAdmin(): void {
-        // Must be a logged-in regular user, not already an admin
-        if (empty($_SESSION['user_id']) || !empty($_SESSION['admin_id'])) {
+        // Case 1: already an admin
+        if (!empty($_SESSION['admin_id'])) {
+            flash('info', 'You are already registered as an admin.');
             $this->redirect('/administrator');
             return;
         }
 
         $userId = (int) $_SESSION['user_id'];
-        $ok     = $this->userModel->promoteToAdmin($userId);
 
-        if ($ok) {
-            // Upgrade their session to admin immediately
-            $_SESSION['admin_id']   = $_SESSION['user_id'];
-            $_SESSION['admin_name'] = $_SESSION['user_name'];
-            flash('success', 'Admin access granted. Welcome to the panel.');
-            $this->redirect('/administrator');
-        } else {
-            flash('danger', 'Promotion failed. You may already be an admin.');
+        // Case 2: already submitted a request
+        if ($this->adminModel->hasAdminRequest($userId)) {
+            flash('info', 'Your admin request is already submitted and awaiting review.');
             $this->redirect('/admin/login');
+            return;
         }
+
+        $ok = $this->adminModel->createAdminRequest($userId);
+        if ($ok) {
+            flash('success', 'Admin access request submitted. An existing admin will review it.');
+        } else {
+            flash('danger', 'Could not submit request. Please try again.');
+        }
+        $this->redirect('/admin/login');
+    }
+
+    // ========================================================================
+    // ADMIN REQUESTS  GET /administrator/adminRequests
+    // ========================================================================
+
+    public function adminRequests(): void {
+        $this->requireAdmin();
+
+        $statusFilter = $_GET['status'] ?? 'pending';
+        $page         = max(1, (int) ($_GET['page'] ?? 1));
+        $limit        = 20;
+        $offset       = ($page - 1) * $limit;
+
+        $this->view('administrator/admin_requests', [
+            'pageTitle'     => 'Admin Requests',
+            'activeNav'     => 'adminRequests',
+            'requests'      => $this->adminModel->getAdminRequests($statusFilter, $limit, $offset),
+            'totalRequests' => $this->adminModel->countAdminRequests($statusFilter),
+            'statusFilter'  => $statusFilter,
+            'page'          => $page,
+            'limit'         => $limit,
+            'pendingAdminCount' => $this->adminModel->getPendingAdminRequests(),
+        ]);
+    }
+
+    // POST /administrator/adminRequestApprove  (AJAX)
+    public function adminRequestApprove(): void {
+        $this->requireAdmin();
+        $id = (int) ($_POST['request_id'] ?? 0);
+        if (!$id) $this->json(['success' => false, 'message' => 'Invalid ID.'], 400);
+
+        $ok = $this->adminModel->approveAdminRequest($id);
+        $this->json(['success' => $ok, 'message' => $ok ? 'User promoted to admin.' : 'Failed.']);
+    }
+
+    // POST /administrator/adminRequestReject  (AJAX)
+    public function adminRequestReject(): void {
+        $this->requireAdmin();
+        $id = (int) ($_POST['request_id'] ?? 0);
+        if (!$id) $this->json(['success' => false, 'message' => 'Invalid ID.'], 400);
+
+        $ok = $this->adminModel->rejectAdminRequest($id);
+        $this->json(['success' => $ok, 'message' => $ok ? 'Request rejected.' : 'Failed.']);
     }
 }

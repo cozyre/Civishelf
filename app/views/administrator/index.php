@@ -1,6 +1,12 @@
 <?php
 // app/views/administrator/index.php
-ob_start(); ?>
+ob_start(); 
+$totalUsers = $totalUsers??0;
+$totalBooks = $totalBooks??0;
+$pendingReqs = $pendingReqs??0;
+$activeLoans = $activeLoans??0;
+$overdueCount = $overdueCount??0;
+?>
 
 <!-- ---- Stat Cards ---- -->
 <div class="row g-3 mb-4">

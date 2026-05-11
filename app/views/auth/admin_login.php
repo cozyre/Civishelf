@@ -105,14 +105,18 @@
             <button type="submit" class="btn btn-login w-100 mb-3">Sign In</button>
             
             <!-- Sign up to be an admin -->
-            <?php if (isset($_SESSION['user_id'])): ?>
+            <?php if (!empty($_SESSION['admin_id'])): ?>
+                <p class="text-center small mb-0 text-secondary">
+                    You are already registered as an admin.
+                </p>
+            <?php elseif (!empty($_SESSION['user_id'])): ?>
                 <p class="text-center small mb-0 text-white">
                     Logged in as <strong><?= htmlspecialchars($_SESSION['user_name']) ?></strong>.<br>
-                    <a href="<?= BASE_URL ?>/administrator/promoteAdmin"><b>Register as Admin</b></a>
+                    <a href="<?= BASE_URL ?>/administrator/promoteAdmin"><b>Request Admin Access</b></a>
                 </p>
             <?php else: ?>
                 <p class="text-center small mb-0 text-white">
-                    Want to Sign up to be an admin? <a href="<?= BASE_URL ?>/user/register"><b>Register here</b></a>
+                    Want admin access? <a href="<?= BASE_URL ?>/user/register"><b>Register first</b></a>, then request access.
                 </p>
             <?php endif; ?>
         </form>

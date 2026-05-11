@@ -149,7 +149,7 @@
     <!-- =====================================================
         COMPANY DETAILS
     ====================================================== -->
-    <section id="company-details" class="primary row pt-4 px-2">
+    <section id="company-details" class="primary row pt-4 px-2 mb-4">
         <div class="col-md-6 text-center pb-2">
             <img class="" src="<?= BASE_URL ?>/assets/images/logos/logo.png" alt="Civishelf Logo" style="max-height: 8rem;">
             <p class="fs-5 align-content-center text-break">"Empowering campus learning through accessible digital knowledge."</p>

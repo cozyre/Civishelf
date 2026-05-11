@@ -421,4 +421,90 @@ class Admin {
         $stmt = $this->db->prepare("DELETE FROM contact_messages WHERE message_id = :id");
         return $stmt->execute([':id' => $id]);
     }
+
+    // ========================================================================
+    // ADMIN REQUESTS
+    // ========================================================================
+
+    public function getAdminRequests(string $status = '', int $limit = 30, int $offset = 0): array {
+        $where = $status ? "WHERE ar.status = :status" : '';
+        $stmt  = $this->db->prepare(
+            "SELECT ar.*, u.user_name, u.email, u.created_at AS user_joined
+            FROM admin_requests ar
+            JOIN users u ON ar.user_id = u.user_id
+            {$where}
+            ORDER BY ar.requested_at DESC
+            LIMIT :limit OFFSET :offset"
+        );
+        if ($status) $stmt->bindValue(':status', $status);
+        $stmt->bindValue(':limit',  $limit,  PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll();
+    }
+
+    public function countAdminRequests(string $status = ''): int {
+        $where = $status ? "WHERE status = :status" : '';
+        $stmt  = $this->db->prepare("SELECT COUNT(*) FROM admin_requests {$where}");
+        if ($status) $stmt->bindValue(':status', $status);
+        $stmt->execute();
+        return (int) $stmt->fetchColumn();
+    }
+
+    public function hasAdminRequest(int $userId): bool {
+        $stmt = $this->db->prepare(
+            "SELECT request_id FROM admin_requests WHERE user_id = :uid LIMIT 1"
+        );
+        $stmt->execute([':uid' => $userId]);
+        return (bool) $stmt->fetch();
+    }
+
+    public function createAdminRequest(int $userId): bool {
+        $stmt = $this->db->prepare(
+            "INSERT INTO admin_requests (user_id, status, requested_at)
+            VALUES (:uid, 'pending', NOW())"
+        );
+        return $stmt->execute([':uid' => $userId]);
+    }
+
+    public function approveAdminRequest(int $requestId): bool {
+        $this->db->beginTransaction();
+        try {
+            $stmt = $this->db->prepare(
+                "SELECT user_id FROM admin_requests WHERE request_id = :id AND status = 'pending'"
+            );
+            $stmt->execute([':id' => $requestId]);
+            $row = $stmt->fetch();
+            if (!$row) throw new \Exception('Request not found or not pending');
+
+            $this->db->prepare(
+                "UPDATE admin_requests SET status = 'approved', reviewed_at = NOW() WHERE request_id = :id"
+            )->execute([':id' => $requestId]);
+
+            $this->db->prepare(
+                "UPDATE users SET role = 'admin' WHERE user_id = :uid"
+            )->execute([':uid' => $row['user_id']]);
+
+            $this->db->commit();
+            return true;
+        } catch (\Exception $e) {
+            $this->db->rollBack();
+            error_log('approveAdminRequest: ' . $e->getMessage());
+            return false;
+        }
+    }
+
+    public function rejectAdminRequest(int $requestId): bool {
+        $stmt = $this->db->prepare(
+            "UPDATE admin_requests SET status = 'rejected', reviewed_at = NOW()
+            WHERE request_id = :id AND status = 'pending'"
+        );
+        return $stmt->execute([':id' => $requestId]);
+    }
+
+    public function getPendingAdminRequests(): int {
+        return (int) $this->db->query(
+            "SELECT COUNT(*) FROM admin_requests WHERE status = 'pending'"
+        )->fetchColumn();
+    }
 }
