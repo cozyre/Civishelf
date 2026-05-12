@@ -51,12 +51,16 @@ li{
     list-style-type: none;
 }
 
+/* -------------------------------------------------- */
+/* ------------------ HERO -------------------------- */
+/* -------------------------------------------------- */
 .hero-banner {
     background-image: url('/Civishelf/public/assets/images/logos/hero-bg.jpg');
     background-size: cover;
     background-position: center;
     position: relative;
     overflow: hidden;
+    text-shadow: 3px 3px 3px #333;
 }
 
 .hero-banner::before {
@@ -346,6 +350,13 @@ li{
 }
 
 .news-read-more:hover { opacity: 0.7; color: var(--accent-light); }
+
+
+.carousel-control-prev,
+.carousel-control-next {
+    background-color: rgba(0, 0, 0, 0.2);
+    max-width: 10rem;
+}
 
 /* ---- Grid cards ---- */
 .news-grid-card {

@@ -149,7 +149,7 @@
     <!-- =====================================================
         COMPANY DETAILS
     ====================================================== -->
-    <section id="company-details" class="primary row pt-4 px-2 mb-4">
+    <section id="company-details" class="primary row pt-4 px-2 mb-2">
         <div class="col-md-6 text-center pb-2">
             <img class="" src="<?= BASE_URL ?>/assets/images/logos/logo.png" alt="Civishelf Logo" style="max-height: 8rem;">
             <p class="fs-5 align-content-center text-break">"Empowering campus learning through accessible digital knowledge."</p>
@@ -166,20 +166,23 @@
             </ul>
         </div>
         <div class="row my-4 p-2 text-center">
-            <p class="fs-4 mb-0 me-3">What is Civishelf ?</p>
+            <p class="fs-4 mb-0">What is Civishelf ?</p>
             <p class="">Civishelf is a campus-focused digital library platform that gives students and faculty 
                 easy access to academic books, research materials, and learning resources in one place. 
                 It streamlines borrowing, organizing, and discovering content, 
                 making studying and research faster, smarter, and fully accessible online.
             </p>
-            <div class="d-md-flex justify-content-evenly my-2">
-                <div><i class="bi bi-envelope"></i> Civishelf@company.com</div>
-                <div><i class="bi bi-telephone"></i> 123-3212-4563</div>
-                <div><i class="bi bi-instagram"></i> civishelf.co</div>
-                <div><i class="bi bi-buildings"></i> Jakarta, Indonesia</div>
-            </div>
         </div>
     </section>
+    <div class="row p-2 text-center secondary">
+        <p class="fs-3 my-4">Where You Can Find Us</p>
+        <div class="d-md-flex fs-5 justify-content-evenly my-2 ">
+            <div><i class="p-1 bi bi-envelope"></i> Civishelf@company.com</div>
+            <div><i class="p-1 bi bi-telephone"></i> 123-3212-4563</div>
+            <div><i class="p-1 bi bi-instagram"></i> civishelf.co</div>
+            <div><i class="p-1 bi bi-buildings"></i> Jakarta, Indonesia</div>
+        </div>
+    </div>
     
 </main>
 

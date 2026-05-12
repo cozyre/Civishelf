@@ -102,11 +102,11 @@
             </div>
 
             <?php if (count($featuredNews ?? []) > 1): ?>
-            <button class="carousel-control-prev" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
+            <button class="carousel-control-prev rounded-2" type="button" data-bs-target="#newsCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon"></span>
                 <span class="visually-hidden">Previous</span>
             </button>
-            <button class="carousel-control-next" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
+            <button class="carousel-control-next rounded-2" type="button" data-bs-target="#newsCarousel" data-bs-slide="next">
                 <span class="carousel-control-next-icon"></span>
                 <span class="visually-hidden">Next</span>
             </button>
