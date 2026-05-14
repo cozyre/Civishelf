@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <!-- Bootstrap Icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <!-- Google Fonts -->
+    <link href='https://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet'>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
 
@@ -21,6 +23,7 @@
 <body>
 
 <?php
+// TABS NAVIGATION FUNCTION
 $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $currentPath = rtrim($currentPath, '/') ?: '/';
 
@@ -30,11 +33,12 @@ function navTabClass(string $currentPath, string $path): string {
 ?>
 
 <nav class="navbar primary pb-0 mb-1">
-    <div class="w-100 primary d-flex justify-content-between align-items-center fixed-top px-2 py-0 my-0">
+    <div class="w-100 primary d-flex align-items-center justify-content-between fixed-top px-2 py-0 my-0">
         
-        <a href="."><img src="<?= BASE_URL ?>/assets/images/logos/logo.png" class="img-fluid" style="max-height: 2.5rem;" alt="Civishelf"></a>
+        <a href="."><img src="<?= BASE_URL ?>/assets/images/logos/logo.png" class="img-fluid" style="max-height: 3rem;" alt="Civishelf"></a>
 
-        <div id="user-name">
+        <div class="d-flex align-items-center">
+        <div class="" id="user-name" style="font-family: Inter;">
             <?php if (isset($_SESSION['admin_id'])): ?>
                 Hello, <?= htmlspecialchars($_SESSION['admin_name']) ?>
                 <span class="badge bg-warning text-dark ms-1" style="font-size:.65rem;">Admin</span>
@@ -44,10 +48,11 @@ function navTabClass(string $currentPath, string $path): string {
                 Hello, Guest
             <?php endif; ?>
         </div>
-
-        <div class="nav-item dropstart primary">
+        
+        <!-- DROPDOWN MENU -->
+        <div class="dropstart primary">
             <button class="btn primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="bi bi-person-circle" style="font-size: 1.25rem"></i>
+                <i class="bi bi-person-circle" style="font-size: 1.4rem"></i>
             </button>
             <ul class="dropdown-menu">
                 <?php if (isset($_SESSION['admin_id'])): ?>
@@ -74,34 +79,37 @@ function navTabClass(string $currentPath, string $path): string {
                 <?php endif; ?>
             </ul>
         </div>
+        </div>
     </div>
     
     <!-- TABS -->
-    <div class="d-flex w-100 pb-0 mt-5 gap-1 align-items-end justify-content-end">
+     <div class="row py-2"></div>
+    <div class="d-flex w-100 pb-0 mt-5 fw-medium align-items-end justify-content-end" style="font-family: Poppins, sans-serif">
         <a href="<?= BASE_URL ?>/"
-           class="<?= navTabClass($currentPath, '/Civishelf') ?> col offset-1 border border-bottom-0 rounded-top rounded-end-0 menu px-2 text-decoration-none">
+           class="<?= navTabClass($currentPath, '/Civishelf') ?> col border-top border-end menu px-2 text-decoration-none">
             Home
         </a>
         <a href="<?= BASE_URL ?>/books"
-           class="<?= navTabClass($currentPath, '/Civishelf/books') ?> col border border-bottom-0 rounded-top rounded-end-0 menu px-2 text-decoration-none">
+           class="<?= navTabClass($currentPath, '/Civishelf/books') ?> col border-top border-end menu px-2 text-decoration-none">
             Explore
         </a>
         <a href="<?= BASE_URL ?>/news"
-           class="<?= navTabClass($currentPath, '/Civishelf/news') ?> col border border-bottom-0 rounded-top rounded-end-0 menu px-2 text-decoration-none">
+           class="<?= navTabClass($currentPath, '/Civishelf/news') ?> col border-top border-end menu px-2 text-decoration-none">
             News
         </a>
         <?php if (isset($_SESSION['user_id']) || isset($_SESSION['admin_id'])): ?>
             <a href="<?= BASE_URL ?>/mybooks"
-               class="<?= navTabClass($currentPath, '/Civishelf/mybooks') ?> col border border-bottom-0 rounded-top rounded-end-0 menu px-2 text-decoration-none">
+               class="<?= navTabClass($currentPath, '/Civishelf/mybooks') ?> col border-top border-end menu px-2 text-decoration-none">
                 My Books
             </a>
         <?php else: ?>
             <a href="#"
-               class="primary-light col border border-bottom-0 rounded-top menu ps-3 text-decoration-none"
+               class="primary-light col border-top border-end menu ps-3 text-decoration-none"
                data-bs-toggle="modal" data-bs-target="#loginModal">
                 My Books
             </a>
         <?php endif; ?>
+        <div class="offset-1"></div>
     </div>
 </nav>
 
@@ -133,8 +141,8 @@ function navTabClass(string $currentPath, string $path): string {
                         <?= htmlspecialchars($_SESSION['login_error']) ?>
                     </div>
                     <?php unset($_SESSION['login_error']); ?>
+                    <form id="loginForm" action="<?= BASE_URL ?>/user/login" method="POST">
                 <?php endif; ?>
-                <form id="loginForm" action="<?= BASE_URL ?>/user/login" method="POST">
                     <div class="mb-3">
                         <label for="loginEmail" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="loginEmail" name="email"

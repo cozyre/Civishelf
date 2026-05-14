@@ -10,8 +10,6 @@ $currentPage = $currentPage??0;
 <main class="mb-5 pb-5">
     <section class="container-fluid px-3 mt-4">
         <div class="section-header d-flex align-items-center mb-3">
-            <h2 class="section-title mb-0 me-3">Featured</h2>
-            <hr class="flex-grow-1 m-0">
         </div>
 
     </section>
@@ -20,10 +18,10 @@ $currentPage = $currentPage??0;
          HERO MASONRY — featured books
     ====================================================== -->
     <section class="container-fluid px-3 mb-5">
-        <div class="book-gallery" id="heroGallery">
+        <div class="book-gallery row mx-3" id="heroGallery">
             <?php foreach ($featuredBooks as $book): ?>
             <?php $cover = BASE_URL . '/assets/images/covers/' . ($book['cover_image'] ?? 'book-placeholder.jpg'); ?>
-            <div class="gallery-item"
+            <div class="d-flex justify-content-center gallery-item col-6 col-md-4"
                  data-id="<?= $book['book_id'] ?>"
                  data-title="<?= htmlspecialchars($book['book_title']) ?>"
                  data-author="<?= htmlspecialchars($book['author_name'] ?? '') ?>"
@@ -124,7 +122,7 @@ $currentPage = $currentPage??0;
         <div class="row g-3" id="bookGrid">
             <?php foreach ($books as $book): ?>
             <?php $cover = BASE_URL . '/assets/images/covers/' . ($book['cover_image'] ?? 'book-placeholder.jpg'); ?>
-            <div class="col-6 col-md-3">
+            <div class="col-6 col-md-4">
                 <div class="book-grid-item"
                      data-id="<?= $book['book_id'] ?>"
                      data-title="<?= htmlspecialchars($book['book_title']) ?>"
@@ -197,7 +195,7 @@ $currentPage = $currentPage??0;
                 res.books.forEach(function (book) {
                     var cover = coverBase + (book.cover_image || 'book-placeholder.jpg');
                     var col   = document.createElement('div');
-                    col.className = 'col-6 col-md-3';
+                    col.className = 'col-6 col-md-4';
                     col.innerHTML =
                         '<div class="book-grid-item"' +
                         ' data-id="'          + book.book_id + '"' +

@@ -51,6 +51,28 @@ li{
     list-style-type: none;
 }
 
+span.small{
+    font-family: Inter, sans-serif;
+}
+
+/* -------------------------------------------------- */
+/* ------------------- NAVIGATION TABS ------------- */
+/* -------------------------------------------------- */
+.menu {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+}
+
+.menu:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.menu.secondary {
+    transform: translateY(-12px);
+    box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.2);
+}
+
 /* -------------------------------------------------- */
 /* ------------------ HERO -------------------------- */
 /* -------------------------------------------------- */
@@ -67,26 +89,20 @@ li{
     content: '';
     position: absolute;
     inset: 0;
-    background: inherit;
-    filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.4);
     z-index: 0;
 }
 
 .hero-content {
     position: relative;
     z-index: 1;
-}
+}   
 
 /* -------------------------------------------------- */
 /* ------------------ EXPLORE PAGE ------------------ */
 /* -------------------------------------------------- */
 
 /* --- Masonry hero --- */
-.book-gallery {
-    columns: 3 100px;
-    column-gap: 0.5rem;
-}
-
 .gallery-item {
     break-inside: avoid;
     margin-bottom: 0.5rem;
