@@ -23,7 +23,7 @@ class BookController extends Controller {
 
         // Main paginated grid
         $page   = max(1, (int) ($_GET['page'] ?? 1));
-        $limit  = 8;
+        $limit  = 12;
         $offset = ($page - 1) * $limit;
         $books  = $bookModel->getAll($limit, $offset, $activeCategoryId);
 
@@ -51,6 +51,7 @@ class BookController extends Controller {
             'categories'       => $categories,
             'activeCategoryId' => $activeCategoryId,
             'currentPage'      => $page,
+            'limit'            => $limit,
         ]);
     }
 
@@ -59,7 +60,7 @@ class BookController extends Controller {
     // Shown when a user tries to read a borrowed book that has no online file.
     // -----------------------------------------------------------------------
     public function offline(): void {
-        $this->view('books/offline', ['pageTitle' => 'Not Available Online']);
+        $this->view('books/offline', ['pageTitle' => 'Not Available Online',]);
     }
 
     // GET /books/filterBooks?category=X  — AJAX, returns JSON for the main grid

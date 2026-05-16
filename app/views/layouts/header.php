@@ -13,6 +13,8 @@
     <link href='https://fonts.googleapis.com/css?family=Cinzel' rel='stylesheet'>
     <!-- Custom CSS -->
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/style.css">
+    <!-- preload heavy image -->
+    <link rel="preload" as="image" href="<?= BASE_URL ?>/assets/images/logos/hero-bg.jpg">
 
     <script>
         const BASE_URL = "<?= BASE_URL ?>";
@@ -21,6 +23,7 @@
     </script>
 </head>
 <body>
+    <div class="d-flex flex-column min-vh-100">
 
 <?php
 // TABS NAVIGATION FUNCTION
@@ -83,7 +86,7 @@ function navTabClass(string $currentPath, string $path): string {
     </div>
     
     <!-- TABS -->
-    <div class="d-flex w-100 mx-md-2 mt-3 gap-1 fw-medium align-items-start justify-content-center secondary" style="font-family: Poppins, sans-serif">
+    <div class="d-flex w-100 mx-md-2 mt-3 gap-1 fw-semibold align-items-start justify-content-center secondary" style="font-family: Poppins, sans-serif">
         <a href="<?= BASE_URL ?>/"
            class="<?= navTabClass($currentPath, '/Civishelf') ?> col border border-top-0 rounded-bottom menu px-2 pt-4 text-decoration-none">
             Home
@@ -139,8 +142,9 @@ function navTabClass(string $currentPath, string $path): string {
                         <?= htmlspecialchars($_SESSION['login_error']) ?>
                     </div>
                     <?php unset($_SESSION['login_error']); ?>
-                    <form id="loginForm" action="<?= BASE_URL ?>/user/login" method="POST">
                 <?php endif; ?>
+
+                <form id="loginForm" action="<?= BASE_URL ?>/user/login" method="POST">
                     <div class="mb-3">
                         <label for="loginEmail" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="loginEmail" name="email"

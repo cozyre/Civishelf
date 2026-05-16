@@ -5,6 +5,7 @@ $featuredBooks = $featuredBooks??[];
 $popularBooks = $popularBooks??[];
 $books = $books??[];
 $currentPage = $currentPage??0;
+$limit = $limit??0;
 ?>
 
 <main class="mb-5 pb-5">
@@ -100,7 +101,7 @@ $currentPage = $currentPage??0;
     <!-- =====================================================
          MAIN BOOK GRID — paginated, filterable
     ====================================================== -->
-    <section class="container-fluid px-3">
+    <section class="container-fluid px-3" id="book-grid-section">
         <div class="input-group mb-3 explore-search-wrap">
             <span class="input-group-text search-icon-wrap">
                 <i class="bi bi-search"></i>
@@ -159,12 +160,12 @@ $currentPage = $currentPage??0;
 
         <div class="text-center mt-4 d-flex justify-content-center gap-2">
             <?php if ($currentPage > 1): ?>
-                <a href="<?= BASE_URL ?>/books?page=<?= $currentPage - 1 ?><?= $activeCategoryId ? '&category=' . $activeCategoryId : '' ?>"
-                   class="btn show-more-btn">← Previous</a>
+                <a href="<?= BASE_URL ?>/books?page=<?= $currentPage - 1 ?><?= $activeCategoryId ? '&category=' . $activeCategoryId : '' ?>#book-grid-section"
+                class="btn show-more-btn">← Previous</a>
             <?php endif; ?>
-            <?php if (count($books) === 8): ?>
-                <a href="<?= BASE_URL ?>/books?page=<?= $currentPage + 1 ?><?= $activeCategoryId ? '&category=' . $activeCategoryId : '' ?>"
-                   class="btn show-more-btn">Next →</a>
+            <?php if (count($books) === $limit): ?>
+                <a href="<?= BASE_URL ?>/books?page=<?= $currentPage + 1 ?><?= $activeCategoryId ? '&category=' . $activeCategoryId : '' ?>#book-grid-section"
+                class="btn show-more-btn">Next →</a>
             <?php endif; ?>
         </div>
 
