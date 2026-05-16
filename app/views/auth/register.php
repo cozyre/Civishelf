@@ -1,6 +1,6 @@
 <?php include __DIR__ . '/../layouts/header.php'; ?>
 
-<div class="container py-4 mb-5 card primary-light">
+<div class="container py-4 mb-5 card shadow-lg primary-light">
     <a href="javascript:history.back()" class="contact-back-btn">
         <i class="bi bi-chevron-left" style="font-size: 1.5rem;"></i>
     </a>
@@ -8,7 +8,7 @@
         <!-- Logo Section (Left) -->
         <div class="col-md-6 d-flex justify-content-center align-items-center mb-4 mb-md-0">
             <div class="text-center">
-                <img src="<?= BASE_URL ?>/assets/images/logos/logo.png" alt="Civishelf Logo" style="max-width: 80%; height: auto;">
+                <img src="<?= BASE_URL ?>/assets/images/logos/logo.png" alt="Civishelf Logo" style="max-width: 75%; height: auto;">
             </div>
         </div>
 

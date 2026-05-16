@@ -33,6 +33,11 @@ body{
     color: var(--base-theme);
 }
 
+.accent-light{
+    background-color: var(--accent-light);
+    color: var(--base-theme);
+}
+
 .btn.accent:hover{
     background-color: var(--accent-light);
     color: var(--base-theme)
@@ -64,12 +69,12 @@ span.small{
 }
 
 .menu:hover {
-    transform: translateY(-8px);
+    transform: translateY(8px);
     box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.15);
 }
 
-.menu.secondary {
-    transform: translateY(-12px);
+.menu.accent {
+    transform: translateY(12px);
     box-shadow: 0 -6px 16px rgba(0, 0, 0, 0.2);
 }
 
@@ -155,19 +160,26 @@ span.small{
 }
 
 /* --- Uniform grid --- */
-.book-grid-cover {
-    height: 220px;
-    object-fit: cover;
-    display: block;
-    transition: filter 0.2s ease;
+.book-grid-item {
+    cursor: pointer;
+    border-radius: 6px;
+    overflow: hidden;
+    position: relative;
 }
 
-.book-grid-item {
-    cursor: pointer; 
-    columns: 4 25vw;
-    column-gap: 0.5rem;
+.book-grid-item:hover .book-grid-cover { 
+    filter: brightness(0.75);
+    transform: scale(1.03);
 }
-.book-grid-item:hover .book-grid-cover { filter: brightness(0.75); }
+
+.book-grid-cover {
+    width: 100%;
+    aspect-ratio: 2 / 3;
+    object-fit: cover;
+    display: block;
+    transition: filter 0.2s ease, transform 0.2s ease;
+    border-radius: 6px;
+}
 
 .book-grid-overlay {
     background: linear-gradient(transparent, rgba(0,0,0,0.6));

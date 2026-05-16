@@ -28,11 +28,11 @@ $currentPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 $currentPath = rtrim($currentPath, '/') ?: '/';
 
 function navTabClass(string $currentPath, string $path): string {
-    return $path === $currentPath ? 'secondary' : 'primary-light';
+    return $path === $currentPath ? 'accent' : 'primary-light';
 }
 ?>
 
-<nav class="navbar primary pb-0 mb-1">
+<nav class="navbar secondary pb-0 mb-3">
     <div class="w-100 primary d-flex align-items-center justify-content-between fixed-top px-2 py-0 my-0">
         
         <a href="."><img src="<?= BASE_URL ?>/assets/images/logos/logo.png" class="img-fluid" style="max-height: 3rem;" alt="Civishelf"></a>
@@ -54,7 +54,7 @@ function navTabClass(string $currentPath, string $path): string {
             <button class="btn primary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-person-circle" style="font-size: 1.4rem"></i>
             </button>
-            <ul class="dropdown-menu">
+            <ul class="dropdown-menu dropdown-menu-start">
                 <?php if (isset($_SESSION['admin_id'])): ?>
                     <li><a href="<?= BASE_URL ?>/user/profile" class="dropdown-item"><i class="bi bi-person me-2"></i>My Account</a></li>
                     <li><a href="<?= BASE_URL ?>/user/history" class="dropdown-item"><i class="bi bi-clock-history me-2"></i>History</a></li>
@@ -83,33 +83,31 @@ function navTabClass(string $currentPath, string $path): string {
     </div>
     
     <!-- TABS -->
-     <div class="row py-2"></div>
-    <div class="d-flex w-100 pb-0 mt-5 fw-medium align-items-end justify-content-end" style="font-family: Poppins, sans-serif">
+    <div class="d-flex w-100 mx-md-2 mt-3 gap-1 fw-medium align-items-start justify-content-center secondary" style="font-family: Poppins, sans-serif">
         <a href="<?= BASE_URL ?>/"
-           class="<?= navTabClass($currentPath, '/Civishelf') ?> col border-top border-end menu px-2 text-decoration-none">
+           class="<?= navTabClass($currentPath, '/Civishelf') ?> col border border-top-0 rounded-bottom menu px-2 pt-4 text-decoration-none">
             Home
         </a>
         <a href="<?= BASE_URL ?>/books"
-           class="<?= navTabClass($currentPath, '/Civishelf/books') ?> col border-top border-end menu px-2 text-decoration-none">
+           class="<?= navTabClass($currentPath, '/Civishelf/books') ?> col border border-top-0 rounded-bottom menu px-2 pt-4 text-decoration-none">
             Explore
         </a>
         <a href="<?= BASE_URL ?>/news"
-           class="<?= navTabClass($currentPath, '/Civishelf/news') ?> col border-top border-end menu px-2 text-decoration-none">
+           class="<?= navTabClass($currentPath, '/Civishelf/news') ?> col border border-top-0 rounded-bottom menu px-2 pt-4 text-decoration-none">
             News
         </a>
         <?php if (isset($_SESSION['user_id']) || isset($_SESSION['admin_id'])): ?>
             <a href="<?= BASE_URL ?>/mybooks"
-               class="<?= navTabClass($currentPath, '/Civishelf/mybooks') ?> col border-top border-end menu px-2 text-decoration-none">
+               class="<?= navTabClass($currentPath, '/Civishelf/mybooks') ?> col border border-top-0 rounded-bottom menu px-2 pt-4 text-decoration-none">
                 My Books
             </a>
         <?php else: ?>
             <a href="#"
-               class="primary-light col border-top border-end menu ps-3 text-decoration-none"
+               class="primary-light col border border-top-0 rounded-bottom menu ps-3 pt-4 text-decoration-none"
                data-bs-toggle="modal" data-bs-target="#loginModal">
                 My Books
             </a>
         <?php endif; ?>
-        <div class="offset-1"></div>
     </div>
 </nav>
 
