@@ -7,10 +7,34 @@
     --title-font: 'Times New Roman';
 }
 
+@media (max-width: 576px) {
+    /* Hero and major sections */
+    .hero-banner {
+        min-height: 60vh;
+    }
+    
+    /* Book carousel specifics */
+    .book-card-wrapper {
+        min-width: 160px;
+        height: auto;
+        max-height: 280px;
+        width: auto;
+    }
+    
+    /* Gallery items */
+    .gallery-item {
+        max-width: 100%;
+    }
+}
+
 body{
     font-family: 'Times New Roman', Times, serif;
     background-color: var(--base-theme);
     color: var(--primary);
+}
+
+html, body {
+    overflow-x: hidden;
 }
 
 .primary{
@@ -55,13 +79,24 @@ li{
     list-style: none;
     list-style-type: none;
 }
+li:hover{
+    color: var(--accent);
+    transform: translateX(4px);
+    scale: 1.01;
+}
 
 span.small{
     font-family: Inter, sans-serif;
 }
 
-main{
+main, section{
     flex-grow: 1;
+    overflow: hidden;
+}
+
+.container-fluid {
+    max-width: 100vw;
+    overflow-x: hidden;
 }
 
 /* -------------------------------------------------- */
@@ -92,11 +127,11 @@ main{
     position: relative;
     overflow: hidden;
     text-shadow: 3px 3px 3px #333;
-    animation: fadeInHero 0.8s ease-in-out forwards;
+    animation: fadeInHero 1s ease-in-out forwards;
 }
 
 @keyframes fadeInHero {
-    from {opacity: 0.2;}
+    from {opacity: 0.1;}
     to {opacity: 1;}
 }
 
@@ -113,9 +148,21 @@ main{
     z-index: 1;
 }
 
+.links:hover{
+    color:var(--accent);
+    scale: 1.02;
+    text-decoration: underline;
+    transition: ease-in-out 0.1s;
+}
 /* -------------------------------------------------- */
 /* ------------------ Testimonials ------------------ */
 /* -------------------------------------------------- */
+.testimonial-card:hover{
+    transform: translateX(4px);
+    scale: 1.02;
+    box-shadow: #111;
+    transition: ease-in-out 0.1s;
+}
 
 .testimonial-text {
     font-style: italic;
@@ -431,7 +478,16 @@ main{
     transition: background 0.2s;
 }
 
-.news-grid-card:hover { background: var(--primary-light); color: var(--base-theme); }
+.news-grid-card:hover, .news-carousel-card:hover { 
+    background: var(--primary-light); 
+    color: var(--base-theme); 
+    scale: 1.02;
+    transition: ease 0.2s;
+}
+
+.news-grid-card:hover .news-grid-title{
+    color: var(--accent-light);
+}
 
 .news-grid-img-wrap { width: 140px; flex-shrink: 0; }
 

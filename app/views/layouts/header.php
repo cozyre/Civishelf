@@ -36,7 +36,7 @@ function navTabClass(string $currentPath, string $path): string {
 ?>
 
 <nav class="navbar secondary pb-0 mb-3">
-    <div class="w-100 primary d-flex align-items-center justify-content-between fixed-top px-2 py-0 my-0">
+    <div class="w-100 primary d-flex align-items-center justify-content-between px-2 py-0 my-0 fixed-top">
         
         <a href="<?= BASE_URL ?>/" id="logoLink">
             <img src="<?= BASE_URL ?>/assets/images/logos/logo.png" class="img-fluid" style="max-height: 3rem;" alt="Civishelf">
@@ -88,7 +88,8 @@ function navTabClass(string $currentPath, string $path): string {
     </div>
     
     <!-- TABS -->
-    <div class="d-flex w-100 mx-md-2 mt-3 gap-1 fw-semibold align-items-start justify-content-center secondary" style="font-family: Poppins, sans-serif">
+    <div class="tab-container d-flex w-100 px-md-2 mt-3 gap-1 fw-semibold align-items-start justify-content-center bg-transparent" 
+    style="font-family: Poppins, sans-serif;">
         <a href="<?= BASE_URL ?>/"
            class="<?= navTabClass($currentPath, '/Civishelf') ?> col border border-top-0 rounded-bottom menu px-2 pt-4 text-decoration-none">
             Home
@@ -146,7 +147,7 @@ function navTabClass(string $currentPath, string $path): string {
                     <?php unset($_SESSION['login_error']); ?>
                 <?php endif; ?>
 
-                <form id="loginForm" action="<?= BASE_URL ?>/user/login" method="POST">
+                <form id="loginForm" action="<?= BASE_URL ?>/user/login" method="POST" style="font-family: Poppins, sans-serif;">
                     <div class="mb-3">
                         <label for="loginEmail" class="form-label">Email address</label>
                         <input type="email" class="form-control" id="loginEmail" name="email"
@@ -164,7 +165,7 @@ function navTabClass(string $currentPath, string $path): string {
                             </button>
                         </div>
                     </div>
-                    <div class="d-grid mb-3">
+                    <div class="d-grid mb-3" style="font-family: var(--title-font);">
                         <button type="submit" class="btn accent fw-semibold" id="loginSubmitBtn">Login</button>
                     </div>
                     <p class="text-center small mb-0">

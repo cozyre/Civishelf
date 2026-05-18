@@ -63,7 +63,7 @@
             border-color: #333; }
         .back-link { 
             color: #888; 
-            font-size: 0.8rem; 
+            font-size: 1rem; 
             text-decoration: none; }
         .back-link:hover { 
             color: #ececec; }
