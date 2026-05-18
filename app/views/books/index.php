@@ -128,7 +128,7 @@ $limit = $limit??0;
         <div class="row g-3" id="bookGrid">
             <?php foreach ($books as $book): ?>
             <?php $cover = BASE_URL . '/assets/images/covers/' . ($book['cover_image'] ?? 'book-placeholder.jpg'); ?>
-            <div class="col-6 col-md-4 col-lg-3 col-xl-2">
+            <div class="col-6 col-md-4 col-lg-3">
                 <div class="d-flex book-grid-item"
                      data-id="<?= $book['book_id'] ?>"
                      data-title="<?= htmlspecialchars($book['book_title']) ?>"
