@@ -16,6 +16,35 @@
     </section>
 
     <!-- =====================================================
+        COMPANY DETAILS
+    ====================================================== -->
+    <section id="company-details" class="primary row pt-4 px-2 mb-4">
+        <div class="col-md-6 text-center pb-2">
+            <img class="" src="<?= BASE_URL ?>/assets/images/logos/logo.png" alt="Civishelf Logo" style="max-height: 8rem;">
+            <p class="fs-5 align-content-center text-break">"Empowering campus learning through accessible digital knowledge."</p>
+        </div>
+        <div class="col-md d-sm-none d-md-flex">
+        <div class="vr h-100"></div>
+        </div>
+        <div class="col-md-5 align-content-center ms-2">
+            <ul class="m-0 p-0 lh-lg fs-5">
+                <li><i class="bi bi-journal-bookmark me-4"></i>Digital Book Lending</li>
+                <li><i class="bi bi-mortarboard me-4"></i>Academic Resources</li>
+                <li><i class="bi bi-archive me-4"></i>Research Archives</li>
+                <li><i class="bi bi-gear me-4"></i>Campus Integration Systems</li>
+            </ul>
+        </div>
+        <div class="row my-4 p-2 text-center">
+            <p class="fs-4 mb-0">What is Civishelf ?</p>
+            <p class="">Civishelf is a campus-focused digital library platform that gives students and faculty 
+                easy access to academic books, research materials, and learning resources in one place. 
+                It streamlines borrowing, organizing, and discovering content, 
+                making studying and research faster, smarter, and fully accessible online.
+            </p>
+        </div>
+    </section>
+
+    <!-- =====================================================
          TOP SEARCHED — ordered by save count
     ====================================================== -->
     <section id="top-searched" class="container-fluid px-3 mt-4">
@@ -145,45 +174,62 @@
             <a href="<?= BASE_URL ?>/books" class="btn explore-btn">Explore</a>
         </div>
     </section>
-    
+
     <!-- =====================================================
-        COMPANY DETAILS
+        TESTIMONIALS
     ====================================================== -->
-    <section id="company-details" class="primary row pt-4 px-2 mb-2">
-        <div class="col-md-6 text-center pb-2">
-            <img class="" src="<?= BASE_URL ?>/assets/images/logos/logo.png" alt="Civishelf Logo" style="max-height: 8rem;">
-            <p class="fs-5 align-content-center text-break">"Empowering campus learning through accessible digital knowledge."</p>
+    <section class="container-fluid px-3 my-2 py-4 secondary">
+        <div class="section-header d-flex align-items-center mb-4">
+            <h2 class="section-title mb-0 me-3">What Students Say</h2>
+            <hr class="flex-grow-1 m-0">
         </div>
-        <div class="col-md d-sm-none d-md-flex">
-        <div class="vr h-100"></div>
-        </div>
-        <div class="col-md-5 align-content-center ms-2">
-            <ul class="m-0 p-0 lh-lg fs-5">
-                <li><i class="bi bi-journal-bookmark me-4"></i>Digital Book Lending</li>
-                <li><i class="bi bi-mortarboard me-4"></i>Academic Resources</li>
-                <li><i class="bi bi-archive me-4"></i>Research Archives</li>
-                <li><i class="bi bi-gear me-4"></i>Campus Integration Systems</li>
-            </ul>
-        </div>
-        <div class="row my-4 p-2 text-center">
-            <p class="fs-4 mb-0">What is Civishelf ?</p>
-            <p class="">Civishelf is a campus-focused digital library platform that gives students and faculty 
-                easy access to academic books, research materials, and learning resources in one place. 
-                It streamlines borrowing, organizing, and discovering content, 
-                making studying and research faster, smarter, and fully accessible online.
-            </p>
+
+        <div class="row gap-3 justify-content-center px-2">
+
+            <div class="primary card shadow-sm col-10 p-3">
+                <div class="col testimonial-author mb-2">
+                    <i class="bi bi-person-circle testimonial-avatar"></i>
+                    <div>
+                        <div class="testimonial-name">Rani Kusuma</div>
+                        <div class="testimonial-role">Computer Science, Semester 4</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">"Civishelf made it so easy to find textbooks for my classes. No more rushing to the library before they close."</p>
+            </div>
+
+            <div class="primary card shadow-sm col-10 p-3">
+                <div class="testimonial-author mb-2">
+                    <i class="bi bi-person-circle testimonial-avatar"></i>
+                    <div>
+                        <div class="testimonial-name">Budi Santoso</div>
+                        <div class="testimonial-role">Information Systems, Semester 6</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">"I borrowed three books for my thesis research in under five minutes. The approval is fast and the collection is solid."</p>
+            </div>
+
+            <div class="primary card shadow-sm col-10 p-3">
+                <div class="testimonial-author mb-2">
+                    <i class="bi bi-person-circle testimonial-avatar"></i>
+                    <div>
+                        <div class="testimonial-name">Siti Nuraini</div>
+                        <div class="testimonial-role">Business Administration, Semester 3</div>
+                    </div>
+                </div>
+                <p class="testimonial-text">"The online reading feature is a game changer. I can study from my dorm without carrying heavy books around."</p>
+            </div>
         </div>
     </section>
-    <div class="row p-2 text-center secondary">
-        <p class="fs-3 my-4">Where You Can Find Us</p>
-        <div class="d-md-flex fs-5 justify-content-evenly my-2 ">
+
+    <div class="row pt-2 text-center primary">
+        <p class="fs-3 my-4 accent">Where You Can Find Us</p>
+        <div class="d-md-flex fs-6 justify-content-evenly mt-2 pb-4">
             <div><i class="p-1 bi bi-envelope"></i> Civishelf@company.com</div>
             <div><i class="p-1 bi bi-telephone"></i> 123-3212-4563</div>
             <div><i class="p-1 bi bi-instagram"></i> civishelf.co</div>
             <div><i class="p-1 bi bi-buildings"></i> Jakarta, Indonesia</div>
         </div>
     </div>
-    
 </main>
 
 <script>

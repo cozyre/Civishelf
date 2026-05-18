@@ -34,4 +34,23 @@ class NewsController extends Controller {
             'gridNews'      => $gridNews,
         ]);
     }
+
+    public function show(int $id = 0): void {
+        if (!$id) {
+            http_response_code(404);
+            die('Article not found.');
+        }
+
+        $article = $this->newsModel->getById($id);
+
+        if (!$article) {
+            http_response_code(404);
+            die('Article not found.');
+        }
+
+        $this->view('news/show', [
+            'pageTitle' => htmlspecialchars($article['news_title']),
+            'article'   => $article,
+        ]);
+    }
 }

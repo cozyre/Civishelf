@@ -22,7 +22,7 @@ class News {
     /**
      * Get N most recent news articles.
      */
-    public function getRecent(int $limit = 6): array {
+    public function getRecent(int $limit = 10): array {
         $stmt = $this->db->prepare(
             'SELECT * FROM news ORDER BY created_at DESC LIMIT :limit'
         );
@@ -58,5 +58,13 @@ class News {
             "SELECT COUNT(*) FROM users WHERE user_status = 'active'"
         );
         return (int) $stmt->fetchColumn();
+    }
+
+    public function getById(int $id): array|false {
+        $stmt = $this->db->prepare(
+            'SELECT * FROM news WHERE news_id = :id LIMIT 1'
+        );
+        $stmt->execute([':id' => $id]);
+        return $stmt->fetch();
     }
 }

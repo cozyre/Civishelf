@@ -38,7 +38,9 @@ function navTabClass(string $currentPath, string $path): string {
 <nav class="navbar secondary pb-0 mb-3">
     <div class="w-100 primary d-flex align-items-center justify-content-between fixed-top px-2 py-0 my-0">
         
-        <a href="."><img src="<?= BASE_URL ?>/assets/images/logos/logo.png" class="img-fluid" style="max-height: 3rem;" alt="Civishelf"></a>
+        <a href="<?= BASE_URL ?>/" id="logoLink">
+            <img src="<?= BASE_URL ?>/assets/images/logos/logo.png" class="img-fluid" style="max-height: 3rem;" alt="Civishelf">
+        </a>
 
         <div class="d-flex align-items-center">
         <div class="" id="user-name" style="font-family: Inter;">

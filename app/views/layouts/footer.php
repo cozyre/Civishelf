@@ -22,6 +22,18 @@
 <script src="<?= BASE_URL ?>/assets/js/main.js"></script>
 
 <script>
+//scroll to top of page or home 
+document.getElementById('logoLink').addEventListener('click', function(e) {
+    var path = window.location.pathname;
+    var base = '<?= rtrim(parse_url(BASE_URL, PHP_URL_PATH), '/') ?>';
+    var scrollPages = [base + '/', base, base + '/books', base + '/news', base + '/mybooks'];
+    
+    if (scrollPages.includes(path)) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+});
+
 // Auto-reopen login modal if login failed
 <?php if (isset($_SESSION['login_failed'])): ?>
 document.addEventListener('DOMContentLoaded', function () {
