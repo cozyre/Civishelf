@@ -224,10 +224,10 @@
     <div class="row pt-2 text-center primary">
         <p class="fs-3 my-4 accent">Where You Can Find Us</p>
         <div class="d-md-flex fs-6 justify-content-evenly mt-2 pb-4">
-            <a class="links" href="mailto:austin.412024020@civitas.ukrida.ac.id"><div><i class="p-1 bi bi-envelope"></i> Civishelf@company.com</div></a>
-            <a class="links" href="tel:+6285340974407"><div><i class="p-1 bi bi-telephone"></i> 123-3212-4563</div></a>
-            <a class="links" href="https://www.instagram.com/austinjk.h/"><div><i class="p-1 bi bi-instagram"></i> civishelf.co</div></a>
-            <a class="links" href="https://maps.app.goo.gl/nZRAagBaYQbeCYCE6"><div><i class="p-1 bi bi-buildings"></i> Jakarta, Indonesia</div></a>
+            <a class="links m-1" href="mailto:austin.412024020@civitas.ukrida.ac.id"><div><i class="p-1 bi bi-envelope"></i> Civishelf@company.com</div></a>
+            <a class="links m-1" href="tel:+6285340974407"><div><i class="p-1 bi bi-telephone"></i> 123-3212-4563</div></a>
+            <a class="links m-1" href="https://www.instagram.com/austinjk.h/"><div><i class="p-1 bi bi-instagram"></i> civishelf.co</div></a>
+            <a class="links m-1" href="https://maps.app.goo.gl/nZRAagBaYQbeCYCE6"><div><i class="p-1 bi bi-buildings"></i> Jakarta, Indonesia</div></a>
         </div>
     </div>
 </main>
