@@ -1,5 +1,10 @@
 <?php
 // app/views/administrator/admin_requests.php
+$statusFilter = $statusFilter??'';
+$pendingAdminCount = $pendingAdminCount??0;
+$totalRequests = $totalRequests??0;
+$limit = $limit??0;
+$page = $page??0;
 ob_start(); ?>
 
 <!-- ---- Alert ---- -->

@@ -26,7 +26,7 @@ class Borrow {
 
     // -----------------------------------------------------------------------
     // Insert a new borrow request with status = 'pending'.
-    // Due date defaults to 14 days from now — admin can adjust.
+    // Due date defaults to 14 days from now - admin can adjust.
     // -----------------------------------------------------------------------
     public function createRequest(int $userId, int $bookId): bool {
         $stmt = $this->db->prepare(
@@ -41,7 +41,7 @@ class Borrow {
     // -----------------------------------------------------------------------
     // Mark a borrow as returned and restore available_copies.
     // Security: requires user_id so users can only return their own borrows.
-    // Wrapped in a transaction — same pattern as Admin::returnBorrow().
+    // Wrapped in a transaction - same pattern as Admin::returnBorrow().
     // -----------------------------------------------------------------------
     public function returnBook(int $requestId, int $userId): bool {
         $this->db->beginTransaction();

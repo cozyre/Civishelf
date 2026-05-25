@@ -45,7 +45,7 @@ class ContactController extends Controller {
         $success = $this->contactModel->create($name, $email, $message);
 
         if ($success) {
-            // Pass timestamp for the "sent at" notice in your design
+            // Pass timestamp for the "sent at" notice
             $this->view('contact/index', [
                 'pageTitle'  => 'Contact Us',
                 'sentAt'     => date('d/m/Y H:i'),

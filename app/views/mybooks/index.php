@@ -1,4 +1,7 @@
-<?php include __DIR__ . '/../layouts/header.php'; ?>
+<?php include __DIR__ . '/../layouts/header.php'; 
+$savedBooks = $savedBooks??[];
+$borrowedBooks = $borrowedBooks??[];
+?>
 
 <main class="mb-5 pb-5">
 

@@ -12,7 +12,7 @@ class SavedBooksController extends Controller {
     }
 
     // -----------------------------------------------------------------------
-    // GET /mybooks  — main page with saved + borrowed sections
+    // GET /mybooks - main page with saved + borrowed sections
     // -----------------------------------------------------------------------
     public function index(): void {
         $this->requireLogin();
@@ -30,7 +30,7 @@ class SavedBooksController extends Controller {
     }
 
     // -----------------------------------------------------------------------
-    // POST /saved/save  — AJAX: save a book
+    // POST /saved/save - AJAX: save a book
     // Expects JSON body or POST field: book_id
     // Returns JSON
     // -----------------------------------------------------------------------
@@ -57,7 +57,7 @@ class SavedBooksController extends Controller {
     }
 
     // -----------------------------------------------------------------------
-    // POST /saved/unsave  — AJAX: remove a saved book
+    // POST /saved/unsave - AJAX: remove a saved book
     // -----------------------------------------------------------------------
     public function unsave(): void {
         $this->requireLogin();
@@ -82,7 +82,7 @@ class SavedBooksController extends Controller {
     }
 
     // -----------------------------------------------------------------------
-    // POST /saved/status — AJAX: check if a book is saved by current user
+    // POST /saved/status - AJAX: check if a book is saved by current user
     // -----------------------------------------------------------------------
     public function status(): void {
         $this->requireLogin();

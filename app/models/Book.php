@@ -78,7 +78,7 @@ class Book {
 
     // -----------------------------------------------------------------------
     // A small set for the masonry hero on the Explore page.
-    // Picks the most recently added books — tweak ORDER BY as needed.
+    // Picks the most recently added books - tweak ORDER BY as needed.
     // -----------------------------------------------------------------------
     public function getFeatured(int $limit = 6): array {
         $stmt = $this->db->prepare(

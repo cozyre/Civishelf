@@ -59,7 +59,7 @@ class User {
     }
 
     // -----------------------------------------------------------------------
-    // Admin-specific lookup — only returns rows where role = 'admin'.
+    // Admin-specific lookup - only returns rows where role = 'admin'.
     // -----------------------------------------------------------------------
     public function findAdminByEmail(string $email): array|false {
         $stmt = $this->db->prepare(

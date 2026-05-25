@@ -67,7 +67,7 @@ class BorrowController extends Controller {
         ]);
     }
 
-    // GET /borrow/status?book_id=X  — AJAX, check pending status for current user
+    // GET /borrow/status?book_id=X  - AJAX, check pending status for current user
     public function status(): void {
         $this->requireLogin();
 

@@ -8,16 +8,16 @@ class HomeController extends Controller {
         $bookModel     = $this->model('Book');
         $categoryModel = $this->model('Category');
 
-        // Top-searched carousel — ordered by save count
+        // Top-searched carousel - ordered by save count
         $topBooks   = $bookModel->getPopularBySaves(10);
 
         // Category filter chips
         $categories = $categoryModel->getAll();
 
-        // Active category from query string — null means "show all"
+        // Active category from query string - null means "show all"
         $activeCategoryId = isset($_GET['category']) ? (int) $_GET['category'] : null;
 
-        // Major Needs grid — filtered by category if one is selected
+        // Major Needs grid - filtered by category if one is selected
         $filteredBooks = $bookModel->getAll(8, 0, $activeCategoryId);
 
         $this->view('home/index', [
@@ -29,7 +29,7 @@ class HomeController extends Controller {
         ]);
     }
 
-    // GET /home/filterBooks?category=X  — AJAX, returns JSON
+    // GET /home/filterBooks?category=X  - AJAX, returns JSON
     public function filterBooks(): void {
         $bookModel        = $this->model('Book');
         $activeCategoryId = isset($_GET['category']) ? (int) $_GET['category'] : null;

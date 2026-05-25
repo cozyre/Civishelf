@@ -7,8 +7,6 @@ class NewsController extends Controller {
     private $newsModel;
 
     public function __construct() {
-        // Load the model manually — your MVC uses $this->model() only if
-        // you've wired that helper; this is the safe explicit fallback.
         require_once __DIR__ . '/../models/News.php';
         $this->newsModel = new News();
     }

@@ -53,8 +53,8 @@ class UserController extends Controller {
     }
 
     // -----------------------------------------------------------------------
-    // GET /user/register  → show form
-    // POST /user/register → process
+    // GET /user/register -> show form
+    // POST /user/register -> process
     // -----------------------------------------------------------------------
     public function register() {
         if (isset($_SESSION['user_id'])) {

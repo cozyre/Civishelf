@@ -32,39 +32,6 @@ class AdminController extends Controller {
         ]);
     }
 
-    private function handleAdminLogin(): void {
-        $email    = trim(filter_input(INPUT_POST, 'email',    FILTER_SANITIZE_EMAIL));
-        $password = trim(filter_input(INPUT_POST, 'password', FILTER_DEFAULT));
-
-        $errors = [];
-        if (empty($email) || empty($password)) {
-            $errors[] = 'All fields are required.';
-        }
-
-        if (empty($errors)) {
-            $admin = $this->userModel->findAdminByEmail($email);
-            if (!$admin || !$this->userModel->verifyPassword($password, $admin['password_hash'])) {
-                $errors[] = 'Invalid credentials or insufficient privileges.';
-            }
-        }
-
-        if (!empty($errors)) {
-            $this->view('auth/admin_login', [
-                'errors'    => $errors,
-                'email'     => $email ?? '',
-                'pageTitle' => 'Admin Login',
-            ]);
-            return;
-        }
-
-        session_regenerate_id(true);
-        $_SESSION['admin_id']   = $admin['user_id'];
-        $_SESSION['admin_name'] = $admin['user_name'];
-
-        flash('success', 'Welcome, ' . htmlspecialchars($admin['user_name']) . '.');
-        $this->redirect('/administrator');
-    }
-
     public function logout(): void {
         session_unset();
         session_destroy();
@@ -407,8 +374,8 @@ class AdminController extends Controller {
 
     // ========================================================================
     // PRIVATE: file upload helper
-    // Covers/news images → public/assets/images/{subdir}/
-    // PDFs              → storage/books/  (outside public root)
+    // Covers/news images -> public/assets/images/{subdir}/
+    // PDFs              -> storage/books/  (outside public root)
     // ========================================================================
 
     private function handleUpload(string $inputName, string $subdir, array $allowed): array {
