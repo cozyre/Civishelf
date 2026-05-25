@@ -73,7 +73,7 @@ function navTabClass(string $currentPath, string $path): string {
                     <li><a href="<?= BASE_URL ?>/contact" class="dropdown-item"><i class="bi bi-envelope me-2"></i>Contact Us</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a href="<?= BASE_URL ?>/administrator" class="dropdown-item"><i class="bi bi-shield-lock me-2"></i>Admin Login</a></li>
-                    <li><a href="<?= BASE_URL ?>/user/logout" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
+                    <li><a href="<?= BASE_URL ?>/admin/logout" class="dropdown-item text-danger"><i class="bi bi-box-arrow-right me-2"></i>Logout</a></li>
                 <?php else: ?>
                     <li>
                         <a href="<?= BASE_URL ?>/" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#loginModal">

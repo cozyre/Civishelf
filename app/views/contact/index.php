@@ -1,7 +1,7 @@
 <?php include __DIR__ . '/../layouts/header.php'; ?>
 
 <main class="">
-    <div class="container card py-4 mb-5">
+    <div class="container py-4 mb-5">
         <div class="row justify-content-center">
             <div class="col-md-6 col-lg-5">
 
@@ -16,7 +16,6 @@
 
                 <!-- Form card -->
                 <div class="p-4">
-
                     <?php if (!empty($errors)): ?>
                         <div class="alert alert-danger py-2 mb-3">
                             <?php foreach ($errors as $error): ?>

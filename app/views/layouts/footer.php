@@ -4,7 +4,7 @@
         <a class="links" href=".">Terms of Service</a>
         <a class="links" href="<?= BASE_URL ?>/contact" class="">Contact Us</a>
         <?php if (isset($_SESSION['user_id']) || isset($_SESSION['admin_id'])): ?>
-            <a class="links" href="/user/logout" class="">Logout</a>
+            <a class="links" href="/admin/logout" class="">Logout</a>
         <?php else: ?>
             <a class="links" href="#" data-bs-toggle="modal" data-bs-target="#loginModal" class="">Login</a>
         <?php endif; ?>

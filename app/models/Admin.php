@@ -443,6 +443,19 @@ class Admin {
         return $stmt->fetchAll();
     }
 
+    public function getAdminRequestStatus(int $userId): array|null {
+        $stmt = $this->db->prepare(
+            "SELECT status, requested_at, reviewed_at
+            FROM admin_requests
+            WHERE user_id = :uid
+            ORDER BY requested_at DESC
+            LIMIT 1"
+        );
+        $stmt->execute([':uid' => $userId]);
+        $row = $stmt->fetch();
+        return $row ?: null;
+    }
+
     public function countAdminRequests(string $status = ''): int {
         $where = $status ? "WHERE status = :status" : '';
         $stmt  = $this->db->prepare("SELECT COUNT(*) FROM admin_requests {$where}");

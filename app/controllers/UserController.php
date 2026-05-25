@@ -42,6 +42,12 @@ class UserController extends Controller {
         $_SESSION['user_name'] = $user['user_name'];
         $_SESSION['user_role'] = $user['role'];
 
+        // If admin, also open the admin session immediately
+        if ($user['role'] === 'admin') {
+            $_SESSION['admin_id']   = $user['user_id'];
+            $_SESSION['admin_name'] = $user['user_name'];
+        }
+
         flash('success', 'Welcome back, ' . htmlspecialchars($user['user_name']) . '!');
         $this->redirect('/');
     }
@@ -107,11 +113,8 @@ class UserController extends Controller {
     // -----------------------------------------------------------------------
     // GET /user/logout
     // -----------------------------------------------------------------------
-    public function logout() {
-        unset($_SESSION['user_id'], $_SESSION['user_name'], $_SESSION['user_role']);
-        session_regenerate_id(true);
-        flash('success', 'You have been logged out.');
-        $this->redirect('/');
+    public function logout(): void {
+        $this->redirect('/admin/logout');
     }
 
     // -----------------------------------------------------------------------

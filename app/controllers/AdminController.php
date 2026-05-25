@@ -19,12 +19,17 @@ class AdminController extends Controller {
             $this->redirect('/administrator');
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->handleAdminLogin();
-            return;
+        // Get request status if user is logged in
+        $requestStatus = null;
+        if (isset($_SESSION['user_id'])) {
+            $userId = (int) $_SESSION['user_id'];
+            $requestStatus = $this->adminModel->getAdminRequestStatus($userId);
         }
 
-        $this->view('auth/admin_login', ['pageTitle' => 'Admin Login']);
+        $this->view('auth/admin_login', [
+            'pageTitle'     => 'Admin Access',
+            'requestStatus' => $requestStatus,
+        ]);
     }
 
     private function handleAdminLogin(): void {
@@ -61,10 +66,12 @@ class AdminController extends Controller {
     }
 
     public function logout(): void {
-        unset($_SESSION['admin_id'], $_SESSION['admin_name']);
+        session_unset();
+        session_destroy();
+        session_start();
         session_regenerate_id(true);
-        flash('success', 'Admin session ended.');
-        $this->redirect('/admin/login');
+        flash('success', 'You have been logged out.');
+        $this->redirect('/');
     }
 
     // ========================================================================

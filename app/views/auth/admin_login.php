@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login — Civishelf</title>
+    <title>Admin Access — Civishelf</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <style>
@@ -36,37 +36,31 @@
             padding: 0.15rem 0.5rem; 
             border-radius: 3px; 
             vertical-align: middle; }
-        .form-control { 
-            background: #1a1a1a; 
-            border: 1px solid #444; 
-            color: #ececec; 
-            border-radius: 5px; }
-        .form-control:focus { 
-            background: #1a1a1a; 
-            border-color: #C30D00; 
-            color: #ececec; 
-            box-shadow: none; }
-        .form-label { 
-            color: #aaa; 
-            font-size: 0.85rem; }
-        .btn-login { 
-            background: #C30D00; 
-            color: #fff; 
-            border: none; 
-            border-radius: 5px; 
-            font-weight: 600; 
-            letter-spacing: 0.04em; }
-        .btn-login:hover { 
-            background: #FF401F; 
-            color: #fff; }
-        .divider { 
-            border-color: #333; }
-        .back-link { 
-            color: #888; 
-            font-size: 1rem; 
-            text-decoration: none; }
-        .back-link:hover { 
-            color: #ececec; }
+        .divider { border-color: #333; }
+        .back-link { color: #888; font-size: 0.8rem; text-decoration: none; }
+        .back-link:hover { color: #ececec; }
+        .btn-request {
+            background: #C30D00;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            font-weight: 600;
+            letter-spacing: 0.04em;
+            width: 100%; }
+        .btn-request:hover { background: #FF401F; color: #fff; }
+        .status-pill {
+            display: inline-block;
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-family: monospace; }
+        .status-none     { background: #2a2a2a; color: #888; border: 1px solid #444; }
+        .status-pending  { background: #3a2e00; color: #f59e0b; border: 1px solid #78450a; }
+        .status-approved { background: #0a2e1a; color: #34d399; border: 1px solid #065f46; }
+        .status-rejected { background: #2e0a0a; color: #f87171; border: 1px solid #7f1d1d; }
+        .status-label { font-size: 0.78rem; color: #666; margin-bottom: 0.4rem; }
     </style>
 </head>
 <body>
@@ -78,63 +72,58 @@
             <p class="text-secondary small mb-0">Restricted access. Authorised personnel only.</p>
         </div>
 
-        <?php if (!empty($errors)): ?>
-            <div class="alert alert-danger py-2 small">
-                <?php foreach ($errors as $e): ?>
-                    <div><?= htmlspecialchars($e) ?></div>
-                <?php endforeach; ?>
+        <?php if (!isset($_SESSION['user_id'])): ?>
+            <!-- Not logged in at all -->
+            <div class="alert alert-secondary py-2 small text-center">
+                You need to <a href="<?= BASE_URL ?>/user/register" class="text-warning">create an account</a> 
+                before requesting admin access.
             </div>
+
+        <?php elseif (isset($_SESSION['admin_id'])): ?>
+            <!-- Already an admin — shouldn't normally land here -->
+            <div class="alert alert-success py-2 small text-center">
+                You already have admin access. <a href="<?= BASE_URL ?>/administrator" class="text-success">Go to panel</a>
+            </div>
+
+        <?php else: ?>
+            <!-- Logged-in regular user — show request button + status -->
+            <p class="text-secondary small mb-3">
+                Logged in as <strong class="text-light"><?= htmlspecialchars($_SESSION['user_name']) ?></strong>.<br>
+                Submit a request and an existing admin will review it.
+            </p>
+
+            <?php
+                $status = $requestStatus['status'] ?? null;
+                $canRequest = ($status === null || $status === 'rejected');
+            ?>
+
+            <?php if ($canRequest): ?>
+                <a href="<?= BASE_URL ?>/administrator/promoteAdmin" class="btn btn-request mb-3">
+                    <i class="bi bi-shield-plus me-1"></i> Request Admin Access
+                </a>
+            <?php else: ?>
+                <button class="btn btn-request mb-3" disabled style="opacity:0.4;">
+                    <i class="bi bi-shield-plus me-1"></i> Request Admin Access
+                </button>
+            <?php endif; ?>
+
+            <div class="mt-2">
+                <div class="status-label">Request status</div>
+                <?php if ($status === null): ?>
+                    <span class="status-pill status-none"><i class="bi bi-dash me-1"></i>None</span>
+                <?php elseif ($status === 'pending'): ?>
+                    <span class="status-pill status-pending"><i class="bi bi-hourglass-split me-1"></i>Pending review</span>
+                <?php elseif ($status === 'approved'): ?>
+                    <span class="status-pill status-approved"><i class="bi bi-check-circle me-1"></i>Approved</span>
+                <?php elseif ($status === 'rejected'): ?>
+                    <span class="status-pill status-rejected"><i class="bi bi-x-circle me-1"></i>Last request denied — you may reapply</span>
+                <?php endif; ?>
+            </div>
+
         <?php endif; ?>
 
-        <form action="<?= BASE_URL ?>/admin/login" method="POST">
-            <div class="mb-3">
-                <label class="form-label" for="adminEmail">Email</label>
-                <input type="email" id="adminEmail" name="email" class="form-control"
-                       value="<?= htmlspecialchars($email ?? '') ?>" autocomplete="email" required>
-            </div>
-            <div class="mb-4">
-                <label class="form-label" for="adminPassword">Password</label>
-                <div class="input-group">
-                    <input type="password" id="adminPassword" name="password"
-                           class="form-control" autocomplete="current-password" required>
-                    <button class="btn btn-outline-secondary toggle-pw" type="button" tabindex="-1">
-                        <i class="bi bi-eye"></i>
-                    </button>
-                </div>
-            </div>
-            <button type="submit" class="btn btn-login w-100 mb-3">Sign In</button>
-            
-            <!-- Sign up to be an admin -->
-            <?php if (!empty($_SESSION['admin_id'])): ?>
-                <p class="text-center small mb-0 text-secondary">
-                    You are already registered as an admin.
-                </p>
-            <?php elseif (!empty($_SESSION['user_id'])): ?>
-                <p class="text-center small mb-0 text-white">
-                    Logged in as <strong><?= htmlspecialchars($_SESSION['user_name']) ?></strong>.<br>
-                    <a href="<?= BASE_URL ?>/administrator/promoteAdmin"><b>Request Admin Access</b></a>
-                </p>
-            <?php else: ?>
-                <p class="text-center small mb-0 text-white">
-                    Want admin access? <a href="<?= BASE_URL ?>/user/register"><b>Register first</b></a>, then request access.
-                </p>
-            <?php endif; ?>
-        </form>
-
-        <hr class="divider">
+        <hr class="divider mt-4">
         <a href="<?= BASE_URL ?>/" class="back-link"><i class="bi bi-arrow-left me-1"></i>Back to public site</a>
     </div>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-    document.querySelectorAll('.toggle-pw').forEach(function (btn) {
-        btn.addEventListener('click', function () {
-            var input  = this.closest('.input-group').querySelector('input');
-            var icon   = this.querySelector('i');
-            input.type     = input.type === 'password' ? 'text' : 'password';
-            icon.className = input.type === 'text' ? 'bi bi-eye-slash' : 'bi bi-eye';
-        });
-    });
-    </script>
 </body>
 </html>
