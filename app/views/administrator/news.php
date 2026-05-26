@@ -37,7 +37,7 @@ ob_start(); ?>
                 </td>
                 <td>
                     <div style="font-weight:600; font-size:0.9rem;"><?= htmlspecialchars($n['news_title']) ?></div>
-                    <div style="font-size:0.72rem; color:#6b7280; margin-top:0.15rem;">
+                    <div style="font-size:0.72rem; color:#6b7280;">
                         <?= htmlspecialchars(mb_substr(strip_tags($n['content']), 0, 100)) ?>…
                     </div>
                 </td>

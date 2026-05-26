@@ -2,7 +2,7 @@
 
 <main class="mb-5 pb-5">
 
-    <div class="history-page-header">
+    <div class="history-page-header container-fluid px-4">
         <span class="history-eyebrow">Your Activity</span>
         <h1 class="history-title">Borrow History</h1>
     </div>

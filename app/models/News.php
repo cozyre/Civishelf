@@ -32,10 +32,10 @@ class News {
     }
 
     /**
-     * Total books in the library (sum of total_copies).
+     * Total number of books in the library (row count).
      */
     public function getTotalBooks(): int {
-        $stmt = $this->db->query('SELECT SUM(total_copies) FROM books');
+        $stmt = $this->db->query('SELECT COUNT(*) FROM books');
         return (int) $stmt->fetchColumn();
     }
 

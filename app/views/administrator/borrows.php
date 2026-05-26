@@ -1,16 +1,22 @@
 <?php
 // app/views/administrator/borrows.php
+$pendingCount = $pendingCount??0;
+$overdueCount = $overdueCount??0;
+$statusFilter = $statusFilter??'';
+$totalBorrows = $totalBorrows??0;
+$limit = $limit??0;
+$page = $page??0;
 ob_start(); ?>
 
 <!-- ---- Alert bars ---- -->
 <?php if ((int)$pendingCount > 0): ?>
-<div class="alert alert-warning d-flex align-items-center gap-2 py-2 mb-3" style="border-radius:8px;">
+<div class="alert alert-warning d-flex align-items-center gap-2 py-2 mb-3 rounded">
     <i class="bi bi-hourglass-split"></i>
     <span><strong><?= (int)$pendingCount ?></strong> request<?= $pendingCount !== 1 ? 's' : '' ?> pending approval.</span>
 </div>
 <?php endif; ?>
 <?php if ((int)$overdueCount > 0): ?>
-<div class="alert alert-danger d-flex align-items-center gap-2 py-2 mb-3" style="border-radius:8px;">
+<div class="alert alert-danger d-flex align-items-center gap-2 py-2 mb-3 rounded">
     <i class="bi bi-exclamation-triangle-fill"></i>
     <span><strong><?= (int)$overdueCount ?></strong> overdue loan<?= $overdueCount !== 1 ? 's' : '' ?> need attention.</span>
 </div>

@@ -591,7 +591,6 @@ main, section{
 /* --------------- BORROW HISTORY PAGE -------------- */
 /* -------------------------------------------------- */
 .history-page-header {
-    container-fluid: px-4;
     padding: 1rem 1.5rem;
     background: var(--primary);
     color: var(--base-theme);
@@ -622,8 +621,10 @@ main, section{
 .history-table-wrap {
     border: 1px solid rgba(31,31,31,0.12);
     border-radius: 6px;
-    overflow: hidden;
+    overflow-x: auto;   /* scroll horizontally */
+    -webkit-overflow-scrolling: touch;
 }
+.history-table-wrap > .table-responsive { border-radius: 0; }
 
 .history-table {
     font-size: 0.875rem;

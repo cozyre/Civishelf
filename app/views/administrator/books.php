@@ -1,5 +1,12 @@
 <?php
 // app/views/administrator/books.php
+$activeCategoryId = $activeCategoryId??0;
+$totalBooks = $totalBooks??0;
+$categories = $categories??[];
+$limit = $limit??0;
+$page = $page??0;
+$authors = $authors??[];
+
 ob_start(); ?>
 
 <!-- ---- Toolbar ---- -->
@@ -39,6 +46,7 @@ ob_start(); ?>
 
 <!-- ---- Table ---- -->
 <div class="admin-table mb-3">
+    <div class="table-scroll">
     <table class="table mb-0">
         <thead>
             <tr>
@@ -99,6 +107,7 @@ ob_start(); ?>
             <?php endif; ?>
         </tbody>
     </table>
+    </div>
 </div>
 
 <!-- Pagination -->

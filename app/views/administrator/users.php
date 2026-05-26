@@ -10,7 +10,7 @@ ob_start(); ?>
     <h1 class="section-bar-title flex-grow-1">Users</h1>
     <form method="GET" action="<?= BASE_URL ?>/administrator/users" class="d-flex gap-2">
         <input type="text" name="search" class="form-control form-control-sm"
-               placeholder="Search name or email…" style="width:220px;"
+               placeholder="Search name or email…"
                value="<?= htmlspecialchars($search ?? '') ?>">
         <button type="submit" class="btn btn-sm btn-adm-primary">Search</button>
         <?php if (!empty($search)): ?>
@@ -42,7 +42,7 @@ ob_start(); ?>
                 <?php if (!empty($users)): ?>
                     <?php foreach ($users as $u): ?>
                     <tr id="user-row-<?= $u['user_id'] ?>">
-                        <td class="text-muted" style="font-size:0.75rem;"><?= (int)$u['user_id'] ?></td>
+                        <td class="text-muted"><?= (int)$u['user_id'] ?></td>
                         <td>
                             <div class="fw-semibold"><?= htmlspecialchars($u['user_name']) ?></div>
                             <div style="font-size:0.72rem; color:#6b7280;"><?= htmlspecialchars($u['email']) ?></div>

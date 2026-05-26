@@ -236,7 +236,6 @@ $borrowedBooks = $borrowedBooks??[];
     letter-spacing: 0.18em;
     text-transform: uppercase;
     opacity: 0.4;
-    margin-bottom: 0.3rem;
     font-family: monospace;
 }
 .mybooks-title {
@@ -254,138 +253,75 @@ $borrowedBooks = $borrowedBooks??[];
     border-radius: 4px;
     min-width: 70px;
 }
-.mybooks-count-pill--accent {
-    border-color: var(--accent);
-    background: rgba(195,13,0,0.08);
-}
-.count-num {
-    font-family: var(--title-font);
-    font-size: 1.8rem;
-    line-height: 1;
-    font-weight: 700;
-}
-.count-label {
-    font-size: 0.62rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    opacity: 0.5;
-    margin-top: 0.2rem;
-}
+.mybooks-count-pill--accent { border-color: var(--accent); background: rgba(195,13,0,0.08); }
+.count-num   { font-family: var(--title-font); font-size: 1.8rem; line-height: 1; font-weight: 700; }
+.count-label { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.5; margin-top: 0.2rem; }
+
 .mybooks-tabs { border-bottom: 1px solid rgba(255,255,255,0.1); }
 .mybooks-tab {
-    background: none;
-    border: none;
+    background: none; border: none;
     color: var(--base-theme);
     padding: 0.65rem 1.4rem;
-    font-size: 0.82rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    opacity: 0.45;
-    cursor: pointer;
-    border-bottom: 2px solid transparent;
-    margin-bottom: -1px;
+    font-size: 0.82rem; letter-spacing: 0.06em; text-transform: uppercase;
+    opacity: 0.45; cursor: pointer;
+    border-bottom: 2px solid transparent; margin-bottom: -1px;
     transition: opacity 0.15s, border-color 0.15s;
 }
 .mybooks-tab:hover  { opacity: 0.75; }
 .mybooks-tab.active { opacity: 1; border-bottom-color: var(--accent); }
-.book-ledger {
-    border: 1px solid rgba(31,31,31,0.12);
-    border-radius: 6px;
-    overflow: hidden;
-}
+
+.book-ledger { border: 1px solid rgba(31,31,31,0.12); border-radius: 6px; overflow: hidden; }
+
 .ledger-row {
-    background: #fff;
+    background: var(--base-theme);
     border-bottom: 1px solid rgba(31,31,31,0.07);
+    /* position: relative; */
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;       /* lets buttons wrap on very small screens */
+    gap: 0.5rem;
+    padding: 0.6rem 0.8;
     transition: background 0.15s;
 }
 .ledger-row:last-child { border-bottom: none; }
-.ledger-row:hover      { background: #f7f5f2; }
+
 .ledger-spine {
-    position: absolute;
-    left: 0; top: 0; bottom: 0;
-    width: 3px;
-    background: rgba(31,31,31,0.08);
+    position: absolute; left: 0; top: 0; bottom: 0;
+    width: 3px; background: rgba(31,31,31,0.08);
 }
 .ledger-spine--accent { background: var(--accent); }
+
 .ledger-cover-wrap {
-    width: 38px;
-    height: 54px;
-    border-radius: 2px;
-    overflow: hidden;
+    width: 36px; height: 52px;
+    border-radius: 2px; overflow: hidden;
     box-shadow: 2px 2px 6px rgba(0,0,0,0.15);
+    flex-shrink: 0;
 }
 .ledger-cover { width: 100%; height: 100%; object-fit: cover; display: block; }
-.ledger-title {
-    font-family: var(--title-font);
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--primary);
-}
-.ledger-meta {
-    font-size: 0.72rem;
-    color: var(--primary);
-    opacity: 0.5;
-    margin-top: 0.15rem;
-}
-.ledger-field { min-width: 80px; }
-.ledger-field-label {
-    font-size: 0.6rem;
-    letter-spacing: 0.12em;
-    text-transform: uppercase;
-    opacity: 0.35;
-    font-family: monospace;
-}
-.ledger-field-value {
-    font-size: 0.78rem;
-    font-family: monospace;
-    color: var(--primary);
-    font-weight: 600;
-    margin-top: 0.1rem;
-}
+
+.ledger-title { font-family: var(--title-font); font-size: 0.95rem; font-weight: 700; color: var(--primary); }
+.ledger-meta  { font-size: 0.7rem; color: var(--primary); opacity: 0.5; margin-top: 0.1rem; }
+
+.ledger-field { display: flex; flex-direction: column; align-items: flex-end; }
+.ledger-field-label { font-size: 0.58rem; letter-spacing: 0.12em; text-transform: uppercase; opacity: 0.35; font-family: monospace; }
+.ledger-field-value { font-size: 0.75rem; font-family: monospace; color: var(--primary); font-weight: 600; margin-top: 0.1rem; }
+
 .copies-ok   { color: #1a7a3c; }
 .copies-none { color: var(--accent); }
-.due-badge {
-    font-size: 0.6rem;
-    padding: 0.15rem 0.5rem;
-    border-radius: 20px;
-    font-weight: 700;
-    font-family: monospace;
-    white-space: nowrap;
-}
-.due-ok     { background: #e8f5e9; color: #1a7a3c; }
-.due-soon   { background: #fff3e0; color: #b45309; }
-.due-urgent { background: #fdecea; color: var(--accent); }
-.ledger-btn {
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-    padding: 0.35rem 0.85rem;
-    border-radius: 3px;
-    font-weight: 600;
-    transition: background 0.15s;
-    cursor: pointer;
-    white-space: nowrap;
-}
-.ledger-btn--ghost {
-    background: transparent;
-    border: 1px solid rgba(31,31,31,0.2);
-    color: var(--primary);
-}
+
+.due-badge { font-size: 0.8rem; padding: 0.12rem 0.45rem; border-radius: 20px; font-weight: 700; font-family: monospace; white-space: nowrap; }
+.due-ok     { background: var(--base-theme); color: #1a7a3c; }
+.due-soon   { background: var(--base-theme); color: #b45309; }
+.due-urgent { background: var(--base-theme); color: var(--accent); }
+
+.ledger-btn { font-size: 0.7rem; letter-spacing: 0.04em; text-transform: uppercase; padding: 0.3rem 0.75rem; border-radius: 3px; font-weight: 600; cursor: pointer; white-space: nowrap; }
+.ledger-btn--ghost  { background: transparent; border: 1px solid rgba(31,31,31,0.2); color: var(--primary); }
 .ledger-btn--ghost:hover { background: rgba(31,31,31,0.06); }
-.ledger-btn--unsave {
-    background: transparent;
-    border: 1px solid rgba(195,13,0,0.2);
-    color: var(--accent);
-    padding: 0.35rem 0.6rem;
-    font-size: 0.9rem;
-}
+.ledger-btn--unsave { background: transparent; border: 1px solid rgba(195,13,0,0.2); color: var(--accent); padding: 0.3rem 0.55rem; font-size: 0.88rem; }
 .ledger-btn--unsave:hover { background: rgba(195,13,0,0.08); }
-.ledger-btn--return {
-    background: var(--primary);
-    color: var(--base-theme);
-    border: none;
-}
+.ledger-btn--return { background: var(--primary); color: var(--base-theme); border: none; }
 .ledger-btn--return:hover { background: var(--accent); }
+
 .mybooks-link { color: var(--accent); text-decoration: underline; }
 </style>
 

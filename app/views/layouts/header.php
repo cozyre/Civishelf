@@ -187,13 +187,13 @@ function navTabClass(string $currentPath, string $path): string {
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content book-modal-content p-0 overflow-hidden">
 
-            <div class="row g-0" style="min-height: 300px;">
+            <div class="row g-0">
 
-                <div class="col-5 book-modal-cover-wrap">
+                <div class="col-12 col-sm-5 book-modal-cover-wrap">
                     <img src="" alt="" id="modalCover" class="book-modal-cover">
                 </div>
 
-                <div class="col-7 book-modal-details d-flex flex-column p-3">
+                <div class="col-12 col-sm-7 book-modal-details d-flex flex-column p-3">
 
                     <button type="button"
                             class="btn-close align-self-end mb-2"

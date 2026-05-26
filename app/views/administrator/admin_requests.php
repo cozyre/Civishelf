@@ -50,8 +50,8 @@ ob_start(); ?>
                 <tr id="req-row-<?= $r['request_id'] ?>">
                     <td style="font-weight:600;"><?= htmlspecialchars($r['user_name']) ?></td>
                     <td style="font-size:0.8rem;"><?= htmlspecialchars($r['email']) ?></td>
-                    <td style="font-size:0.78rem;"><?= date('d M Y', strtotime($r['user_joined'])) ?></td>
-                    <td style="font-size:0.78rem;"><?= date('d M Y H:i', strtotime($r['requested_at'])) ?></td>
+                    <td style="font-size:0.8rem;"><?= date('d M Y', strtotime($r['user_joined'])) ?></td>
+                    <td style="font-size:0.8rem;"><?= date('d M Y H:i', strtotime($r['requested_at'])) ?></td>
                     <td>
                         <?php if ($r['status'] === 'pending'): ?>
                             <span class="badge-pending2">Pending</span>
