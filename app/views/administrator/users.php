@@ -1,8 +1,8 @@
 <?php
 // app/views/administrator/users.php
-$page = $page??1;
-$totalUsers = $totalUsers??0;
-$limit = $limit??0;
+$page       = $page ?? 1;
+$totalUsers = $totalUsers ?? 0;
+$limit      = $limit ?? 0;
 ob_start(); ?>
 
 <!-- ---- Toolbar ---- -->
@@ -19,7 +19,6 @@ ob_start(); ?>
     </form>
 </div>
 
-<!-- ---- Summary ---- -->
 <p class="small text-muted mb-2">
     <?= number_format((int)$totalUsers) ?> user<?= $totalUsers !== 1 ? 's' : '' ?> found
     <?= !empty($search) ? 'for "' . htmlspecialchars($search) . '"' : '' ?>
@@ -27,90 +26,84 @@ ob_start(); ?>
 
 <!-- ---- Table ---- -->
 <div class="admin-table mb-3">
-    <table class="table mb-0">
-        <thead>
-            <tr>
-                <th>#</th>
-                <th>Name / Email</th>
-                <th>Status</th>
-                <th>Borrows</th>
-                <th>Joined</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php if (!empty($users)): ?>
-                <?php foreach ($users as $u): ?>
-                <tr id="user-row-<?= $u['user_id'] ?>">
-                    <td style="color:#9ca3af; font-size:0.75rem;"><?= (int)$u['user_id'] ?></td>
-                    <td>
-                        <div style="font-weight:600;"><?= htmlspecialchars($u['user_name']) ?></div>
-                        <div style="font-size:0.72rem; color:#6b7280;"><?= htmlspecialchars($u['email']) ?></div>
-                    </td>
-                    <td>
-                        <?php if ($u['user_status'] === 'active'): ?>
-                            <span class="badge-active">Active</span>
-                        <?php else: ?>
-                            <span class="badge-banned">Banned</span>
-                        <?php endif; ?>
-                    </td>
-                    <td style="font-size:0.82rem;">
-                        <span title="Total borrows"><?= (int)($u['total_borrows'] ?? 0) ?> total</span>
-                        <?php if ((int)($u['active_borrows'] ?? 0) > 0): ?>
-                            <span class="badge-approved ms-1"><?= (int)$u['active_borrows'] ?> active</span>
-                        <?php endif; ?>
-                    </td>
-                    <td style="font-size:0.78rem;"><?= date('d M Y', strtotime($u['created_at'])) ?></td>
-                    <td>
-                        <div class="d-flex gap-1 flex-wrap">
-                            <!-- Borrow History -->
-                            <button class="btn btn-sm btn-adm-ghost btn-history"
-                                    data-user-id="<?= $u['user_id'] ?>"
-                                    data-user-name="<?= htmlspecialchars($u['user_name']) ?>"
-                                    title="View borrow history">
-                                <i class="bi bi-clock-history"></i>
-                            </button>
-
-                            <!-- Ban / Unban -->
-                            <?php if ($u['user_status'] === 'active'): ?>
-                                <button class="btn btn-sm btn-adm-ghost btn-status"
-                                        data-user-id="<?= $u['user_id'] ?>"
-                                        data-new-status="banned"
-                                        title="Ban user" style="color:#C30D00; border-color:#fca5a5;">
-                                    <i class="bi bi-slash-circle"></i>
-                                </button>
-                            <?php else: ?>
-                                <button class="btn btn-sm btn-adm-ghost btn-status"
-                                        data-user-id="<?= $u['user_id'] ?>"
-                                        data-new-status="active"
-                                        title="Unban user" style="color:#16a34a; border-color:#86efac;">
-                                    <i class="bi bi-check-circle"></i>
-                                </button>
-                            <?php endif; ?>
-
-                            <!-- Delete -->
-                            <button class="btn btn-sm btn-adm-danger btn-delete-user"
-                                    data-user-id="<?= $u['user_id'] ?>"
-                                    data-user-name="<?= htmlspecialchars($u['user_name']) ?>"
-                                    title="Delete user">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </div>
-                    </td>
+    <div class="table-scroll">
+        <table class="table mb-0">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name / Email</th>
+                    <th>Status</th>
+                    <th>Borrows</th>
+                    <th>Joined</th>
+                    <th>Actions</th>
                 </tr>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <tr><td colspan="6" class="text-center py-4" style="color:#9ca3af;">No users found.</td></tr>
-            <?php endif; ?>
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                <?php if (!empty($users)): ?>
+                    <?php foreach ($users as $u): ?>
+                    <tr id="user-row-<?= $u['user_id'] ?>">
+                        <td class="text-muted" style="font-size:0.75rem;"><?= (int)$u['user_id'] ?></td>
+                        <td>
+                            <div class="fw-semibold"><?= htmlspecialchars($u['user_name']) ?></div>
+                            <div style="font-size:0.72rem; color:#6b7280;"><?= htmlspecialchars($u['email']) ?></div>
+                        </td>
+                        <td>
+                            <?php if ($u['user_status'] === 'active'): ?>
+                                <span class="badge-active">Active</span>
+                            <?php else: ?>
+                                <span class="badge-banned">Banned</span>
+                            <?php endif; ?>
+                        </td>
+                        <td style="font-size:0.82rem;">
+                            <span title="Total borrows"><?= (int)($u['total_borrows'] ?? 0) ?> total</span>
+                            <?php if ((int)($u['active_borrows'] ?? 0) > 0): ?>
+                                <span class="badge-approved ms-1"><?= (int)$u['active_borrows'] ?> active</span>
+                            <?php endif; ?>
+                        </td>
+                        <td style="font-size:0.78rem;"><?= date('d M Y', strtotime($u['created_at'])) ?></td>
+                        <td>
+                            <div class="d-flex gap-1 flex-wrap">
+                                <button class="btn btn-sm btn-adm-ghost btn-history"
+                                        data-user-id="<?= $u['user_id'] ?>"
+                                        data-user-name="<?= htmlspecialchars($u['user_name']) ?>"
+                                        title="View borrow history">
+                                    <i class="bi bi-clock-history"></i>
+                                </button>
+                                <?php if ($u['user_status'] === 'active'): ?>
+                                    <button class="btn btn-sm btn-adm-ghost btn-status"
+                                            data-user-id="<?= $u['user_id'] ?>"
+                                            data-new-status="banned"
+                                            title="Ban user" style="color:#C30D00; border-color:#fca5a5;">
+                                        <i class="bi bi-slash-circle"></i>
+                                    </button>
+                                <?php else: ?>
+                                    <button class="btn btn-sm btn-adm-ghost btn-status"
+                                            data-user-id="<?= $u['user_id'] ?>"
+                                            data-new-status="active"
+                                            title="Unban user" style="color:#16a34a; border-color:#86efac;">
+                                        <i class="bi bi-check-circle"></i>
+                                    </button>
+                                <?php endif; ?>
+                                <button class="btn btn-sm btn-adm-danger btn-delete-user"
+                                        data-user-id="<?= $u['user_id'] ?>"
+                                        data-user-name="<?= htmlspecialchars($u['user_name']) ?>"
+                                        title="Delete user">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr><td colspan="6" class="text-center py-4 text-muted">No users found.</td></tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
+    </div><!-- .table-scroll -->
 </div>
 
-<!-- ---- Pagination ---- -->
-<?php
-$totalPages = (int)ceil($totalUsers / $limit);
-if ($totalPages > 1):
-?>
+<!-- Pagination -->
+<?php $totalPages = (int)ceil($totalUsers / $limit); if ($totalPages > 1): ?>
 <nav>
     <ul class="pagination pagination-sm justify-content-center">
         <?php for ($i = 1; $i <= $totalPages; $i++): ?>
@@ -123,6 +116,7 @@ if ($totalPages > 1):
     </ul>
 </nav>
 <?php endif; ?>
+
 
 <!-- ================================================================
      BORROW HISTORY MODAL
@@ -141,13 +135,13 @@ if ($totalPages > 1):
     </div>
 </div>
 
+
 <!-- ================================================================
      JS
 ================================================================= -->
 <script>
 (function () {
 
-    // ---- Ban / Unban ----
     document.querySelectorAll('.btn-status').forEach(function (btn) {
         btn.addEventListener('click', function () {
             var userId    = this.dataset.userId;
@@ -162,7 +156,6 @@ if ($totalPages > 1):
         });
     });
 
-    // ---- Delete ----
     document.querySelectorAll('.btn-delete-user').forEach(function (btn) {
         btn.addEventListener('click', function () {
             var userId = this.dataset.userId;
@@ -178,20 +171,21 @@ if ($totalPages > 1):
         });
     });
 
-    // ---- History ----
     document.querySelectorAll('.btn-history').forEach(function (btn) {
         btn.addEventListener('click', function () {
             var userId = this.dataset.userId;
             var name   = this.dataset.userName;
             document.getElementById('historyModalLabel').textContent = name + ' — Borrow History';
-            document.getElementById('historyModalBody').innerHTML     = '<div class="text-center py-4 text-muted">Loading…</div>';
+            document.getElementById('historyModalBody').innerHTML    = '<div class="text-center py-4 text-muted">Loading…</div>';
 
             var modal = bootstrap.Modal.getOrCreateInstance(document.getElementById('historyModal'));
             modal.show();
 
             $.get(BASE_URL + '/administrator/userHistory', { user_id: userId }, function (res) {
-                if (!res.success) { document.getElementById('historyModalBody').innerHTML = '<div class="p-3 text-danger">Failed to load.</div>'; return; }
-
+                if (!res.success) {
+                    document.getElementById('historyModalBody').innerHTML = '<div class="p-3 text-danger">Failed to load.</div>';
+                    return;
+                }
                 if (!res.history.length) {
                     document.getElementById('historyModalBody').innerHTML = '<div class="p-4 text-center text-muted">No borrow history.</div>';
                     return;
@@ -216,9 +210,10 @@ if ($totalPages > 1):
                 }).join('');
 
                 document.getElementById('historyModalBody').innerHTML =
-                    '<table class="table table-sm mb-0" style="font-size:0.82rem;">' +
+                    '<div class="table-responsive">' +
+                    '<table class="table table-sm mb-0" style="font-size:0.82rem; min-width:480px;">' +
                     '<thead><tr><th></th><th>Book</th><th>Status</th><th>Borrowed</th><th>Due</th><th>Returned</th></tr></thead>' +
-                    '<tbody>' + rows + '</tbody></table>';
+                    '<tbody>' + rows + '</tbody></table></div>';
             }, 'json').fail(function () {
                 document.getElementById('historyModalBody').innerHTML = '<div class="p-3 text-danger">Network error.</div>';
             });
