@@ -8,24 +8,33 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <script>const BASE_URL = "<?= BASE_URL ?>";</script>
     <style>
-        /* ---- Base ---- */
+        /* ---- Variables ---- */
         :root {
-            --adm-bg:       #f4f4f4;
-            --adm-sidebar:  #1f1f1f;
-            --adm-sidebar2: #2a2a2a;
-            --adm-accent:   #C30D00;
-            --adm-accent2:  #FF401F;
-            --adm-text:     #1f1f1f;
-            --adm-muted:    #6b7280;
-            --adm-border:   #e5e7eb;
-            --adm-white:    #ffffff;
+            --adm-bg:      #f4f4f4;
+            --adm-sidebar: #1f1f1f;
+            --adm-sidebar2:#2a2a2a;
+            --adm-accent:  #C30D00;
+            --adm-accent2: #FF401F;
+            --adm-text:    #1f1f1f;
+            --adm-muted:   #6b7280;
+            --adm-border:  #e5e7eb;
+            --adm-white:   #ffffff;
+            --sidebar-w:   220px;
         }
+
         * { box-sizing: border-box; }
-        body { margin: 0; font-family: 'Times New Roman', serif; background: var(--adm-bg); color: var(--adm-text); display: flex; min-height: 100vh; }
+        body {
+            margin: 0;
+            font-family: 'Times New Roman', serif;
+            background: var(--adm-bg);
+            color: var(--adm-text);
+            display: flex;
+            min-height: 100vh;
+        }
 
         /* ---- Sidebar ---- */
         #adminSidebar {
-            width: 220px;
+            width: var(--sidebar-w);
             min-height: 100vh;
             background: var(--adm-sidebar);
             color: #ececec;
@@ -34,9 +43,10 @@
             flex-shrink: 0;
             position: fixed;
             top: 0; left: 0; bottom: 0;
-            z-index: 100;
+            z-index: 200;
             transition: transform 0.25s ease;
         }
+
         .sidebar-brand {
             padding: 1.25rem 1rem 1rem;
             border-bottom: 1px solid #333;
@@ -56,7 +66,9 @@
             padding: 0.1rem 0.4rem;
             border-radius: 3px;
         }
-        .sidebar-nav { padding: 0.75rem 0; flex: 1; }
+
+        .sidebar-nav { padding: 0.75rem 0; flex: 1; overflow-y: auto; }
+
         .sidebar-section-label {
             font-size: 0.58rem;
             letter-spacing: 0.18em;
@@ -76,9 +88,10 @@
             transition: background 0.15s, color 0.15s;
             border-left: 3px solid transparent;
         }
-        .sidebar-link:hover { background: var(--adm-sidebar2); color: #ececec; }
+        .sidebar-link:hover  { background: var(--adm-sidebar2); color: #ececec; }
         .sidebar-link.active { background: var(--adm-sidebar2); color: #ececec; border-left-color: var(--adm-accent); }
         .sidebar-link i { font-size: 1rem; flex-shrink: 0; }
+
         .sidebar-footer {
             padding: 1rem;
             border-top: 1px solid #333;
@@ -87,6 +100,7 @@
         }
         .sidebar-footer a { color: #888; text-decoration: none; font-size: 0.78rem; }
         .sidebar-footer a:hover { color: var(--adm-accent2); }
+
         .badge-pending {
             font-size: 0.6rem;
             background: var(--adm-accent);
@@ -96,14 +110,26 @@
             margin-left: auto;
         }
 
-        /* ---- Main content area ---- */
+        /* ---- Sidebar overlay (mobile) ---- */
+        #sidebarOverlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.45);
+            z-index: 199;
+        }
+        #sidebarOverlay.show { display: block; }
+
+        /* ---- Main content ---- */
         #adminMain {
-            margin-left: 220px;
+            margin-left: var(--sidebar-w);
             flex: 1;
             display: flex;
             flex-direction: column;
             min-height: 100vh;
+            min-width: 0; /* prevents flex overflow */
         }
+
         .admin-topbar {
             background: var(--adm-white);
             border-bottom: 1px solid var(--adm-border);
@@ -114,10 +140,12 @@
             position: sticky;
             top: 0;
             z-index: 50;
+            gap: 0.75rem;
         }
-        .admin-topbar-title { font-size: 1.1rem; font-weight: 700; }
-        .admin-topbar-user { font-size: 0.82rem; color: var(--adm-muted); }
-        .admin-body { padding: 1.5rem; flex: 1; }
+        .admin-topbar-title { font-size: 1.1rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .admin-topbar-user  { font-size: 0.82rem; color: var(--adm-muted); white-space: nowrap; flex-shrink: 0; }
+
+        .admin-body { padding: 1.25rem; flex: 1; min-width: 0; }
 
         /* ---- Stat cards ---- */
         .stat-card {
@@ -136,38 +164,59 @@
             font-size: 1.4rem;
             flex-shrink: 0;
         }
-        .stat-card-num { font-size: 1.8rem; font-weight: 700; line-height: 1; }
+        .stat-card-num   { font-size: 1.8rem; font-weight: 700; line-height: 1; }
         .stat-card-label { font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--adm-muted); margin-top: 0.2rem; }
 
         /* ---- Tables ---- */
-        .admin-table { background: var(--adm-white); border: 1px solid var(--adm-border); border-radius: 8px; overflow: hidden; }
-        .admin-table table { margin: 0; font-size: 0.875rem; }
-        .admin-table thead th { background: #f9fafb; font-size: 0.7rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--adm-muted); border-bottom: 1px solid var(--adm-border); padding: 0.75rem 1rem; font-weight: 600; }
-        .admin-table tbody td { padding: 0.7rem 1rem; vertical-align: middle; border-bottom: 1px solid var(--adm-border); }
+        .admin-table {
+            background: var(--adm-white);
+            border: 1px solid var(--adm-border);
+            border-radius: 8px;
+            overflow: hidden; /* keeps border-radius on scroll wrapper */
+        }
+        /* Scroll wrapper inside every admin-table */
+        .admin-table .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .admin-table table { margin: 0; font-size: 0.875rem; min-width: 560px; }
+        .admin-table thead th {
+            background: #f9fafb;
+            font-size: 0.7rem;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--adm-muted);
+            border-bottom: 1px solid var(--adm-border);
+            padding: 0.75rem 1rem;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .admin-table tbody td {
+            padding: 0.7rem 1rem;
+            vertical-align: middle;
+            border-bottom: 1px solid var(--adm-border);
+        }
         .admin-table tbody tr:last-child td { border-bottom: none; }
         .admin-table tbody tr:hover { background: #fafafa; }
 
-        /* ---- Section header ---- */
+        /* ---- Section header bar ---- */
         .section-bar {
             background: var(--adm-white);
             border: 1px solid var(--adm-border);
             border-radius: 8px;
-            padding: 1rem 1.25rem;
+            padding: 0.85rem 1.25rem;
             margin-bottom: 1rem;
             display: flex;
             align-items: center;
             flex-wrap: wrap;
-            gap: 0.75rem;
+            gap: 0.6rem;
         }
         .section-bar-title { font-size: 1rem; font-weight: 700; margin: 0; }
 
         /* ---- Buttons ---- */
         .btn-adm-primary { background: var(--adm-text); color: #fff; border: none; font-size: 0.8rem; border-radius: 5px; }
         .btn-adm-primary:hover { background: #333; color: #fff; }
-        .btn-adm-danger { background: var(--adm-accent); color: #fff; border: none; font-size: 0.8rem; border-radius: 5px; }
-        .btn-adm-danger:hover { background: var(--adm-accent2); color: #fff; }
-        .btn-adm-ghost { background: transparent; border: 1px solid var(--adm-border); color: var(--adm-text); font-size: 0.8rem; border-radius: 5px; }
-        .btn-adm-ghost:hover { background: var(--adm-bg); }
+        .btn-adm-danger  { background: var(--adm-accent); color: #fff; border: none; font-size: 0.8rem; border-radius: 5px; }
+        .btn-adm-danger:hover  { background: var(--adm-accent2); color: #fff; }
+        .btn-adm-ghost   { background: transparent; border: 1px solid var(--adm-border); color: var(--adm-text); font-size: 0.8rem; border-radius: 5px; }
+        .btn-adm-ghost:hover   { background: var(--adm-bg); }
 
         /* ---- Status badges ---- */
         .badge-active   { background: #dcfce7; color: #166534; font-size: 0.68rem; padding: 0.2rem 0.6rem; border-radius: 20px; }
@@ -181,16 +230,22 @@
         /* ---- Book cover thumb ---- */
         .book-thumb { width: 36px; height: 50px; object-fit: cover; border-radius: 3px; display: block; }
 
-        /* ---- Responsive sidebar toggle ---- */
+        /* ---- Responsive ---- */
         @media (max-width: 768px) {
-            #adminSidebar { transform: translateX(-220px); }
+            #adminSidebar { transform: translateX(calc(-1 * var(--sidebar-w))); }
             #adminSidebar.open { transform: translateX(0); }
             #adminMain { margin-left: 0; }
+            .admin-topbar { padding: 0.65rem 1rem; }
+            .admin-body   { padding: 0.85rem; }
+            .stat-card    { padding: 0.85rem 1rem; }
+            .stat-card-num { font-size: 1.4rem; }
         }
     </style>
 </head>
 <body>
-    <?php $content = $content??'';?>
+
+<!-- Overlay (mobile) -->
+<div id="sidebarOverlay"></div>
 
 <!-- ================================================================
      SIDEBAR
@@ -229,11 +284,11 @@
             <i class="bi bi-newspaper"></i> News
         </a>
         <a href="<?= BASE_URL ?>/administrator/messages"
-            class="sidebar-link <?= ($activeNav ?? '') === 'messages' ? 'active' : '' ?>">
+           class="sidebar-link <?= ($activeNav ?? '') === 'messages' ? 'active' : '' ?>">
             <i class="bi bi-envelope"></i> Messages
         </a>
         <a href="<?= BASE_URL ?>/administrator/adminRequests"
-        class="sidebar-link <?= ($activeNav ?? '') === 'adminRequests' ? 'active' : '' ?>">
+           class="sidebar-link <?= ($activeNav ?? '') === 'adminRequests' ? 'active' : '' ?>">
             <i class="bi bi-shield-plus"></i> Admin Requests
             <?php if (!empty($pendingAdminCount) && $pendingAdminCount > 0): ?>
                 <span class="badge-pending"><?= (int)$pendingAdminCount ?></span>
@@ -259,9 +314,8 @@
 
     <!-- Topbar -->
     <div class="admin-topbar">
-        <div class="d-flex align-items-center gap-3">
-            <!-- Mobile toggle -->
-            <button class="btn btn-sm btn-adm-ghost d-md-none" id="sidebarToggle">
+        <div class="d-flex align-items-center gap-2 min-w-0">
+            <button class="btn btn-sm btn-adm-ghost flex-shrink-0" id="sidebarToggle" aria-label="Toggle menu">
                 <i class="bi bi-list"></i>
             </button>
             <span class="admin-topbar-title"><?= htmlspecialchars($pageTitle ?? 'Admin') ?></span>
@@ -273,7 +327,7 @@
 
     <!-- Flash messages -->
     <?php if (isset($_SESSION['flash'])): ?>
-    <div class="px-4 pt-3">
+    <div class="px-3 pt-3">
         <div class="alert alert-<?= htmlspecialchars($_SESSION['flash']['type']) ?> alert-dismissible fade show py-2 mb-0" role="alert">
             <?= htmlspecialchars($_SESSION['flash']['message']) ?>
             <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -282,7 +336,7 @@
     <?php unset($_SESSION['flash']); ?>
     <?php endif; ?>
 
-    <!-- Page content injected here -->
+    <!-- Page content -->
     <div class="admin-body">
         <?= $content ?>
     </div>
@@ -291,9 +345,26 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script>
-document.getElementById('sidebarToggle')?.addEventListener('click', function () {
-    document.getElementById('adminSidebar').classList.toggle('open');
-});
+(function () {
+    var sidebar  = document.getElementById('adminSidebar');
+    var overlay  = document.getElementById('sidebarOverlay');
+    var toggle   = document.getElementById('sidebarToggle');
+
+    function openSidebar() {
+        sidebar.classList.add('open');
+        overlay.classList.add('show');
+    }
+    function closeSidebar() {
+        sidebar.classList.remove('open');
+        overlay.classList.remove('show');
+    }
+
+    toggle.addEventListener('click', function () {
+        sidebar.classList.contains('open') ? closeSidebar() : openSidebar();
+    });
+
+    overlay.addEventListener('click', closeSidebar);
+})();
 </script>
 </body>
 </html>
