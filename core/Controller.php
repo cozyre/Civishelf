@@ -4,7 +4,7 @@
 class Controller {
     // -------------------------------------------------------
     // Model loader
-    // Usage: $this->model('Book') → loads app/models/Book.php
+    // Usage: $this->model('Book') -> loads app/models/Book.php
     //        and returns a new instance.
     // -------------------------------------------------------
     protected function model(string $name): object {
@@ -17,7 +17,7 @@ class Controller {
     }
 
     // -------------------------------------------------------
-    // JSON response helper — use this for all AJAX endpoints
+    // JSON response helper - use this for all AJAX endpoints
     // -------------------------------------------------------
     protected function json(array $data, int $status = 200): void {
         http_response_code($status);
@@ -27,7 +27,7 @@ class Controller {
     }
 
     // -------------------------------------------------------
-    // View loader — loads a PHP view file and passes data to it
+    // View loader - loads a PHP view file and passes data to it
     // Usage: $this->view('books/index', ['books' => $books])
     // -------------------------------------------------------
     protected function view(string $path, array $data = []): void {
@@ -53,7 +53,7 @@ class Controller {
     }
 
     // -------------------------------------------------------
-    // Auth guards — call these at the top of controller methods
+    // Auth guards - call these at the top of controller methods
     // -------------------------------------------------------
 
     // Requires any logged-in user

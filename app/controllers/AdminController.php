@@ -42,7 +42,7 @@ class AdminController extends Controller {
     }
 
     // ========================================================================
-    // DASHBOARD  GET /administrator
+    // DASHBOARD GET /administrator
     // ========================================================================
 
     public function index(): void {
@@ -61,7 +61,7 @@ class AdminController extends Controller {
     }
 
     // ========================================================================
-    // USERS  GET /administrator/users
+    // USERS GET /administrator/users
     // ========================================================================
 
     public function users(): void {
@@ -83,7 +83,7 @@ class AdminController extends Controller {
         ]);
     }
 
-    // POST /administrator/user/status  (AJAX)
+    // POST /administrator/user/status (AJAX)
     public function userStatus(): void {
         $this->requireAdmin();
 
@@ -98,7 +98,7 @@ class AdminController extends Controller {
         $this->json(['success' => $ok, 'message' => $ok ? 'Status updated.' : 'Failed.']);
     }
 
-    // POST /administrator/user/delete  (AJAX)
+    // POST /administrator/user/delete (AJAX)
     public function userDelete(): void {
         $this->requireAdmin();
 
@@ -253,7 +253,7 @@ class AdminController extends Controller {
     }
 
     // ========================================================================
-    // BORROWS  GET /administrator/borrows
+    // BORROWS GET /administrator/borrows
     // ========================================================================
 
     public function borrows(): void {
@@ -313,7 +313,7 @@ class AdminController extends Controller {
     }
 
     // ========================================================================
-    // NEWS  GET /administrator/news
+    // NEWS GET /administrator/news
     // ========================================================================
 
     public function news(): void {
@@ -361,7 +361,7 @@ class AdminController extends Controller {
         $this->redirect('/administrator/news');
     }
 
-    // POST /administrator/news/delete  (AJAX)
+    // POST /administrator/news/delete (AJAX)
     public function newsDelete(): void {
         $this->requireAdmin();
 
@@ -375,7 +375,7 @@ class AdminController extends Controller {
     // ========================================================================
     // PRIVATE: file upload helper
     // Covers/news images -> public/assets/images/{subdir}/
-    // PDFs              -> storage/books/  (outside public root)
+    // PDFs              -> storage/books/(outside public root)
     // ========================================================================
 
     private function handleUpload(string $inputName, string $subdir, array $allowed): array {
@@ -489,7 +489,7 @@ class AdminController extends Controller {
         ]);
     }
 
-    // POST /administrator/adminRequestApprove  (AJAX)
+    // POST /administrator/adminRequestApprove (AJAX)
     public function adminRequestApprove(): void {
         $this->requireAdmin();
         $id = (int) ($_POST['request_id'] ?? 0);
@@ -499,7 +499,7 @@ class AdminController extends Controller {
         $this->json(['success' => $ok, 'message' => $ok ? 'User promoted to admin.' : 'Failed.']);
     }
 
-    // POST /administrator/adminRequestReject  (AJAX)
+    // POST /administrator/adminRequestReject (AJAX)
     public function adminRequestReject(): void {
         $this->requireAdmin();
         $id = (int) ($_POST['request_id'] ?? 0);

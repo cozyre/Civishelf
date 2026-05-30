@@ -3,51 +3,88 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Access — Civishelf</title>
+    <title>Admin Access - Civishelf</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
     <style>
+        :root {
+            --bg-dark: #1a1a1a;
+            --bg-card: #242424;
+            --border-dark: #333;
+            --text-light: #ececec;
+            --text-muted: #888;
+            --text-subtle: #666;
+            --danger: #C30D00;
+            --danger-hover: #FF401F;
+            --status-bg: #2a2a2a;
+        }
+
         body { 
-            background: #1a1a1a; 
+            background: var(--bg-dark); 
             display: flex; 
             align-items: center; 
             justify-content: center; 
             min-height: 100vh; 
             margin: 0; 
-            font-family: 'Times New Roman', serif; }
+            font-family: 'Times New Roman', serif;
+        }
+
         .login-card { 
-            background: #242424; 
-            border: 1px solid #333; 
+            background: var(--bg-card); 
+            border: 1px solid var(--border-dark); 
             border-radius: 8px; 
             padding: 2.5rem; 
             width: 100%; 
-            max-width: 400px; }
+            max-width: 400px;
+        }
+
         .login-logo { 
             font-family: 'Times New Roman', serif; 
             font-size: 1.8rem;
-            color: #ececec;
-            letter-spacing: 0.05em; }
+            color: var(--text-light);
+            letter-spacing: 0.05em;
+        }
+
         .login-badge { 
             font-size: 0.65rem; 
             letter-spacing: 0.15em; 
             text-transform: uppercase; 
-            color: #C30D00; 
-            border: 1px solid #C30D00; 
+            color: var(--danger); 
+            border: 1px solid var(--danger); 
             padding: 0.15rem 0.5rem; 
             border-radius: 3px; 
-            vertical-align: middle; }
-        .divider { border-color: #333; }
-        .back-link { color: #888; font-size: 0.8rem; text-decoration: none; }
-        .back-link:hover { color: #ececec; }
+            vertical-align: middle;
+        }
+
+        .divider { 
+            border-color: var(--border-dark);
+        }
+
+        .back-link { 
+            color: var(--text-muted); 
+            font-size: 0.8rem; 
+            text-decoration: none;
+        }
+
+        .back-link:hover { 
+            color: var(--text-light);
+        }
+
         .btn-request {
-            background: #C30D00;
+            background: var(--danger);
             color: #fff;
             border: none;
             border-radius: 5px;
             font-weight: 600;
             letter-spacing: 0.04em;
-            width: 100%; }
-        .btn-request:hover { background: #FF401F; color: #fff; }
+            width: 100%;
+        }
+
+        .btn-request:hover { 
+            background: var(--danger-hover);
+            color: #fff;
+        }
+
         .status-pill {
             display: inline-block;
             font-size: 0.72rem;
@@ -55,12 +92,29 @@
             text-transform: uppercase;
             padding: 0.25rem 0.75rem;
             border-radius: 20px;
-            font-family: monospace; }
-        .status-none     { background: #2a2a2a; color: #888; border: 1px solid #444; }
-        .status-pending  { background: #3a2e00; color: #f59e0b; border: 1px solid #78450a; }
-        .status-approved { background: #0a2e1a; color: #34d399; border: 1px solid #065f46; }
-        .status-rejected { background: #2e0a0a; color: #f87171; border: 1px solid #7f1d1d; }
-        .status-label { font-size: 0.78rem; color: #666; margin-bottom: 0.4rem; }
+            font-family: monospace;
+            border: 1px solid;
+        }
+
+        .status-none { 
+            background: var(--status-bg); color: var(--text-muted); border-color: var(--border-dark);
+        }
+
+        .status-pending { 
+            background: #3a2e00; color: #f59e0b; border-color: #78450a;
+        }
+
+        .status-approved { 
+            background: #0a2e1a; color: #34d399; border-color: #065f46;
+        }
+
+        .status-rejected { 
+            background: #2e0a0a; color: #f87171; border-color: #7f1d1d;
+        }
+
+        .status-label { 
+            font-size: 0.78rem; color: var(--text-subtle); margin-bottom: 0.4rem;
+        }
     </style>
 </head>
 <body>

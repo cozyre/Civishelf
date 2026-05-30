@@ -19,13 +19,11 @@
 
         <div class="p-3 rounded" style="background: var(--primary); color: var(--base-theme);">
             <div class="fw-bold mb-1" style="font-family: var(--title-font); font-size: 1.1rem;">
-                <!-- TODO: replace with real campus name -->
-                University Campus Library
+                Christian Krida Wacana University
             </div>
             <div class="small opacity-75">
-                <!-- TODO: replace with real location -->
-                Main Building, Ground Floor — Room 001<br>
-                Open: Mon–Fri, 8:00 AM – 8:00 PM
+                Main Building, Ground Floor - Room 001<br>
+                Open: Mon-Fri, 8:00 AM - 5:00 PM
             </div>
         </div>
 

@@ -12,7 +12,7 @@ class BorrowController extends Controller {
     }
 
     // -----------------------------------------------------------------------
-    // POST /borrow/request  — AJAX
+    // POST /borrow/request - AJAX
     // Submits a borrow request for the logged-in user.
     // -----------------------------------------------------------------------
     public function request(): void {
@@ -45,7 +45,7 @@ class BorrowController extends Controller {
         ]);
     }
 
-    // POST /borrow/returnBook  — AJAX, user-initiated
+    // POST /borrow/returnBook - AJAX, user-initiated
     public function returnBook(): void {
         $this->requireLogin();
 
@@ -67,7 +67,7 @@ class BorrowController extends Controller {
         ]);
     }
 
-    // GET /borrow/status?book_id=X  - AJAX, check pending status for current user
+    // GET /borrow/status?book_id=X - AJAX, check pending status for current user
     public function status(): void {
         $this->requireLogin();
 

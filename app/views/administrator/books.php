@@ -127,7 +127,7 @@ ob_start(); ?>
 
 
 <!-- ================================================================
-     BOOK ADD / EDIT MODAL
+    BOOK ADD / EDIT MODAL
 ================================================================= -->
 <div class="modal fade" id="bookFormModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -214,7 +214,7 @@ ob_start(); ?>
 
 
 <!-- ================================================================
-     CATEGORY MODAL
+    CATEGORY MODAL
 ================================================================= -->
 <div class="modal fade" id="categoryModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -260,7 +260,7 @@ ob_start(); ?>
 
 
 <!-- ================================================================
-     AUTHOR MODAL
+    AUTHOR MODAL
 ================================================================= -->
 <div class="modal fade" id="authorModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
@@ -296,7 +296,7 @@ ob_start(); ?>
 
 
 <!-- ================================================================
-     JS
+    JS
 ================================================================= -->
 <script>
 (function () {

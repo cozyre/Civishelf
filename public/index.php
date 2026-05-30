@@ -1,6 +1,6 @@
 <?php
 // public/index.php
-// Single entry point — ALL requests go through here
+// Single entry point, ALL requests go through here
 
 session_start();
 

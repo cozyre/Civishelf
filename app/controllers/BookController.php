@@ -8,13 +8,13 @@ class BookController extends Controller {
         $bookModel     = $this->model('Book');
         $categoryModel = $this->model('Category');
 
-        // Current logged-in user ID — null for guests
+        // Current logged-in user ID - null for guests
         $userId = $_SESSION['user_id'] ?? null;
 
-        // Masonry hero — 6 most recent books
+        // Masonry hero - 6 most recent books
         $featuredBooks = $bookModel->getFeatured(6);
 
-        // Most Popular carousel — ordered by borrow count
+        // Most Popular carousel - ordered by borrow count
         $popularBooks = $bookModel->getPopularByBorrows(8);
 
         // Category filter
@@ -27,8 +27,7 @@ class BookController extends Controller {
         $offset = ($page - 1) * $limit;
         $books  = $bookModel->getAll($limit, $offset, $activeCategoryId);
 
-        // Note: this runs one extra query per book. For a campus project this
-        // is fine. If it becomes slow later, replace with a single JOIN query.
+        // Note: this runs one extra query per book.If it becomes slow later, replace with a single JOIN query.
         
         $resolveStatus = function (array &$bookList) use ($bookModel, $userId): void {
             foreach ($bookList as &$book) {
@@ -56,14 +55,14 @@ class BookController extends Controller {
     }
 
     // -----------------------------------------------------------------------
-    // GET /books/offline  — Not available online info page
+    // GET /books/offline - Not available online info page
     // Shown when a user tries to read a borrowed book that has no online file.
     // -----------------------------------------------------------------------
     public function offline(): void {
         $this->view('books/offline', ['pageTitle' => 'Not Available Online',]);
     }
 
-    // GET /books/filterBooks?category=X  — AJAX, returns JSON for the main grid
+    // GET /books/filterBooks?category=X - AJAX, returns JSON for the main grid
     public function filterBooks(): void {
         $bookModel        = $this->model('Book');
         $activeCategoryId = isset($_GET['category']) ? (int) $_GET['category'] : null;

@@ -79,7 +79,6 @@
         // Action button: Preview
         var previewBtn = document.getElementById('modalPreviewBtn');
         previewBtn.onclick = function () {
-            // TODO: wire to /books/preview/{id} when that view exists
             alert('Preview coming soon.');
         };
 
@@ -183,12 +182,5 @@
             alert('Network error. Please try again.');
         });
     }
-
-    // ----------------------------------------------------------------
-    // Auto-reopen login modal if login failed (flag set by UserController)
-    // ----------------------------------------------------------------
-    // This logic is already in footer.php inline — leave it there.
-    // main.js runs before Bootstrap is fully ready on some pages, so
-    // the footer inline block (DOMContentLoaded) is safer for that case.
 
 })();
