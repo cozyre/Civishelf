@@ -83,4 +83,27 @@ class User {
         );
         return $stmt->execute([':id' => $userId]);
     }
+
+    public function updateProfile(int $userId, string $name, string $email): bool {
+        $stmt = $this->db->prepare(
+            "UPDATE users SET user_name = :name, email = :email WHERE user_id = :id"
+        );
+        return $stmt->execute([':name' => $name, ':email' => $email, ':id' => $userId]);
+    }
+
+    // Different from emailExists() - excludes the current user from the check
+    public function emailExistsForOther(string $email, int $excludeId): bool {
+        $stmt = $this->db->prepare(
+            "SELECT user_id FROM users WHERE email = :email AND user_id != :id LIMIT 1"
+        );
+        $stmt->execute([':email' => $email, ':id' => $excludeId]);
+        return (bool) $stmt->fetch();
+    }
+
+    public function updatePassword(int $userId, string $newHash): bool {
+        $stmt = $this->db->prepare(
+            "UPDATE users SET password_hash = :hash WHERE user_id = :id"
+        );
+        return $stmt->execute([':hash' => $newHash, ':id' => $userId]);
+    }
 }
