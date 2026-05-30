@@ -18,7 +18,7 @@
                     <div class="stat-block">
                         <i class="bi bi-journals stat-icon mb-2"></i>
                         <div class="stat-number" data-target="<?= (int)($totalBooks ?? 0) ?>">0</div>
-                        <div class="stat-label">Different Books In The Library</div>
+                        <div class="stat-label">Books In The Collection</div>
                     </div>
                 </div>
 
