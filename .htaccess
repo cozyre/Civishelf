@@ -2,6 +2,7 @@
     RewriteEngine On
     RewriteBase /Civishelf/
 
+    RewriteRule ^assets/(.*)$ public/assets/$1 [L]
     RewriteRule ^$ public/index.php [L,QSA]
 
     RewriteCond %{REQUEST_FILENAME} !-f
