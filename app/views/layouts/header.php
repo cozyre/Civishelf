@@ -91,20 +91,20 @@ function navTabClass(string $currentPath, string $path): string {
     <div class="tab-container d-flex w-100 px-md-2 mt-3 gap-1 fw-semibold align-items-start justify-content-center bg-transparent" 
     style="font-family: Poppins, sans-serif;">
         <a href="<?= BASE_URL ?>/"
-           class="<?= navTabClass($currentPath, '/Civishelf/public') ?> col border border-top-0 rounded-bottom menu px-2 pt-4 text-decoration-none">
+           class="<?= navTabClass($currentPath, '/Civishelf') ?> col border border-top-0 rounded-bottom menu px-2 pt-4 text-decoration-none">
             Home
         </a>
         <a href="<?= BASE_URL ?>/books"
-           class="<?= navTabClass($currentPath, '/Civishelf/public/books') ?> col border border-top-0 rounded-bottom menu px-2 pt-4 text-decoration-none">
+           class="<?= navTabClass($currentPath, '/Civishelf/books') ?> col border border-top-0 rounded-bottom menu px-2 pt-4 text-decoration-none">
             Explore
         </a>
         <a href="<?= BASE_URL ?>/news"
-           class="<?= navTabClass($currentPath, '/Civishelf/public/news') ?> col border border-top-0 rounded-bottom menu px-2 pt-4 text-decoration-none">
+           class="<?= navTabClass($currentPath, '/Civishelf/news') ?> col border border-top-0 rounded-bottom menu px-2 pt-4 text-decoration-none">
             News
         </a>
         <?php if (isset($_SESSION['user_id']) || isset($_SESSION['admin_id'])): ?>
             <a href="<?= BASE_URL ?>/mybooks"
-               class="<?= navTabClass($currentPath, '/Civishelf/public/mybooks') ?> col border border-top-0 rounded-bottom menu px-2 pt-4 text-decoration-none">
+               class="<?= navTabClass($currentPath, '/Civishelf/mybooks') ?> col border border-top-0 rounded-bottom menu px-2 pt-4 text-decoration-none">
                 My Books
             </a>
         <?php else: ?>
